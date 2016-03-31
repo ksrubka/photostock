@@ -11,7 +11,7 @@ public class Client {
     private double amount;
     private double debt;
     private double creditLimit;
-    //private boolean active = true;
+    //TODO ? private boolean active = true;
 
     public Client(String name, String address, boolean isVip, double amount, double debt, double creditLimit) {
         // TODO  konstruktor nie powinien zawierać możliwości ustawiania debetu, powinien on domyślnie wynosić 0
@@ -23,19 +23,17 @@ public class Client {
         this.creditLimit = creditLimit;
     }
 
-    public Client(String name, String address, double amount) { // bez sensu żeby NIE vipowi ustawiać creditLimit
+    public Client(String name, String address, double amount) { // bez sensu żeby NIE-vipowi ustawiać creditLimit
         this(name, address, false, amount, 0, 0);
     }
 
     public boolean canAfford(double money) {
 
-        //===== git wersja bez ifów =====
         double purchasePotential = amount + creditLimit;
         return  purchasePotential >= money;
-
     }
 
-    public void charge(double pictureCost, String cause){
+    public void charge(double pictureCost, String cause){ //TODO what to do with 'cause'?
 
         if (canAfford(pictureCost)){
             if (!isVip){
@@ -54,15 +52,19 @@ public class Client {
     public void recharge(double amount){
         if (this.amount >= 0){
             this.amount += amount;
-        }/* else {
-            if (debt )
-        }*/
+        } else {
+            if (debt >= amount) {
+                debt = 0;
+            } else {
+                debt -= amount;
+            }
+        }
     }
 
     public double getSaldo(){
         if (amount >= 0){
             return amount;
-        } else return debt;
+        } else return -debt;
     }
 
     public String getName() {
