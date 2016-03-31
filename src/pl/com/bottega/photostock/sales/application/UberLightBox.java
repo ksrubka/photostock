@@ -71,6 +71,7 @@ public class UberLightBox {
     }
 
     public static void displayLightBoxPics(LightBox lb){
+        System.out.println();
         System.out.println(lb.getName() + " | " + lb.getOwner().getName() +
                 "\n==========================");
         System.out.println("nr | price" +

@@ -85,6 +85,7 @@ public class LightBoxApp {
         final char UNAVAILABE_PICTURE = 'X';
 
         for (LightBox l : lightBoxes1){
+            System.out.println("=========================");
             System.out.println(lineNumber + ". " +
                     l.getName() + " - " + (l.getOwner()).getName());
 
@@ -97,9 +98,9 @@ public class LightBoxApp {
                 }
                 System.out.println(p.getNumber() + " | " + p.getPrice());
             }
-            if (!((lightBoxes1.size()) == lineNumber)){
+            /*if (!((lightBoxes1.size()) == lineNumber)){
                 System.out.println("=========================");
-            } ++lineNumber;
+            }*/ ++lineNumber;
 
         }
     }
