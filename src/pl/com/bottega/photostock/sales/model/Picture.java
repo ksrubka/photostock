@@ -28,7 +28,6 @@ public class Picture {
     }
 
     public double calculatePrice(){
-
         return 0; //TODO do implementacji gdy będą dostępne rabaty i rozdzielczości i cena będzie zależeć od nich.
     }
 
