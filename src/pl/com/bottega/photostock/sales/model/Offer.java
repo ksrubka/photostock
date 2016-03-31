@@ -1,13 +1,15 @@
 package pl.com.bottega.photostock.sales.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
  */
 public class Offer {
 
-    private Picture[] items;
+    private ArrayList<Picture> items;
 
-    public Offer(Picture[] items) {
+    public Offer(ArrayList<Picture>  items) {
 
         this.items = items;
     }
@@ -22,7 +24,7 @@ public class Offer {
         return 0; //TODO dodaj obliczenia
     }
 
-    public Picture[] getItems(){
+    public ArrayList<Picture>  getItems(){
 
         return items;
     }

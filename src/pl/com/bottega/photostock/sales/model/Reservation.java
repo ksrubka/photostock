@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public class Reservation {
 
     private Client owner;
-    private Picture[] items;
-    //private ArrayList<Picture> items;
+    private ArrayList<Picture> items;
 
     public Reservation(Client owner) {
+
         this.owner = owner;
     }
 

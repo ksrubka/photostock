@@ -12,7 +12,7 @@ public class Picture {
     private double price;
     private boolean active;
     // dodane pola dla implementacji metod reserve, sold
-    private ArrayList<Client> reserved;
+    private ArrayList<Client> reservedPer;
     private Client sold;
     private boolean shared;
 
@@ -31,20 +31,20 @@ public class Picture {
         return 0; //TODO do implementacji gdy będą dostępne rabaty i rozdzielczości i cena będzie zależeć od nich.
     }
 
-    public void reservedPer(Client client) throws IllegalArgumentException{
+    public void reservePer(Client client) throws IllegalArgumentException{
 
         boolean canReserve = client.canAfford(price) && active && ((sold == null) || (sold != null && !shared));
 
-        if (canReserve && reserved.isEmpty()){
-            reserved.add(client);
+        if (canReserve && reservedPer.isEmpty()){
+            reservedPer.add(client);
         }
-        else if (canReserve && !reserved.isEmpty()){
-            boolean reservedPerVip = reserved.get(0).isVip();
+        else if (canReserve && !reservedPer.isEmpty()){
+            boolean reservedPerVip = reservedPer.get(0).isVip();
             if (reservedPerVip){
                 throw new IllegalArgumentException("Nie można zarezerwować. Ktoś Cię uprzedził.");
             }
             else {
-                reserved.add(client);
+                reservedPer.add(client);
             }
         }
         else {
@@ -52,11 +52,11 @@ public class Picture {
         }
     }
 
-    public void unreservedPer(Client client) throws IllegalArgumentException{
+    public void unreservePer(Client client) throws IllegalArgumentException{
 
         //TODO po co klient jako parametr? nie może być puste? (nie, bo czasem jest kilku klientów?)
 
-        boolean removed = reserved.remove(client);
+        boolean removed = reservedPer.remove(client);
 
         if (!removed){
             throw new IllegalArgumentException("Klient " + client.getName() +" nie rezerwował tego zdjęcia");
@@ -68,11 +68,11 @@ public class Picture {
         sold = client;  //TODO zabezpieczyć zmienną przed zmianami? ;)
     }
 
-    public String getNumber() {
+    public String getNumber(){
         return number;
     }
 
-    public double getPrice() {
+    public double getPrice(){
         return price;
     }
 
