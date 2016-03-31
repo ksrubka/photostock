@@ -74,4 +74,8 @@ public class Client {
     public boolean isActive() {
         return true;
     }
+
+    public boolean isVip() {
+        return isVip;
+    }
 }

@@ -24,7 +24,7 @@ public class LightBox {
         this.closed = true;
     }
 
-   /* public void add(Picture pictureToAdd) throws IllegalStateException , IllegalArgumentException {
+    /* public void add(Picture pictureToAdd) throws IllegalStateException , IllegalArgumentException {
         boolean added = false;
         int cursor = 0;
         for (Picture p : items){
@@ -62,7 +62,6 @@ public class LightBox {
             cursor++;
         }*/
 
-    //boolean added; //TODO dlaczego nie mam błędu tutaj?!
         /*boolean added = false;
 
         for (int i = 0; i < items.length; i++){
@@ -98,6 +97,7 @@ public class LightBox {
         validate();
 
         boolean removed = items.remove(pictureToRemove);
+
         if (!removed) {
             throw new IllegalArgumentException("Nie ma takiego zdjęcia");
         }
@@ -124,7 +124,6 @@ public class LightBox {
     }
 
     public void changeName(String newName) throws IllegalStateException {
-
         validate();
         this.name = newName;
     }
