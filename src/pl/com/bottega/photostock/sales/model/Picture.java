@@ -32,14 +32,14 @@ public class Picture {
     }
 
     public void reservedPer(Client client) throws IllegalArgumentException{
-        /*(client == null || client.isVip() == false){*/
+
         boolean canReserve = client.canAfford(price) && active && ((sold == null) || (sold != null && !shared));
-        boolean reservedPerVip = reserved.get(0).isVip();
 
         if (canReserve && reserved.isEmpty()){
             reserved.add(client);
         }
         else if (canReserve && !reserved.isEmpty()){
+            boolean reservedPerVip = reserved.get(0).isVip();
             if (reservedPerVip){
                 throw new IllegalArgumentException("Nie można zarezerwować. Ktoś Cię uprzedził.");
             }
