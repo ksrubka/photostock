@@ -13,7 +13,7 @@ public class Picture {
     private boolean active;
     // dodane pola dla implementacji metod reserve, sold
     private ArrayList<Client> reservedPer;
-    private Client sold;
+    private ArrayList<Client> soldPer;
     private boolean shared;
 
     public Picture(String number, double price, String[] tags, boolean active) {
@@ -31,24 +31,48 @@ public class Picture {
         return 0; //TODO do implementacji gdy będą dostępne rabaty i rozdzielczości i cena będzie zależeć od nich.
     }
 
-    public void reservePer(Client client) throws IllegalArgumentException{
+    public void reservePer(Client client) throws IllegalArgumentException {
 
-        boolean canReserve = client.canAfford(price) && active && ((sold == null) || (sold != null && !shared));
-
-        if (canReserve && reservedPer.isEmpty()){
-            reservedPer.add(client);
-        }
-        else if (canReserve && !reservedPer.isEmpty()){
-            boolean reservedPerVip = reservedPer.get(0).isVip();
-            if (reservedPerVip){
-                throw new IllegalArgumentException("Nie można zarezerwować. Ktoś Cię uprzedził.");
-            }
-            else {
-                reservedPer.add(client);
-            }
+        if (canNotReserve(client)) {
+            throw new IllegalArgumentException("Nie można zarezerwować.");
         }
         else {
-            throw new IllegalArgumentException("Nie można zarezerwować.");
+            reservedPer.add(client);
+        }
+    }
+
+    private boolean canNotReserve(Client client){
+        return ! ( client.canAfford(price) && isActive() && isSoldOut() && (!isReservedPerVip()) );
+    }
+
+    private boolean isActive() {
+
+        return active;
+    }
+
+    private boolean isSoldOut() {
+
+        if (shared == false && !soldPer.isEmpty()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private boolean isReservedPerVip(){
+
+        if (reservedPer.isEmpty()){
+            return false;
+        }
+        else {
+            for (Client client : reservedPer){
+                if (client.isVip()){
+                    return true;
+                }
+                continue;
+            }
+            return false;
         }
     }
 
@@ -65,7 +89,7 @@ public class Picture {
 
     public void soldPer(Client client){
 
-        sold = client;  //TODO zabezpieczyć zmienną przed zmianami? ;)
+        soldPer.add(client);  //TODO zabezpieczyć zmienną przed zmianami? ;)
     }
 
     public String getNumber(){
