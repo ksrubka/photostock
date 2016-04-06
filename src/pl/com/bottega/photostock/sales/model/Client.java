@@ -7,24 +7,29 @@ public class Client {
 
     private String name;
     private String address;
-    private boolean isVip;
+    private ClientStatus status;
     private double amount;
     private double debt;
     private double creditLimit;
-    //TODO ? private boolean active = true;
+    private boolean active;
 
-    public Client(String name, String address, boolean isVip, double amount, double debt, double creditLimit) {
+    public Client(String name, String address, ClientStatus status, double amount, double debt, double creditLimit, boolean active) {
         // TODO  konstruktor nie powinien zawierać możliwości ustawiania debetu, powinien on domyślnie wynosić 0
         this.name = name;
         this.address = address;
-        this.isVip = isVip;
+        this.status = status;
         this.amount = amount;
         this.debt = debt;
         this.creditLimit = creditLimit;
+        this.active = active;
     }
 
     public Client(String name, String address, double amount) { // bez sensu żeby NIE-vipowi ustawiać creditLimit
-        this(name, address, false, amount, 0, 0);
+        this(name, address, ClientStatus.STANDARD, amount, 0, 0, true);
+    }
+
+    public Client() {
+        this("Helena Ferenc", "Księżyc", ClientStatus.STANDARD, 500, 0, 0, true);
     }
 
     public boolean canAfford(double money) {
@@ -36,7 +41,7 @@ public class Client {
     public void charge(double pictureCost, String cause){ //TODO what to do with 'cause'?
 
         if (canAfford(pictureCost)){
-            if (!isVip){
+            if (!isVip()){
                 amount -= pictureCost;
             } else {
                 if (amount >= pictureCost){
@@ -54,9 +59,10 @@ public class Client {
             this.amount += amount;
         } else {
             if (debt >= amount) {
-                debt = 0;
-            } else {
                 debt -= amount;
+            } else {
+                debt = 0;
+                this.amount += amount - debt;
             }
         }
     }
@@ -72,10 +78,17 @@ public class Client {
     }
 
     public boolean isActive() {
-        return true;
+        return active;
     }
 
     public boolean isVip() {
-        return isVip;
+
+        if (status == ClientStatus.VIP){
+            return true;
+        }else return false;
+    }
+
+    public String introduce(){
+        return name + " - " + status.getPolishString();
     }
 }
