@@ -41,7 +41,7 @@ public class Picture implements Product{
 
     public void reservePer(Client client) throws IllegalArgumentException {
 
-        if (canNotReserve(client)) {
+        if (!canBeReservedBy(client)) {
             throw new IllegalArgumentException("Nie można zarezerwować.");
         }
         else {
@@ -49,16 +49,16 @@ public class Picture implements Product{
         }
     }
 
-    private boolean canNotReserve(Client client){
-        return ! ( client.canAfford(price) && isActive() && isSoldOut() && (!isReservedPerVip()) );
+    public boolean canBeReservedBy(Client client){
+        return client.canAfford(price) && isActive() && isSoldOut() && (!isReservedPerVip());
     }
 
-    private boolean isActive() {
+    public boolean isActive() {
 
         return active;
     }
 
-    private boolean isSoldOut() {
+    public boolean isSoldOut() {
 
         if (shared == false && !soldPer.isEmpty()){
             return true;

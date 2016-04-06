@@ -21,7 +21,16 @@ public class Offer {
     }
 
     private double calculateTotalCost() {
-        return 0; // TODO dodaj obliczenia
+
+        for (Product product : items){
+            if (!product.canBeReservedBy(owner)){
+                continue;
+            }
+            else {
+                totalCost += product.getPrice();
+            }
+        }
+        return totalCost;
     }
 
     public boolean sameAs(Offer offer, double percent){
@@ -29,7 +38,7 @@ public class Offer {
     }
 
     public int getItemsCount(){
-        return 0; //TODO dodaj obliczenia
+        return items.size();
     }
 
     public List<Product> getItems(){
