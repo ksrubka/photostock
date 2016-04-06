@@ -1,7 +1,6 @@
 package pl.com.bottega.photostock.sales.model.products;
 
 import pl.com.bottega.photostock.sales.model.Client;
-import pl.com.bottega.photostock.sales.model.Product;
 
 import java.util.ArrayList;
 
