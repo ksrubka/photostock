@@ -2,9 +2,7 @@ package pl.com.bottega.photostock.sales.application;
 
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.LightBox;
-import pl.com.bottega.photostock.sales.model.Picture;
-
-import java.util.ArrayList;
+import pl.com.bottega.photostock.sales.model.products.Picture;
 
 /**
  * Created by Beata Iłowiecka on 29.03.16.

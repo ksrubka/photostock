@@ -1,6 +1,7 @@
 package pl.com.bottega.photostock.sales.model;
 
-import java.lang.reflect.Array;
+import pl.com.bottega.photostock.sales.model.products.Picture;
+
 import java.util.ArrayList;
 
 /**
