@@ -86,7 +86,7 @@ public class Formatter {
 
     private static final String[][] DICTIONARY = {
             {"zero", "jeden", "dwa", "trzy", "cztery", "pięc", "sześć", "siedem", "osiem", "dziewięc"},
-            {"zero", "one", "two"}//TODO dodać
+            {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", " nine"}
     };
 
     private String generteDigit2(Byte digit, String lang){
@@ -131,7 +131,29 @@ public class Formatter {
                 }
                 break;
             case "en":
-                return "i don't know sir";//TODO dodać
+                switch (digit) {
+                    case 0:
+                        return "zero";
+                    case 1:
+                        return "one";
+                    case 2:
+                        return "two";
+                    case 3:
+                        return "three";
+                    case 4:
+                        return "four";
+                    case 5:
+                        return "five";
+                    case 6:
+                        return "six";
+                    case 7:
+                        return "seven";
+                    case 8:
+                        return "eight";
+                    case 9:
+                        return "nine";
+                }
+                break;
             default:
                 throw new IllegalArgumentException(lang + " is not supported");
         }
