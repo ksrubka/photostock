@@ -8,6 +8,8 @@ import pl.com.bottega.photostock.sales.model.Product;
  */
 public class Clip implements Product{
 
+
+
     @Override
     public boolean isAvailable() {
         return false;

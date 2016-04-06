@@ -3,6 +3,8 @@ package pl.com.bottega.photostock.sales.model;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
@@ -10,23 +12,20 @@ import java.util.ArrayList;
 public class Reservation {
 
     private Client owner;
-    private ArrayList<Picture> items;
+    private List<Product> items = new LinkedList<>();
 
     public Reservation(Client owner) {
 
         this.owner = owner;
     }
 
-    public void add(Picture picture){
+    public void add(Product product){
 
-        for (Picture p : items){
-            if (picture == p){
-                return;
-            } else {
-                if (picture.isAvailable()){
-                    // items.add(picture);
-                }
-            }
+        if (product.isAvailable()){
+           throw  new IllegalArgumentException("Product is not available.");
+        }
+        if (items.contains(product)){
+            throw  new IllegalArgumentException("Product is already reserved.");
         }
     }
 
@@ -35,8 +34,13 @@ public class Reservation {
     }
 
     public Offer generateOffer(){
-        // TODO trzeba dodać warunki
-        Offer offer = new Offer(items);
+        List<Product> result = new ArrayList<>();
+        for (Product product : items){
+            if (product.isAvailable()){
+                result.add(product);
+            }
+        }
+        Offer offer = new Offer(owner, result);
         return offer;
     }
 

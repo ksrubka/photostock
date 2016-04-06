@@ -3,36 +3,41 @@ package pl.com.bottega.photostock.sales.model;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
  */
 public class Offer {
 
-    private ArrayList<Picture> items;
+    final Client owner;
+    private List<Product> items;
+    double totalCost;
 
-    public Offer(ArrayList<Picture>  items) {
-
+    public Offer(Client owner, List<Product> items) {
         this.items = items;
+        this.owner = owner;
+        this.totalCost = calculateTotalCost();
+    }
+
+    private double calculateTotalCost() {
+        return 0; // TODO dodaj obliczenia
     }
 
     public boolean sameAs(Offer offer, double percent){
-
         return false; //TODO dodaj obliczenia
     }
 
     public int getItemsCount(){
-
         return 0; //TODO dodaj obliczenia
     }
 
-    public ArrayList<Picture>  getItems(){
+    public List<Product> getItems(){
 
         return items;
     }
 
     public double getTotalCost(){
-
         return 0; //TODO dodaj obliczenia
     }
 

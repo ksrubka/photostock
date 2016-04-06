@@ -1,13 +1,14 @@
 package pl.com.bottega.photostock.sales.model.products;
 
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.Product;
 
 import java.util.ArrayList;
 
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
  */
-public class Picture {
+public class Picture implements Product{
 
     private String number;
     private String[] tags;
@@ -31,6 +32,11 @@ public class Picture {
 
     public double calculatePrice(){
         return 0; //TODO do implementacji gdy będą dostępne rabaty i rozdzielczości i cena będzie zależeć od nich.
+    }
+
+    @Override
+    public void cancel() {
+
     }
 
     public void reservePer(Client client) throws IllegalArgumentException {
