@@ -5,15 +5,19 @@ package pl.com.bottega.photostock.sales.model;
  */
 public enum ClientStatus {
 
-    STANDARD("standardowy"), VIP("vip"), GOLD("złoty"), SILVER("srebrny"), PLATINUM("platynowy");
+    STANDARD("standardowy", "standard"), VIP("vip", "vip"), GOLD("złoty", "gold"), SILVER("srebrny", "silver"), PLATINUM("platynowy", "platinum");
 
     String polishStatus;
+    String englishStaus;
 
-    private ClientStatus(String polishStatus){
+    private ClientStatus(String polishStatus, String englishStaus){
         this.polishStatus = polishStatus;
+        this.englishStaus = englishStaus;
     }
 
     public String getPolishString(){
         return polishStatus;
     }
+
+    public String getEnglishStaus() { return englishStaus; }
 }
