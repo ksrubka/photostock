@@ -4,20 +4,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Beata Iłowiecka on 06.04.16.
- */
 public class Formatter {
+    private List<Byte> digits = new ArrayList<>();
+    private boolean godMode = true;
 
-    public enum FormattingLanguage {
-        PL, ENG;
-    }
-
-    List<Byte> digits = new ArrayList<>();
 
     public Formatter(long number) {
-        recursiveCutter(number);
+        if (godMode)//iterować jest rzeczą ludzką, rekursja jest rzeczą boską
+            recursiveCutter(number);
+        else
+            iterativeCutter(number);
+
         Collections.reverse(digits);
+    }
+
+    public Formatter(String number){
+        //TODO zaimplementować, ALE NIE jako wywołanie powyższego konstruktora, tylko jako przejśćie po znakach
+        char[] digit = number.toCharArray();
+        //...
     }
 
     private void recursiveCutter(long number) {
@@ -28,40 +32,82 @@ public class Formatter {
             recursiveCutter(newValue);
     }
 
-    public String[] formatDigits(FormattingLanguage lang) {
-        String[] result = new String[digits.size()];
-        int nr = 0;
-
-        for (byte digit : digits) {
-            result[nr++] = generateDigit2(digit, lang);
+    private void iterativeCutter(long number){
+        while (number != 0){
+            long digit = number % 10;
+            digits.add((byte)digit);
+            number = number / 10;//zmiana ALE kopii paramteru metody,
         }
+    }
+
+    /**
+     *
+     * @param lang
+     * @return dla 123 zwraca sto dwadzieśćia trzy
+     */
+    public String formatNumbers(String lang) {
+        return null; //TODO zaimplementować
+    }
+
+    /**
+     *
+     * @param lang
+     * @return dla 123 zwraca jeden dwa trzy
+     */
+    public String[] formatDigits(String lang) {
+        String[] result = new String[digits.size()];
+
+        int nr = 0;
+        for (Byte digit : digits) {
+            result[nr++] = generteDigit2(digit, lang);
+        }
+
         return result;
     }
 
+    /**
+     *
+     * @param lang
+     * @return for 123 return "trzy"
+     */
+    public String getLastDigit(String lang) {
+        return null;//TODO
+    }
+
+    /**
+     *
+     * @param position
+     * @param lang
+     * @return digit at given position
+     */
+    public String getDigit(int position, String lang) {
+        return null;//TODO
+    }
+
     private static final String[][] DICTIONARY = {
-            {"zero", "jeden", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć"},
-            {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
+            {"zero", "jeden", "dwa", "trzy", "cztery", "pięc", "sześć", "siedem", "osiem", "dziewięc"},
+            {"zero", "one", "two"}//TODO dodać
     };
 
-    private String generateDigit2(byte digit, FormattingLanguage lang) {
-       /* byte langNr;
-        switch (lang){
-            case PL:
+    private String generteDigit2(Byte digit, String lang){
+        byte langNr;
+        switch(lang){
+            case "pl":
                 langNr = 0;
                 break;
-            case ENG:
+            case "en":
                 langNr = 1;
                 break;
             default:
-                throw new IllegalArgumentException(lang + " is not supported.");
-        }*/
-        return DICTIONARY[lang.ordinal()][digit];
+                throw new IllegalArgumentException(lang + " is not supported");
+        }
+        return DICTIONARY[langNr][digit];
     }
 
-    private String generateDigit(byte digit, String lang) {
-        switch(lang) {
+    private String generteDigit(Byte digit, String lang){
+        switch(lang){
             case "pl":
-                switch (digit) {
+                switch(digit){
                     case 0:
                         return "zero";
                     case 1:
@@ -84,34 +130,13 @@ public class Formatter {
                         return "dziewięć";
                 }
                 break;
-
-            case "eng":
-                switch (digit) {
-                    case 0:
-                        return "zero";
-                    case 1:
-                        return "one";
-                    case 2:
-                        return "two";
-                    case 3:
-                        return "three";
-                    case 4:
-                        return "four";
-                    case 5:
-                        return "five";
-                    case 6:
-                        return "six";
-                    case 7:
-                        return "seven";
-                    case 8:
-                        return "eight";
-                    case 9:
-                        return "nine";
-                }
-                break;
+            case "en":
+                return "i don't know sir";//TODO dodać
             default:
-                throw new IllegalArgumentException(lang + " is not supported.");
+                throw new IllegalArgumentException(lang + " is not supported");
         }
-        throw new RuntimeException("Coś dziwnego z danymi " + lang + " " + digit);
+        throw new RuntimeException("coś dziwnego z danymi " + lang + " " + digit);
     }
+
+
 }

@@ -1,19 +1,57 @@
 package pl.com.bottega.commons.math.formatter;
 
-/**
- * Created by Beata Iłowiecka on 06.04.16.
- */
+import java.util.Arrays;
+
 public class FormatterConsoleApp {
-
+    
     public static void main(String[] args) {
+        shouldCreateForLargeNumber(123124);
+        shouldCreateForLargeNumber(12352432334576l);//L na końcu to typ long
+        shouldCreateForLargeNumber(2154234634573457l);
 
-        Formatter f = new Formatter(1234567891);
+        shouldCreateForLargeString("123124");
+        shouldCreateForLargeString("12352432334576");
+        shouldCreateForLargeString("2154234634573457");
 
-        String[] digits = f.formatDigits(Formatter.FormattingLanguage.ENG);
+        shouldFormatDigits();
+/*
+        shouldGetFirstNumber();
+        shouldGetLastNumber();
+        shouldFormatNumbers();*/
 
-        for (String digit : digits){
-            System.out.println(digit);
-        }
     }
+
+    private static void shouldCreateForLargeNumber(long number) {
+        Formatter formatter = new Formatter(number);
+    }
+
+    private static void shouldCreateForLargeString(String number) {
+        Formatter formatter = new Formatter(number);
+    }
+
+    private static void shouldFormatDigits(){
+        Formatter formatter = new Formatter(123456789123456789l);
+        String[] digits = formatter.formatDigits("pl");
+        System.out.println(Arrays.toString(digits));
+    }
+
+    private static void shouldFormatNumbers(){
+        Formatter formatter = new Formatter("123456789123456789");
+        String numbers = formatter.formatNumbers("pl");
+    }
+
+
+    private static void shouldGetLastNumber() {
+        Formatter formatter = new Formatter(123456789123456789l);
+        String digit = formatter.getLastDigit("pl");
+    }
+
+    private static void shouldGetFirstNumber() {
+        Formatter formatter = new Formatter(123456789123456789l);
+        String digit = formatter.getDigit(1, "pl");
+
+    }
+
+
 
 }
