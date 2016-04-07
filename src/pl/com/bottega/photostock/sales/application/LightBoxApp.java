@@ -32,7 +32,7 @@ public class LightBoxApp {
 
         //********************************************* LightBoxy w tablicy ********************************************
 
-        Client paniHeleka = new Client("paniHeleka", "Ziemia", true, 5, 0, 200);
+        Client paniHeleka = new Client();
 
         LightBox lightBox1 = new LightBox(paniHeleka);
         LightBox lightBox2 = new LightBox(paniHeleka);

@@ -38,7 +38,7 @@ public class UberLightBox {
 
         //********************************************* LightBoxes ********************************************
 
-        Client paniHelenka = new Client("paniHelenka", "Ziemia", true, 5, 0, 200);
+        Client paniHelenka = new Client();
 
         LightBox lightBox1 = new LightBox(paniHelenka);
         LightBox lightBox2 = new LightBox(paniHelenka);

@@ -11,7 +11,7 @@ public class LightBoxTest {
 
     public static void main(String[] args) {
 
-        Client panJanusz = new Client("panJanusz", "Ziemia", true, 5, 0, 200);
+        Client panJanusz = new Client();
 
         LightBox lightBoxJanusza = new LightBox(panJanusz);
 

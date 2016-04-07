@@ -36,7 +36,7 @@ public class ConsoleApp2 {
 
         //====== 1st client ======
         //paniZdzisia
-        Client paniZdzisia = new Client("paniZdzisia", "kasandry", true, 40, 0, 30);
+        Client paniZdzisia = new Client("paniZdzisia", "kasandry", ClientStatus.GOLD, 40, true);
         LightBox lightBox1 = new LightBox(paniZdzisia);
         lightBox1.add(pic1);
 
@@ -70,12 +70,12 @@ public class ConsoleApp2 {
         Picture pic2 = new Picture("02", 1, var2, false);
 
         //====== 1st client ======
-        Client panAntek = new Client("panAntek", "Mars", true, 0, 0, 200);
+        Client panAntek = new Client("panAntek", "Mars", ClientStatus.GOLD, 200, true);
         LightBox lightBox3 = new LightBox(panAntek);
         lightBox3.add(pic2);
 
         //====== 2nd client ======
-        Client paniHeleka = new Client("paniHeleka", "Ziemia", true, 5, 0, 200);
+        Client paniHeleka = new Client("paniHeleka", "Ziemia", ClientStatus.GOLD, 200, true);
         LightBox lightBox4 = new LightBox(paniHeleka);
         lightBox4.add(pic2);
 
@@ -99,12 +99,12 @@ public class ConsoleApp2 {
         Picture pic3 = new Picture("03", 7, var3, true);
 
         //====== 1st client ======
-        Client paniKazia = new Client("paniKazia", "Ziemia", true, 5, 0, 200);
+        Client paniKazia = new Client("paniKazia", "Ziemia", ClientStatus.GOLD, 200, true);
         LightBox lightBox5 = new LightBox(paniKazia);
         lightBox5.add(pic3);
 
         //====== 2nd client ======
-        Client panStach = new Client("panStach", "Ziemia", true, 5, 0, 200);
+        Client panStach = new Client("panStach", "Ziemia", ClientStatus.GOLD, 200, true);
         LightBox lightBox6 = new LightBox(panStach);
         lightBox6.add(pic3);
 
@@ -135,13 +135,13 @@ public class ConsoleApp2 {
         lightBox7.add(pic5);
 
         //====== 2nd client ======
-        Client panKarol = new Client("panKarol", "krańcowa", true, 1, 0, 13);
+        Client panKarol = new Client("panKarol", "krańcowa",ClientStatus.GOLD, 1, true);
         LightBox lightBox8 = new LightBox(panKarol);
         lightBox8.add(pic4);
         lightBox8.add(pic5);
 
         //====== 3rd client ======
-        Client paniAsia = new Client("paniAsia", "kaczeńcowa", true, 5, 0, 200);
+        Client paniAsia = new Client("paniAsia", "kaczeńcowa",ClientStatus.GOLD, 5, true);
         LightBox lightBox9 = new LightBox(paniAsia);
         lightBox9.add(pic5);
 
@@ -158,18 +158,18 @@ public class ConsoleApp2 {
         Picture pic6 = new Picture("06", -90, var6, true);
 
         //====== 1st client ======
-        Client paniEla = new Client("paniEla", "Saturn", true, 5, 0, 200);
+        Client paniEla = new Client("paniEla", "Saturn",ClientStatus.GOLD, 5, true);
         LightBox lightBox10 = new LightBox(paniEla);
         lightBox10.add(pic7);
 
         //====== 2nd client ======
-        Client paniAniela = new Client("paniAniela", "Ziemia", true, 5, 0, 200);
+        Client paniAniela = new Client("paniAniela", "Ziemia",ClientStatus.GOLD, 5, true);
         LightBox lightBox11 = new LightBox(paniAniela);
         lightBox11.add(pic7);
         lightBox11.add(pic6);
 
         //====== 3rd client ======
-        Client panLeszek = new Client("panLeszek", "Ziemia", true, 5, 0, 200);
+        Client panLeszek = new Client("panLeszek", "Ziemia",ClientStatus.GOLD, 5, true);
         LightBox lightBox12 = new LightBox(panLeszek);
         lightBox12.add(pic6);
 
@@ -183,18 +183,18 @@ public class ConsoleApp2 {
         Picture pic9 = new Picture("09", 1, var9, true);
 
         //====== 1st client ======
-        Client paniGosia = new Client("paniGosia", "Ziemia", true, 5, 0, 200);
+        Client paniGosia = new Client("paniGosia", "Ziemia",ClientStatus.GOLD, 5, true);
         LightBox lightBox13 = new LightBox(paniGosia);
         lightBox13.add(pic8);
 
         //====== 2nd client ======
-        Client panKuba = new Client("panKuba", "Ziemia", true, 5, 0, 200);
+        Client panKuba = new Client("panKuba", "Ziemia",ClientStatus.GOLD, 5, true);
         LightBox lightBox14 = new LightBox(panKuba);
         lightBox14.add(pic8);
         lightBox14.remove(pic8);
 
         //====== 3rd client ======
-        Client panJan = new Client("panJan", "Ziemia", true, 5, 0, 200);
+        Client panJan = new Client("panJan", "Ziemia",ClientStatus.GOLD, 5, true);
         LightBox lightBox15 = new LightBox(panJan);
         lightBox15.add(pic8);
         lightBox14.add(pic9);
