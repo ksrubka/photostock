@@ -28,6 +28,7 @@ public class Reservation {
         if (items.contains(product)){
             throw  new IllegalArgumentException("Product is already reserved.");
         }
+        items.add(product);
     }
 
     public void remove(Picture picture){
@@ -37,7 +38,7 @@ public class Reservation {
     public Offer generateOffer(){
         List<Product> result = new ArrayList<>();
         for (Product product : items){
-            if (product.isAvailable()){
+            if (product.canBeReservedBy(owner)){
                 result.add(product);
             }
         }

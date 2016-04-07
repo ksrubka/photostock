@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.model;
 
+import pl.com.bottega.photostock.sales.model.products.AbstractProduct;
 import pl.com.bottega.photostock.sales.model.products.Product;
 
 import java.util.List;
@@ -33,7 +34,12 @@ public class Offer {
     }
 
     public boolean sameAs(Offer offer, double percent){
-        return false; //TODO dodaj obliczenia
+        if (owner == offer.owner && items == offer.items && totalCost == offer.totalCost){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public int getItemsCount(){
@@ -46,7 +52,12 @@ public class Offer {
     }
 
     public double getTotalCost(){
-        return 0; //TODO dodaj obliczenia
+        double cost = 0;
+        for (Product product : items){
+            cost += product.getPrice();
+        }
+        totalCost = cost;
+        return cost;
     }
 
 }
