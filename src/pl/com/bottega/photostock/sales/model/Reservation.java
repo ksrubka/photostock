@@ -47,7 +47,7 @@ public class Reservation {
     }
 
     public int getItemsCount(){
-        return 0; //TODO dodaj obliczenia
+        return items.size();
     }
 
 }

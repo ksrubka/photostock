@@ -21,7 +21,7 @@ public class Offer {
     }
 
     private double calculateTotalCost() {
-
+        double totalCost = 0;
         for (Product product : items){
             if (!product.canBeReservedBy(owner)){
                 continue;
@@ -47,17 +47,11 @@ public class Offer {
     }
 
     public List<Product> getItems(){
-
         return items;
     }
 
     public double getTotalCost(){
-        double cost = 0;
-        for (Product product : items){
-            cost += product.getPrice();
-        }
-        totalCost = cost;
-        return cost;
+        return totalCost;
     }
 
 }
