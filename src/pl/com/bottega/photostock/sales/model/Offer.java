@@ -23,12 +23,12 @@ public class Offer {
     private double calculateTotalCost() {
         double totalCost = 0;
         for (Product product : items){
-            if (!product.canBeReservedBy(owner)){
+            // niepotrzebne sprawdzenie bo było sprawdzane przy generowaniu oferty w klasie Reservation
+            /*if (!product.canBeReservedBy(owner)){
                 continue;
             }
-            else {
-                totalCost += product.getPrice();
-            }
+            else {*/
+            totalCost += product.getPrice();
         }
         return totalCost;
     }
