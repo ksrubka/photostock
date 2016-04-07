@@ -67,7 +67,7 @@ public abstract class AbstractProduct implements Product {
         return client.canAfford(price) && isAvailable() && isSoldOut() && (!isReservedPerVip());
     }
 
-    public boolean isSoldOut() {
+    private boolean isSoldOut() {
         if (shared == false && !soldPer.isEmpty()){
             return true;
         }
@@ -76,7 +76,7 @@ public abstract class AbstractProduct implements Product {
         }
     }
 
-    private boolean isReservedPerVip(){
+    private boolean isReservedPerVip() throws IllegalStateException {
 
         if (reservedPer.isEmpty()){
             return false;
@@ -87,15 +87,18 @@ public abstract class AbstractProduct implements Product {
                     return true;
                 }
             }
-            return false;
+            throw new IllegalStateException("Zdjęcie jest już zarezerwowane");
         }
     }
 
-    public void sellPer(Client client){
+    public void sellPer(Client client) throws IllegalStateException {
 
-        soldPer.add(client);
-        //TODO zabezpieczyć zmienną przed zmianami? ;)
-        //TODO w przypadku gdy niepodzielny produkt jest wykupiony nie powinno być można dodać klienta
+        if (canBeReservedBy(client)) {
+            soldPer.add(client);
+        }
+        else {
+            throw new IllegalStateException("Nie można sprzedać.");
+        }
     }
 
 }
