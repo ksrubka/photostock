@@ -70,7 +70,10 @@ public class Client {
     public double getSaldo(){
         if (amount >= 0){
             return amount;
-        } else return -debt;
+        }
+        else {
+            return -debt;
+        }
     }
 
     public String getName() {
@@ -85,7 +88,10 @@ public class Client {
 
         if (status == ClientStatus.VIP){
             return true;
-        }else return false;
+        }
+        else {
+            return false;
+        }
     }
 
     public String introduce(){

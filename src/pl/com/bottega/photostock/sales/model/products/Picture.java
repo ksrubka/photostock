@@ -33,6 +33,10 @@ public class Picture implements Product{
         return 0; //TODO do implementacji gdy będą dostępne rabaty i rozdzielczości i cena będzie zależeć od nich.
     }
 
+    public double getPrice(){
+        return price;
+    }
+
     @Override
     public void cancel() {
 
@@ -94,7 +98,7 @@ public class Picture implements Product{
         }
     }
 
-    public void soldPer(Client client){
+    public void sellPer(Client client){
 
         soldPer.add(client);  //TODO zabezpieczyć zmienną przed zmianami? ;)
     }
@@ -103,9 +107,6 @@ public class Picture implements Product{
         return number;
     }
 
-    public double getPrice(){
-        return price;
-    }
 
     public boolean isAvailable(){
         return active;
