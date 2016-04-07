@@ -9,14 +9,20 @@ import java.util.ArrayList;
  */
 public abstract class AbstractProduct implements Product {
 
-    private String number;
-    private String[] tags;
-    private double price;
-    private boolean active;
-    // dodane pola dla implementacji metod reserve, sold
-    private ArrayList<Client> reservedPer;
-    private ArrayList<Client> soldPer;
-    private boolean shared;
+    protected String number;
+    protected String[] tags;
+    protected double price;
+    protected boolean active;
+    protected ArrayList<Client> reservedPer;
+    protected ArrayList<Client> soldPer;
+    protected boolean shared;
+
+    public AbstractProduct(String number, double price, String[] tags, boolean active) {
+        this.number = number;
+        this.price = price;
+        this.tags = tags;
+        this.active = active;
+    }
 
     public boolean isAvailable(){
         return active;
@@ -24,10 +30,15 @@ public abstract class AbstractProduct implements Product {
 
     public double calculatePrice() {
         return 0;
+        //TODO do implementacji gdy będą dostępne rabaty i rozdzielczości i cena będzie zależeć od nich.
     }
 
     public double getPrice(){
         return price;
+    }
+
+    public String getNumber(){
+        return number;
     }
 
     //make inactive
@@ -35,14 +46,56 @@ public abstract class AbstractProduct implements Product {
         active = false;
     }
 
-    public void reservePer(Client client){
-
+    public void reservePer(Client client) throws IllegalArgumentException {
+        if (!canBeReservedBy(client)) {
+            throw new IllegalArgumentException("Nie można zarezerwować.");
+        }
+        else {
+            reservedPer.add(client);
+        }
     }
 
-    public void unreservePer(Client client){
+    public void unreservePer(Client client) throws IllegalArgumentException {
+        boolean removed = reservedPer.remove(client);
 
+        if (!removed){
+            throw new IllegalArgumentException("Klient " + client.getName() +" nie rezerwował tego zdjęcia");
+        }
     }
 
-    public boolean canBeReservedBy(Client client);
+    public boolean canBeReservedBy(Client client){
+        return client.canAfford(price) && isAvailable() && isSoldOut() && (!isReservedPerVip());
+    }
+
+    public boolean isSoldOut() {
+        if (shared == false && !soldPer.isEmpty()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private boolean isReservedPerVip(){
+
+        if (reservedPer.isEmpty()){
+            return false;
+        }
+        else {
+            for (Client client : reservedPer){
+                if (client.isVip()){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    public void sellPer(Client client){
+
+        soldPer.add(client);
+        //TODO zabezpieczyć zmienną przed zmianami? ;)
+        //TODO w przypadku gdy niepodzielny produkt jest wykupiony nie powinno być można dodać klienta
+    }
 
 }

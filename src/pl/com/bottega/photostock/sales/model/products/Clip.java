@@ -9,52 +9,20 @@ import java.util.ArrayList;
 /**
  * Created by Beata Iłowiecka on 06.04.16.
  */
-public class Clip implements Product{
+public class Clip extends AbstractProduct{
 
-    private String title;
-    private Duration length;
-    private String number;
-    private String[] tags;
-    private double price;
-    private boolean active;
-    private ArrayList<Client> reservedPer;
-    private ArrayList<Client> soldPer;
-    private boolean shared;
+    private Duration duration;
 
-
-    @Override
-    public boolean isAvailable() {
-        return active;
+    public Clip(String number, double price, String[] tags, Duration duration, boolean active){
+        super(number, price, tags, active);
+        this.duration = duration;
     }
 
-    @Override
-    public double calculatePrice() {
-        return 0;
+    public  Clip(String number, double price, String[] tags, Duration duration){
+        this(number, price, tags, duration, true);
     }
 
-    @Override
-    public double getPrice() {
-        return 0;
+    public Clip(){
+        this("01a", 10, new String[] {"Boy", "clapping", "numbers"}, Duration.ofSeconds(224), true);
     }
-
-    @Override
-    public void cancel() {
-
-    }
-
-    @Override
-    public void reservePer(Client client) {
-
-    }
-
-    @Override
-    public void unreservePer(Client client) {
-
-    }
-
-    @Override
-    public boolean canBeReservedBy(Client client) {
-        return false;
-    }
-
 }
