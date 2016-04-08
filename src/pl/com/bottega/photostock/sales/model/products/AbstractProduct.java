@@ -28,6 +28,14 @@ public abstract class AbstractProduct implements Product {
         return active;
     }
 
+    public boolean isNotShared(){
+        return !shared;
+    }
+
+    public void setShared(boolean bool){
+        shared = bool;
+    }
+
     public double calculatePrice() {
         return 0;
         //TODO do implementacji gdy będą dostępne rabaty i rozdzielczości i cena będzie zależeć od nich.
@@ -67,9 +75,9 @@ public abstract class AbstractProduct implements Product {
         return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedPerVip());
     }
 
-    public boolean isSoldOut() {
+    public boolean isSoldOut() throws IllegalStateException {
         if (shared == false && !soldPer.isEmpty()){
-            return true;
+            throw new IllegalStateException(" Produkt został już sprzedany.");
         }
         else {
             return false;
@@ -87,7 +95,7 @@ public abstract class AbstractProduct implements Product {
                     return true;
                 }
             }
-            throw new IllegalStateException("Zdjęcie jest już zarezerwowane");
+            throw new IllegalStateException("Produkt jest już zarezerwowany");
         }
     }
 

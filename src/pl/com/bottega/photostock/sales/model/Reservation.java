@@ -22,17 +22,21 @@ public class Reservation {
 
     public void add(Product product){
 
-        if (!product.isAvailable()){
-           throw  new IllegalArgumentException("Product is not available.");
+        if (!product.canBeReservedBy(owner)){
+           throw  new IllegalArgumentException("Produkt jest niedostępny.");
         }
         if (items.contains(product)){
-            throw  new IllegalArgumentException("Product is already reserved.");
+            throw  new IllegalArgumentException("Produkt jest już zarezerwowany.");
         }
         items.add(product);
     }
 
-    public void remove(Picture picture){
-        return;
+    public void remove(Product product){
+        boolean removed = items.remove(product);
+
+        if (!removed){
+            throw new IllegalArgumentException("Nie ma takiego produktu w rezerwacji");
+        }
     }
 
     public Offer generateOffer(){

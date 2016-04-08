@@ -99,7 +99,7 @@ public class LightBox {
         boolean removed = items.remove(pictureToRemove);
 
         if (!removed) {
-            throw new IllegalArgumentException("Nie ma takiego zdjęcia");
+            throw new IllegalArgumentException("Nie ma takiego produktu w LightBoxie");
         }
     }
 
