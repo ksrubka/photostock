@@ -13,8 +13,8 @@ public abstract class AbstractProduct implements Product {
     protected String[] tags;
     protected double price;
     protected boolean active;
-    protected ArrayList<Client> reservedPer;
-    public ArrayList<Client> soldPer;
+    protected ArrayList<Client> reservedPer = new ArrayList<>();
+    public ArrayList<Client> soldPer = new ArrayList<>();;
     protected boolean shared;
 
     public AbstractProduct(String number, double price, String[] tags, boolean active) {

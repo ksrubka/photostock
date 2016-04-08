@@ -17,11 +17,8 @@ public class ConsoleApp {
     public static void main(String[] args) {
 
         Picture pic = new Picture();
-        ArrayList<Client> p = pic.soldPer;
 
-        System.out.println(p.isEmpty());
-
-        /*Client paniHelenka = new Client();
+        Client paniHelenka = new Client();
         LightBox lightBoxPaniHelenki = new LightBox(paniHelenka);
 
         lightBoxPaniHelenki.add(pic);
@@ -30,7 +27,7 @@ public class ConsoleApp {
 
         rezerwacjaPaniHelenki.add(pic);
 
-        Offer ofertaPaniHelenki = rezerwacjaPaniHelenki.generateOffer();*/
+        Offer ofertaPaniHelenki = rezerwacjaPaniHelenki.generateOffer();
 
     }
 }
