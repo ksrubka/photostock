@@ -31,8 +31,11 @@ public class ConsoleApp {
         // ale paniKasia jest vipem więc może.
         // ale czy powinna móc po wygenerowniu oferty dla kogos innego? chyba nie.
         // TODO należy dodać zmiany w generateOffer() w klasie Reservation
-        // np dodać pole boolean hasOfferGenerated i jeśli true to nie rezerwujemy już dla nikogo ale to trzeba wyłączyć po wygaśnięciu oferty
-        // a jeśli canBeBoughtByMany (do zmiany zamiast to enigmatyczne !shared) to nie bierzemy pod uwage tego booleana
+        // np dodać pole boolean hasOfferGenerated w klasie AbstractProduct?
+        // i jeśli true to nie rezerwujemy już dla nikogo (ale to trzeba wyłączyć po wygaśnięciu oferty)
+        // TODO no właśnie - jak wygasić ofertę? i kiedy? i gdzie? w konstruktorze Purchase?
+        // a jeśli canBeBoughtByMany (do zmiany zamiast to enigmatyczne !shared) to nie bierzemy pod uwage tego hasOfferGenerated
+        // a tak wogóle to mi się nie podoba bo zmiana jednej klasy przez drugą, nie wiem czy nie za dużo mieszania?
 
         Client paniKasia = new Client("Kasia", "tajny", ClientStatus.VIP, 122, true);
         Reservation rezerwacjaPaniKasi = new Reservation(paniKasia);
