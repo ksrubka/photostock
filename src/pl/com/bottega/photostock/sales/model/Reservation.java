@@ -22,7 +22,7 @@ public class Reservation {
 
     public void add(Product product){
 
-        if (product.isAvailable()){
+        if (!product.isAvailable()){
            throw  new IllegalArgumentException("Product is not available.");
         }
         if (items.contains(product)){

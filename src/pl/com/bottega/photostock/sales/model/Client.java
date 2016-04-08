@@ -57,6 +57,10 @@ public class Client {
         return active;
     }
 
+    public boolean isVip(){
+        return false;
+    }
+
     public String introduce(){
         return name + " - " + status.getPolishString();
     }

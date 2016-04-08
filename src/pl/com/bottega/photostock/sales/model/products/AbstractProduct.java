@@ -14,7 +14,7 @@ public abstract class AbstractProduct implements Product {
     protected double price;
     protected boolean active;
     protected ArrayList<Client> reservedPer;
-    protected ArrayList<Client> soldPer;
+    public ArrayList<Client> soldPer;
     protected boolean shared;
 
     public AbstractProduct(String number, double price, String[] tags, boolean active) {
@@ -64,10 +64,10 @@ public abstract class AbstractProduct implements Product {
     }
 
     public boolean canBeReservedBy(Client client){
-        return client.canAfford(price) && isAvailable() && isSoldOut() && (!isReservedPerVip());
+        return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedPerVip());
     }
 
-    private boolean isSoldOut() {
+    public boolean isSoldOut() {
         if (shared == false && !soldPer.isEmpty()){
             return true;
         }

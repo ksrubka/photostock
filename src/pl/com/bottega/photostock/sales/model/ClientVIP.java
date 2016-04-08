@@ -60,4 +60,8 @@ public class ClientVIP extends Client {
             return -debt;
         }
     }
+
+    public boolean isVip(){
+        return true;
+    }
 }
