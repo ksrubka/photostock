@@ -13,36 +13,46 @@ public class ConsoleApp {
 
     public static void main(String[] args) {
 
-        Picture pic = new Picture();
+        Picture programming = new Picture();
+        Picture kitty = new Picture("02", 10, new String[] {"cute", "pud", "mrau"});
+        Picture forest = new Picture("03", 14, new String[] {"moss", "anemone", "bud", "tree"});
 
         Client paniHelenka = new Client();
         LightBox lightBoxPaniHelenki = new LightBox(paniHelenka);
 
-        lightBoxPaniHelenki.add(pic);
+        lightBoxPaniHelenki.add(programming, kitty, forest);
 
         Reservation rezerwacjaPaniHelenki = new Reservation(paniHelenka);
 
-        rezerwacjaPaniHelenki.add(pic);
+        // TODO sensowne byłoby overloadowanie kontruktora tak żeby można było tworzyć rezerwację z lightboxa, o tak:
+        // public Reservation(LightBox lbx)){ // tu idzie kodzik przerzucający itemsy}
+        rezerwacjaPaniHelenki.add(programming, kitty, forest);
 
         Offer ofertaPaniHelenki = rezerwacjaPaniHelenki.generateOffer();
 
-        // próba rezerwacji zdjęcia przez drugiego klienta
+        System.out.println("Pani Helenka ma w ofercie " + ofertaPaniHelenki.getItemsCount() + " produkty.");
+        System.out.println();
+
+        // Zaraz nastąpi próba rezerwacji zdjęcia przez drugiego klienta
         // zdjęcie jest niepodzielne (shared == false) więc nie powinno być można zarezerwować
         // ale paniKasia jest vipem więc może.
         // ale czy powinna móc po wygenerowniu oferty dla kogos innego? chyba nie.
         // TODO należy dodać zmiany w generateOffer() w klasie Reservation
         // np dodać pole boolean hasOfferGenerated w klasie AbstractProduct?
         // i jeśli true to nie rezerwujemy już dla nikogo
-        // (ale to trzeba wyłączyć po wygaśnięciu oferty dla każdego produktu) - czy jest sens to robić? może można lepiej, inaczej?
+        // (ale to trzeba wyłączyć po wygaśnięciu oferty dla każdego produktu) niezależnie od tego czy tworzymy Purchase czy rezygnujemy
+        // - ale czy jest sens to robić? może można lepiej, inaczej?
         // TODO no właśnie - jak wygasić ofertę? i kiedy? i gdzie? w konstruktorze Purchase?
-        // a jeśli canBeBoughtByMany (do zmiany zamiast to enigmatyczne !shared) to nie bierzemy pod uwage tego hasOfferGenerated
-        // a tak wogóle to mi się nie podoba bo zmiana jednej klasy przez drugą, nie wiem czy nie za dużo mieszania?
+        // i tu znowu powraca temat usuwania obiektów. Można by odliczyć np 30 min i potem dać kodzik który by usuwał obiekt
+        // jak usunąć obiekt? może przypisać zmienną do nulla, a wtedy tamten obiekt straci referencję i GarbageCollector go usunie ?
+        // ale tu
+        // a jeśli canBeBoughtByMany (do zmiany zamiast to enigmatyczne !shared) (zrobione!) to nie bierzemy pod uwage tego hasOfferGenerated
 
-        Client paniKasia = new Client("Kasia", "tajny", ClientStatus.VIP, 122, true);
+        ClientVIP paniKasia = new ClientVIP();
         Reservation rezerwacjaPaniKasi = new Reservation(paniKasia);
-        rezerwacjaPaniKasi.add(pic);
+        rezerwacjaPaniKasi.add(programming);
 
-        System.out.println("tyle pani Kasia ma produktów w rezerwacji:");
+        System.out.print("tyle pani Kasia ma produktów w rezerwacji: ");
         System.out.println(rezerwacjaPaniKasi.getItemsCount());
     }
 }
