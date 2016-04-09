@@ -14,6 +14,10 @@ public class ClientVIP extends Client {
         this.creditLimit = creditLimit;
     }
 
+    public ClientVIP(){
+        this("Pani Kasia", "tajny", 122, true, 0, 500);
+    }
+
     @Override
     public boolean canAfford(double money) {
 
