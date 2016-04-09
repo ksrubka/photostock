@@ -22,7 +22,5 @@ public interface Product {
 
     boolean canBeReservedBy(Client client);
 
-    public boolean isNotShared();
-
     public void setShared(boolean bool);
 }
