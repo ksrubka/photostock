@@ -22,5 +22,7 @@ public interface Product {
 
     boolean canBeReservedBy(Client client);
 
-    public void setShared(boolean bool);
+    void setShared(boolean bool);
+
+    String getNumber();
 }
