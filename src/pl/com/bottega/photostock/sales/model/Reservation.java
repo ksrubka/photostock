@@ -20,15 +20,17 @@ public class Reservation {
         this.owner = owner;
     }
 
-    public void add(Product product){
+    public void add(Product... products){
 
-        if (!product.canBeReservedBy(owner)){
-           throw  new IllegalArgumentException("Produkt jest niedostępny.");
+        for (Product product : products) {
+            if (!product.canBeReservedBy(owner)) {
+                throw new IllegalArgumentException("Produkt jest niedostępny.");
+            }
+            if (items.contains(product)) {
+                throw new IllegalArgumentException("Produkt jest już zarezerwowany.");
+            }
+            items.add(product);
         }
-        if (items.contains(product)){
-            throw  new IllegalArgumentException("Produkt jest już zarezerwowany.");
-        }
-        items.add(product);
     }
 
     public void remove(Product product){
