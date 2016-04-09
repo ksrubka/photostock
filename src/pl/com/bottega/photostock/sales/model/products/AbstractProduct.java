@@ -97,10 +97,10 @@ public abstract class AbstractProduct implements Product {
         else {
             for (Client client : reservedPer){
                 if (client.isVip()){
-                    return true;
+                    throw new IllegalStateException("Produkt jest już zarezerwowany");
                 }
             }
-            throw new IllegalStateException("Produkt jest już zarezerwowany");
+            return false;
         }
     }
 
