@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.application;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.LightBox;
 import pl.com.bottega.photostock.sales.model.products.Picture;
+import pl.com.bottega.photostock.sales.model.products.Product;
 
 /**
  * Created by Beata Iłowiecka on 29.03.16.
@@ -59,9 +60,9 @@ public class UberLightBox {
         LightBox newLightBox = new LightBox(client);
 
         for (LightBox lb : lbxs) {
-            for (Picture pic : lb.getItems()) {
-                if (pic.isAvailable()) {
-                    newLightBox.add(pic);
+            for (Product product : lb.getItems()) {
+                if (product.isAvailable()) {
+                    newLightBox.add(product);
                 }
             }
         }
@@ -74,8 +75,8 @@ public class UberLightBox {
                 "\n==========================");
         System.out.println("nr | price" +
                 "\n==========================");
-        for (Picture p : lb.getItems()) {
-            System.out.println(p.getNumber() + " | " + p.getPrice());
+        for (Product product : lb.getItems()) {
+            System.out.println(product.getNumber() + " | " + product.getPrice());
         }
     }
 }

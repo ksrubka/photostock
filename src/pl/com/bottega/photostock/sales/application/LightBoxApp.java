@@ -2,6 +2,7 @@ package pl.com.bottega.photostock.sales.application;
 
 import pl.com.bottega.photostock.sales.model.*;
 import pl.com.bottega.photostock.sales.model.products.Picture;
+import pl.com.bottega.photostock.sales.model.products.Product;
 
 import java.util.ArrayList;
 
@@ -90,14 +91,14 @@ public class LightBoxApp {
             System.out.println(lineNumber + ". " +
                     l.getName() + " - " + (l.getOwner()).getName());
 
-            for (Picture p : l.getItems()){
-                if (!p.isAvailable()){
+            for (Product product : l.getItems()){
+                if (!product.isAvailable()){
                     System.out.print(UNAVAILABE_PICTURE + " | ");
                 }
                 else {
                     System.out.print("  | ");
                 }
-                System.out.println(p.getNumber() + " | " + p.getPrice());
+                System.out.println(product.getNumber() + " | " + product.getPrice());
             }
             /*if (!((lightBoxes1.size()) == lineNumber)){
                 System.out.println("=========================");
