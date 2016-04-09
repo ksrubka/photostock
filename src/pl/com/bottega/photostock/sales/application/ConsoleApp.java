@@ -1,10 +1,10 @@
 package pl.com.bottega.photostock.sales.application;
 
 import pl.com.bottega.photostock.sales.model.*;
+import pl.com.bottega.photostock.sales.model.products.Clip;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 import pl.com.bottega.photostock.sales.model.products.Product;
-
-import java.util.ArrayList;
+import pl.com.bottega.photostock.sales.model.products.Song;
 
 /**
  * Created by Beata Iłowiecka on 08.04.16.
@@ -14,19 +14,19 @@ public class ConsoleApp {
     public static void main(String[] args) {
 
         Picture programming = new Picture();
-        Picture kitty = new Picture("02", 10, new String[] {"cute", "pud", "mrau"});
-        Picture forest = new Picture("03", 14, new String[] {"moss", "anemone", "bud", "tree"});
+        Product goldOnTheCeiling = new Song();
+        Product littleNumbers = new Clip();
 
         Client paniHelenka = new Client();
         LightBox lightBoxPaniHelenki = new LightBox(paniHelenka);
 
-        lightBoxPaniHelenki.add(programming, kitty, forest);
+        lightBoxPaniHelenki.add(programming, goldOnTheCeiling, littleNumbers);
 
         Reservation rezerwacjaPaniHelenki = new Reservation(paniHelenka);
 
         // TODO sensowne byłoby overloadowanie kontruktora tak żeby można było tworzyć rezerwację z lightboxa, o tak:
         // public Reservation(LightBox lbx)){ // tu idzie kodzik przerzucający itemsy}
-        rezerwacjaPaniHelenki.add(programming, kitty, forest);
+        rezerwacjaPaniHelenki.add(programming,  goldOnTheCeiling, littleNumbers);
 
         Offer ofertaPaniHelenki = rezerwacjaPaniHelenki.generateOffer();
 
@@ -45,14 +45,15 @@ public class ConsoleApp {
         // TODO no właśnie - jak wygasić ofertę? i kiedy? i gdzie? w konstruktorze Purchase?
         // i tu znowu powraca temat usuwania obiektów. Można by odliczyć np 30 min i potem dać kodzik który by usuwał obiekt
         // jak usunąć obiekt? może przypisać zmienną do nulla, a wtedy tamten obiekt straci referencję i GarbageCollector go usunie ?
-        // ale tu
-        // a jeśli canBeBoughtByMany (do zmiany zamiast to enigmatyczne !shared) (zrobione!) to nie bierzemy pod uwage tego hasOfferGenerated
+        // ale wtedy cała aplikacja musi czekać pół godziny bez sensu. I tu chyba przydały by się wątki?
+        // wracając do AbstractProduct - jeśli canBeBoughtByMany == true (do zmiany zamiast to enigmatyczne !shared) (zrobione!)
+        // to nie bierzemy pod uwage tego hasOfferGenerated bo wtedy i tak można rezerwować
 
         ClientVIP paniKasia = new ClientVIP();
         Reservation rezerwacjaPaniKasi = new Reservation(paniKasia);
         rezerwacjaPaniKasi.add(programming);
 
-        System.out.print("tyle pani Kasia ma produktów w rezerwacji: ");
+        System.out.print("Tyle pani Kasia ma produktów w rezerwacji: ");
         System.out.println(rezerwacjaPaniKasi.getItemsCount());
     }
 }
