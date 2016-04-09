@@ -1,6 +1,7 @@
 package pl.com.bottega.photostock.sales.model;
 
 import pl.com.bottega.photostock.sales.model.products.Picture;
+import pl.com.bottega.photostock.sales.model.products.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,7 @@ public class LightBox {
 
     private String name;
     private Client owner;
-    private List<Picture> items = new ArrayList<>();
-    //private ArrayList<Picture> items = new ArrayList<>();
+    private List<Product> items = new ArrayList<>();
     private boolean closed;
 
     public LightBox(Client owner) {
@@ -77,26 +77,23 @@ public class LightBox {
         }
     }*/
 
-    public void add(Picture... pictures)throws IllegalStateException, IllegalArgumentException {
+    public void add(Product... products)throws IllegalStateException, IllegalArgumentException {
 
         validate();
 
-        for (Picture p : pictures) {
-            if (closed) {
-                throw new IllegalStateException("Closed!");
+        for (Product product : products) {
+            if (items.contains(product)) {
+                throw new IllegalArgumentException("LightBox już zawiera ten produkt.");
             }
-            if (items.contains(p)) {
-                throw new IllegalArgumentException("already contains");
-            }
-            items.add(p);
+            items.add(product);
         }
     }
 
-    public void remove(Picture pictureToRemove) throws IllegalArgumentException {
+    public void remove(Product productToRemove) throws IllegalArgumentException {
 
         validate();
 
-        boolean removed = items.remove(pictureToRemove);
+        boolean removed = items.remove(productToRemove);
 
         if (!removed) {
             throw new IllegalArgumentException("Nie ma takiego produktu w LightBoxie");
@@ -115,7 +112,7 @@ public class LightBox {
         return owner;
     }
 
-    public List<Picture> getItems() {
+    public List<Product> getItems() {
         return items;
     }
 
@@ -130,7 +127,7 @@ public class LightBox {
 
     private void validate() {
         if (closed) {
-            throw new IllegalStateException("Closed!");
+            throw new IllegalStateException("Przepraszamy, ten lightBox został zamknięty.");
         }
         if (!owner.isActive())
                 throw new IllegalStateException("Użytkownik jest nieaktywny");
