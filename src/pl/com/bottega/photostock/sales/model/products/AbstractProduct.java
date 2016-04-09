@@ -14,7 +14,7 @@ public abstract class AbstractProduct implements Product {
     protected double price;
     protected boolean active;
     protected ArrayList<Client> reservedPer = new ArrayList<>();
-    public ArrayList<Client> soldPer = new ArrayList<>();;
+    protected ArrayList<Client> soldPer = new ArrayList<>();;
     protected boolean shared;
 
     public AbstractProduct(String number, double price, String[] tags, boolean active) {
@@ -26,10 +26,6 @@ public abstract class AbstractProduct implements Product {
 
     public boolean isAvailable(){
         return active;
-    }
-
-    public boolean isNotShared(){
-        return !shared;
     }
 
     public void setShared(boolean bool){
@@ -72,16 +68,25 @@ public abstract class AbstractProduct implements Product {
     }
 
     public boolean canBeReservedBy(Client client){
+
         return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedPerVip());
     }
 
     public boolean isSoldOut() throws IllegalStateException {
-        if (shared == false && !soldPer.isEmpty()){
+        if (!canBeBoughtByMany() && isSold()){
             throw new IllegalStateException(" Produkt został już sprzedany.");
         }
         else {
             return false;
         }
+    }
+
+    private boolean canBeBoughtByMany(){
+        return shared;
+    }
+
+    private boolean isSold() {
+        return !soldPer.isEmpty();
     }
 
     private boolean isReservedPerVip() throws IllegalStateException {
