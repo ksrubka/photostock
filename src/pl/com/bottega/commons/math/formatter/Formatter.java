@@ -6,17 +6,9 @@ import java.util.List;
 
 public class Formatter {
 
-    public enum FormattingLanguage {
-        PL, ENG;
-    }
-
     public List<Byte> digits = new ArrayList<>();
     private long number;
     private boolean godMode = true;
-    public byte[] bytes = {1, 2, 3};
-
-    public long example = 1234567891234567890L;
-    public int i = 247;
 
     public Formatter(long number) {
         if (godMode)//iterować jest rzeczą ludzką, rekursja jest rzeczą boską
