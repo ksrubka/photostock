@@ -46,6 +46,9 @@ public class UtilsPL {
             else if ((byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 1)){
                 result.append(BIG_NUMBERS[0][index--]);
             }
+            else if (byteArray.get(1) == 1){
+                result.append(BIG_NUMBERS[2][index--]);
+            }
             else if ((byteArray.get(2) == 2 || byteArray.get(2) == 3 || byteArray.get(2) == 4)){
                 result.append(BIG_NUMBERS[1][index--]);
             }
