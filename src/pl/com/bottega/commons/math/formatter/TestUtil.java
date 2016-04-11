@@ -15,6 +15,26 @@ public class TestUtil {
 
     public static byte[] bytes1 = {6,5,9,1,3,3,2,8};
 
+    public static final String[] HUNDREDS = {"", "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset"};
+
+    public static final String[] TENS = {"", "", "dwadzieścia", "trzydzieści", "czterdzieści", "pięćdziesiąt", "sześćdziesiąt",
+            "siedemdziesiąt", "osiemdziesiąt", "dziewięćdziesiąt"};
+
+    public static final String[] SEVERALS = {"", "jeden", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć","dziesięć",
+            "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście",
+            "siedemnaście", "osiemnaście", "dziewiętnaście"};
+
+    public static final String[] SEVERALS_FOR_BIG_NUMBERS = {"", "", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć","dziesięć",
+            "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście",
+            "siedemnaście", "osiemnaście", "dziewiętnaście"};
+
+    public static final String[][] BIG_NUMBERS = {
+            {"tysiąc", "milion", "miliard", "bilion", "biliard", "trylion"},
+            {"tysiące", "miliony", "miliardy", "biliony", "biliardy", "tryliony"},
+            {"tysięcy", "milionów", "miliardów", "bilionów", "biliardów", "trylionów"}
+    };
+
+
     public static void main(String[] args) {
 
 
@@ -33,49 +53,60 @@ public class TestUtil {
             bytes2.add(b);
         }*/
         ArrayList<Byte> a = new ArrayList<>();
-        a.add((byte)9);
         a.add((byte)8);
-        a.add((byte)8);
-        a.add((byte)8);
-        a.add((byte)8);
-        a.add((byte)8);
-        a.add((byte)8);
-        a.add((byte)9);
-        a.add((byte)8);
-        a.add((byte)8);
-        a.add((byte)8);
-        a.add((byte)8);
-        a.add((byte)8);
-        a.add((byte)8);
+        a.add((byte)5);
+        a.add((byte)0);
 
-        ArrayList<ArrayList<Byte>> byteArray = chunkArray(a);
+
+        System.out.println(formatHundred(a));
+
+        /*ArrayList<ArrayList<Byte>> byteArray = chunkArray(a);
 
         for (ArrayList<Byte> byteAr : byteArray){
             System.out.println();
             for (byte b : byteAr){
                 System.out.print(b);
             }
-        }
-
+        }*/
     }
-    public static String doSth(){
 
-        for (byte[] list : bytes){
-            for (int index = 0; index < 3; index++){
-                if (index == 0){
+    // in: {0,0,1}          out: jeden
+    // in: {1,0,5}          out: sto pięć
+    // in: {3,2,9}          out: trzysta dwadzieścia dziewięć
+    public static String formatHundred(ArrayList<Byte> byteArray){
+        StringBuilder result = new StringBuilder();
 
-                }
-                if (index == 1){
-                    if (list[index] == 1){
-                        String tempResult;
-                        tempResult = String.valueOf(list[index]) + String.valueOf(list[index+1]);
-                        return tempResult;
+        for (int i = 0; i < 3; i++){
+
+            byte currentDigit = byteArray.get(i);
+
+            switch (i){
+                case 0:
+                    result.append(HUNDREDS[currentDigit]);
+                    break;
+                case 1:
+                    byte secondDigit = byteArray.get(i);
+                    if (secondDigit == 1) {
+                        String tempResult = String.valueOf(1) + String.valueOf(byteArray.get(i + 1));
+                        int several = Integer.parseInt(tempResult);
+                        result.append(SEVERALS[several]);
+                        i = 2;
                     }
-                }
+                    else {
+                        result.append(TENS[currentDigit]);
+                    }
+                    break;
+                case 2:
+                    result.append(SEVERALS[currentDigit]);
+                    break;
+                default:
+                    break;
             }
+            result.append(" ");
         }
-        return "a";
+        return result.toString();
     }
+
 
 
     // Splits an array into equal 3-elements arrays. If number of elements is not dividable by 3,
