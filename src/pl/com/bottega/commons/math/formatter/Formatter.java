@@ -54,65 +54,24 @@ public class Formatter {
         }
     }
 
-    public static final String[] HUNDREDS = {"", "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset"};
-
-    public static final String[] TENS = {"", "", "dwadzieścia", "trzydzieści", "czterdzieści", "pięćdziesiąt", "sześćdziesiąt",
-            "siedemdziesiąt", "osiemdziesiąt", "dziewięćdziesiąt"};
-
-    public static final String[] SEVERALS = {"", "jeden", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć","dziesięć",
-            "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście",
-            "siedemnaście", "osiemnaście", "dziewiętnaście"};
-
-    public static final String[] SEVERALS_FOR_BIG_NUMBERS = {"", "", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć","dziesięć",
-            "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście",
-            "siedemnaście", "osiemnaście", "dziewiętnaście"};
-
-    public static final String[][] BIG_NUMBERS = {
-            {"tysiąc", "milion", "miliard", "bilion", "biliard", "trylion"},
-            {"tysiące", "miliony", "miliardy", "biliony", "biliardy", "tryliony"},
-            {"tysięcy", "milionów", "miliardów", "bilionów", "biliardów", "trylionów"}
-    };
-
-
     /**
      *
      * @param lang
      * @return dla 123 zwraca sto dwadzieścia trzy
      */
-    public String formatNumbers(String lang) {
-        //TODO zaimplementować
-        // digits.get(0);
-        String[] result = new String[digits.size()];
+    public String formatNumbers(FormattingLanguage lang) throws IllegalArgumentException {
 
-        int numOfDigits = digits.size();
-        int flag = numOfDigits % 3;
-
-        int index = 0;
-
-        for (Byte digit : digits){
-            if (flag == 0){
-                result[index++] = formatFromHundreds(digit);
-            }
-
+        switch (lang){
+            case PL:
+                ArrayList<ArrayList<Byte>> chunkedDigits = UtilsPL.chunkArray(digits);
+                String result = UtilsPL.formatBigNumber(chunkedDigits);
+                return result;
+            case ENG:
+                break;
+            default:
+                break;
         }
-        return "";
-    }
-
-    private String formatFromHundreds(byte digit) {
-        if (digit == 0);
-        return "";
-      /*  if (digits.size() > 16){
-
-        }
-        else if ()*/
-    }
-
-    private String formatFromTens(int numOfDigits){
-        return "";
-    }
-
-    private String formatFromUnits(int numOfDigits){
-        return "";
+        throw new IllegalArgumentException("This language is not supported.");
     }
 
     /**
@@ -127,7 +86,6 @@ public class Formatter {
         for (Byte digit : digits) {
             result[nr++] = generteDigit2(digit, lang);
         }
-
         return result;
     }
 
@@ -136,9 +94,21 @@ public class Formatter {
      * @param lang
      * @return for 123 return "trzy"
      */
-    public String getLastDigit(String lang) {
-        return null;//TODO
+    public String getLastDigit(FormattingLanguage lang) throws IllegalArgumentException {
+
+        switch (lang){
+            case PL:
+                byte lastDigitPL = digits.get(digits.size() - 1);
+                String lastPL = DICTIONARY[0][lastDigitPL];
+                return lastPL;
+            case ENG:
+                byte lastDigitENG = digits.get(digits.size() - 1);
+                String lastENG = DICTIONARY[0][lastDigitENG];
+                return lastENG;
+        }
+        throw new IllegalArgumentException("This language is not supported.");
     }
+
 
     /**
      *
@@ -146,8 +116,18 @@ public class Formatter {
      * @param lang
      * @return digit at given position
      */
-    public String getDigit(int position, String lang) {
-        return null;//TODO
+    public String getDigit(int position, FormattingLanguage lang) {
+        switch (lang){
+            case PL:
+                byte digitPL = digits.get(position);
+                String digit1 = DICTIONARY[0][digitPL];
+                return digit1;
+            case ENG:
+                byte digitENG = digits.get(position);
+                String digit2 = DICTIONARY[0][digitENG];
+                return digit2;
+        }
+        throw new IllegalArgumentException("This language is not supported.");
     }
 
     private static final String[][] DICTIONARY = {
