@@ -37,18 +37,18 @@ public class FormatterConsoleApp {
 
     private static void shouldFormatNumbers(){
         Formatter formatter = new Formatter("123456789123456789");
-        String numbers = formatter.formatNumbers("pl");
+        String numbers = formatter.formatNumbers(FormattingLanguage.PL);
     }
 
 
     private static void shouldGetLastNumber() {
         Formatter formatter = new Formatter(123456789123456789l);
-        String digit = formatter.getLastDigit("pl");
+        String digit = formatter.getLastDigit(FormattingLanguage.PL);
     }
 
     private static void shouldGetFirstNumber() {
         Formatter formatter = new Formatter(123456789123456789l);
-        String digit = formatter.getDigit(1, "pl");
+        String digit = formatter.getDigit(1, FormattingLanguage.PL);
 
     }
 
