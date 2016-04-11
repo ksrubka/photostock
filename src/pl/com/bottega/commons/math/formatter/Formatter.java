@@ -5,9 +5,18 @@ import java.util.Collections;
 import java.util.List;
 
 public class Formatter {
-    private List<Byte> digits = new ArrayList<>();
-    private boolean godMode = true;
 
+    public enum FormattingLanguage {
+        PL, ENG;
+    }
+
+    public List<Byte> digits = new ArrayList<>();
+    private long number;
+    private boolean godMode = true;
+    public byte[] bytes = {1, 2, 3};
+
+    public long example = 1234567891234567890L;
+    public int i = 247;
 
     public Formatter(long number) {
         if (godMode)//iterować jest rzeczą ludzką, rekursja jest rzeczą boską
@@ -19,9 +28,14 @@ public class Formatter {
     }
 
     public Formatter(String number){
-        //TODO zaimplementować, ALE NIE jako wywołanie powyższego konstruktora, tylko jako przejśćie po znakach
-        char[] digit = number.toCharArray();
-        //...
+        this.number = Integer.valueOf(number);
+
+        char[] digits = number.toCharArray();
+
+        for (char character : digits){
+            byte digit = Byte.parseByte(Character.toString(character));
+            this.digits.add(digit);
+        }
     }
 
     private void recursiveCutter(long number) {
@@ -40,13 +54,65 @@ public class Formatter {
         }
     }
 
+    public static final String[] HUNDREDS = {"", "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset"};
+
+    public static final String[] TENS = {"", "", "dwadzieścia", "trzydzieści", "czterdzieści", "pięćdziesiąt", "sześćdziesiąt",
+            "siedemdziesiąt", "osiemdziesiąt", "dziewięćdziesiąt"};
+
+    public static final String[] SEVERALS = {"", "jeden", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć","dziesięć",
+            "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście",
+            "siedemnaście", "osiemnaście", "dziewiętnaście"};
+
+    public static final String[] SEVERALS_FOR_BIG_NUMBERS = {"", "", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć","dziesięć",
+            "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście",
+            "siedemnaście", "osiemnaście", "dziewiętnaście"};
+
+    public static final String[][] BIG_NUMBERS = {
+            {"tysiąc", "milion", "miliard", "bilion", "biliard", "trylion"},
+            {"tysiące", "miliony", "miliardy", "biliony", "biliardy", "tryliony"},
+            {"tysięcy", "milionów", "miliardów", "bilionów", "biliardów", "trylionów"}
+    };
+
+
     /**
      *
      * @param lang
-     * @return dla 123 zwraca sto dwadzieśćia trzy
+     * @return dla 123 zwraca sto dwadzieścia trzy
      */
     public String formatNumbers(String lang) {
-        return null; //TODO zaimplementować
+        //TODO zaimplementować
+        // digits.get(0);
+        String[] result = new String[digits.size()];
+
+        int numOfDigits = digits.size();
+        int flag = numOfDigits % 3;
+
+        int index = 0;
+
+        for (Byte digit : digits){
+            if (flag == 0){
+                result[index++] = formatFromHundreds(digit);
+            }
+
+        }
+        return "";
+    }
+
+    private String formatFromHundreds(byte digit) {
+        if (digit == 0);
+        return "";
+      /*  if (digits.size() > 16){
+
+        }
+        else if ()*/
+    }
+
+    private String formatFromTens(int numOfDigits){
+        return "";
+    }
+
+    private String formatFromUnits(int numOfDigits){
+        return "";
     }
 
     /**
