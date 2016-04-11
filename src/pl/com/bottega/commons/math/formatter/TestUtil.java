@@ -9,11 +9,44 @@ import java.util.List;
  */
 public class TestUtil {
 
-    public static byte[][] bytes = {
-            {5,6,5}, {9,1,3}, {3,2,8}
-    };
+    public static void main(String[] args) {
 
-    public static byte[] bytes1 = {6,5,9,1,3,3,2,8};
+        ArrayList<Byte> a = new ArrayList<>();
+        a.add((byte)0);
+        a.add((byte)0);
+        a.add((byte)1);
+
+        ArrayList<Byte> b = new ArrayList<>();
+        b.add((byte)0);
+        b.add((byte)0);
+        b.add((byte)1);
+
+        ArrayList<Byte> c = new ArrayList<>();
+        c.add((byte)0);
+        c.add((byte)0);
+        c.add((byte)1);
+
+        ArrayList<Byte> d = new ArrayList<>();
+        d.add((byte)3);
+        d.add((byte)1);
+        d.add((byte)9);
+
+        ArrayList<Byte> e = new ArrayList<>();
+        e.add((byte)5);
+        e.add((byte)1);
+        e.add((byte)5);
+
+        ArrayList<ArrayList<Byte>> result1 = new ArrayList<>();
+        result1.add(a);
+        result1.add(b);
+        result1.add(c);
+        result1.add(d);
+        result1.add(e);
+
+        System.out.println(result1.size());
+        System.out.println(formatBigNumber(result1));
+
+    }
 
     public static final String[] HUNDREDS = {"", "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset"};
 
@@ -24,50 +57,45 @@ public class TestUtil {
             "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście",
             "siedemnaście", "osiemnaście", "dziewiętnaście"};
 
-    public static final String[] SEVERALS_FOR_BIG_NUMBERS = {"", "", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć","dziesięć",
-            "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście",
-            "siedemnaście", "osiemnaście", "dziewiętnaście"};
-
     public static final String[][] BIG_NUMBERS = {
-            {"tysiąc", "milion", "miliard", "bilion", "biliard", "trylion"},
-            {"tysiące", "miliony", "miliardy", "biliony", "biliardy", "tryliony"},
-            {"tysięcy", "milionów", "miliardów", "bilionów", "biliardów", "trylionów"}
+            {"", "tysiąc", "milion", "miliard", "bilion", "biliard", "trylion"},
+            {"", "tysiące", "miliony", "miliardy", "biliony", "biliardy", "tryliony"},
+            {"", "tysięcy", "milionów", "miliardów", "bilionów", "biliardów", "trylionów"}
     };
 
+    public static String formatBigNumber(ArrayList<ArrayList<Byte>> arrayOfArrays){
+        StringBuilder result = new StringBuilder();
+        int index = arrayOfArrays.size() - 1;
 
-    public static void main(String[] args) {
+        for (ArrayList<Byte> byteArray : arrayOfArrays){
+            String formattedHundred = formatHundred(byteArray);
 
-
-        /*ArrayList<ArrayList<Byte>> result = new ArrayList<ArrayList<Byte>>();
-        ArrayList<Byte> a = new ArrayList<>();
-        a.add((byte) 1);
-        result.add(a);
-        System.out.println(result.size());*/
-
-        /*Formatter formatter = new Formatter("565912328");
-        String[] result = new String[formatter.digits.size()];
-        System.out.println(doSth());*/
-
-        /*ArrayList<Byte> bytes2 = new ArrayList<>();
-        for (byte b : bytes1){
-            bytes2.add(b);
-        }*/
-        ArrayList<Byte> a = new ArrayList<>();
-        a.add((byte)8);
-        a.add((byte)5);
-        a.add((byte)0);
-
-
-        System.out.println(formatHundred(a));
-
-        /*ArrayList<ArrayList<Byte>> byteArray = chunkArray(a);
-
-        for (ArrayList<Byte> byteAr : byteArray){
-            System.out.println();
-            for (byte b : byteAr){
-                System.out.print(b);
+            if ((byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 1) && index != 0 ) {
+                result.append(BIG_NUMBERS[0][index--]);
+                result.append(" ");
+                continue;
             }
-        }*/
+            result.append(formattedHundred);
+
+
+            // append name of a big number
+            if (byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 0) {
+                index--;
+                continue;
+            }
+            else if ((byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 1)){
+                result.append(BIG_NUMBERS[0][index--]);
+            }
+            else if ((byteArray.get(2) == 2 || byteArray.get(2) == 3 || byteArray.get(2) == 4)){
+                result.append(BIG_NUMBERS[1][index--]);
+            }
+            else {
+                result.append(BIG_NUMBERS[2][index--]);
+            }
+
+            result.append(" ");
+        }
+        return result.toString();
     }
 
     // in: {0,0,1}          out: jeden
@@ -77,7 +105,6 @@ public class TestUtil {
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < 3; i++){
-
             byte currentDigit = byteArray.get(i);
 
             switch (i){
@@ -102,14 +129,14 @@ public class TestUtil {
                 default:
                     break;
             }
-            result.append(" ");
+            if (currentDigit != 0) {
+                result.append(" ");
+            }
         }
         return result.toString();
     }
 
-
-
-    // Splits an array into equal 3-elements arrays. If number of elements is not dividable by 3,
+    // Splits an array into equal 3-element arrays. If number of elements is not dividable by 3,
     // additional zero's are inserted into the first array to make it contain 3-elements.
     // in: {1}                      out: {{0,0,1}}
     // in: {0,1,2,3}                out: {{0,0,0},{1,2,3}}
