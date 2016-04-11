@@ -35,6 +35,18 @@ public class TestUtil {
         ArrayList<Byte> a = new ArrayList<>();
         a.add((byte)9);
         a.add((byte)8);
+        a.add((byte)8);
+        a.add((byte)8);
+        a.add((byte)8);
+        a.add((byte)8);
+        a.add((byte)8);
+        a.add((byte)9);
+        a.add((byte)8);
+        a.add((byte)8);
+        a.add((byte)8);
+        a.add((byte)8);
+        a.add((byte)8);
+        a.add((byte)8);
 
         ArrayList<ArrayList<Byte>> byteArray = chunkArray(a);
 
@@ -65,58 +77,21 @@ public class TestUtil {
         return "a";
     }
 
-   /* public static byte[][] splitByteArray(byte[] byteArray){
 
-    }*/
-
-    public static byte[][] splitArray(byte[] array, byte chunkSize){
-        byte numOfChunks = (byte) Math.ceil((double) array.length / chunkSize);
-        byte[][] result = new byte[numOfChunks][];
-
-        for (int i = 0; i < numOfChunks; i++){
-            int start = i * chunkSize;
-            int a = array.length - start;
-            int length = Math.min(a, chunkSize);
-
-            byte[] temp = new byte[chunkSize];
-            System.arraycopy(array, start, temp, 0, length);
-            result[i] = temp;
-        }
-        return result;
-    }
-
-    // in: {1,2,3,4,5},   out: {{0,1,2},{3,4,5}}
-    //in: {9,8,7,6,5,4,3,2,1,0}   out:{{0,0,9},{8,7,6},{5,4,3},{2,1,0}}
-    // in: {1}   out: {{0,0,1}}
+    // Splits an array into equal 3-elements arrays. If number of elements is not dividable by 3,
+    // additional zero's are inserted into the first array to make it contain 3-elements.
+    // in: {1}                      out: {{0,0,1}}
+    // in: {0,1,2,3}                out: {{0,0,0},{1,2,3}}
+    // in: {1,2,3,4}                out: {{0,0,1},{2,3,4}}
+    // in: {1,2,3,4,5},             out: {{0,1,2},{3,4,5}}
+    // in: {9,8,7,6,5,4,3,2,1,0}    out:{{0,0,9},{8,7,6},{5,4,3},{2,1,0}}
     public static ArrayList<ArrayList<Byte>> chunkArray(ArrayList<Byte> array){
         byte chunkSize = 3;
         int numOfChunks = array.size() / chunkSize + 1;
         int remainingDigits = array.size() % chunkSize;
-        ArrayList<ArrayList<Byte>> result = new ArrayList<ArrayList<Byte>>();
-        ArrayList<Byte> tempArray = new ArrayList<>();
+        ArrayList<ArrayList<Byte>> result = new ArrayList<>();
 
-        switch (remainingDigits){
-            case 1:
-                tempArray.add((byte) 0);
-                tempArray.add((byte) 0);
-                tempArray.add((array.get(0)));
-                result.add(tempArray);
-                break;
-            case 2:
-                tempArray.add((byte) 0);
-                tempArray.add((array.get(0)));
-                tempArray.add((array.get(1)));
-                result.add(tempArray);
-                break;
-            case 0:
-                tempArray.add((array.get(0)));
-                tempArray.add((array.get(1)));
-                tempArray.add((array.get(2)));
-                result.add(tempArray);
-                break;
-            default:
-                break;
-        }
+        result.add(getFirstArray(remainingDigits, array));
 
         int start = remainingDigits;
         for (int i = 1; i < numOfChunks; i++){
@@ -130,7 +105,28 @@ public class TestUtil {
         return result;
     }
 
-    private static void insertFirstArray(ArrayList<Byte> tempArray, ArrayList<ArrayList<Byte>> result){
+    private static ArrayList<Byte> getFirstArray(int remainingDigits, ArrayList<Byte> array){
+        ArrayList<Byte> tempArray = new ArrayList<>();
 
+        switch (remainingDigits){
+            case 1:
+                tempArray.add((byte) 0);
+                tempArray.add((byte) 0);
+                tempArray.add((array.get(0)));
+                break;
+            case 2:
+                tempArray.add((byte) 0);
+                tempArray.add((array.get(0)));
+                tempArray.add((array.get(1)));
+                break;
+            case 0:
+                tempArray.add((array.get(0)));
+                tempArray.add((array.get(1)));
+                tempArray.add((array.get(2)));
+                break;
+            default:
+                break;
+        }
+        return tempArray;
     }
 }
