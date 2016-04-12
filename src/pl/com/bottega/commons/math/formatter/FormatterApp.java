@@ -61,7 +61,26 @@ public class FormatterApp {
         String digitAtPosition2 = formatter2.getDigit(5, FormattingLanguage.PL);
         System.out.println(digitAtPosition2 + "\n");
 
+
+        // *************** Trzeci test ***************
+        System.out.println("*************** Trzeci test *************** \n*** FormattingLanguage: ENG ***\n");
+
+        Formatter formatter3 = new Formatter("1234789019876587234");
+
+        System.out.println("* Każda cyfra osobno: ");
+        String[] digits3 = formatter3.formatDigits("eng");
+        printDigits(digits3);
+        System.out.println();
+
+        System.out.println("* Cała liczba: ");
+        String formattedNumber3 = formatter3.formatNumbers(FormattingLanguage.ENG);
+        System.out.println(formattedNumber3 + "\n");
+
+        System.out.println("* Cyfra z indeksu 5: ");
+        String digitAtPosition3 = formatter3.getDigit(5, FormattingLanguage.ENG);
+        System.out.println(digitAtPosition3 + "\n");
     }
+
 
     public static void printDigits(String[] digits){
         for (String s : digits){
