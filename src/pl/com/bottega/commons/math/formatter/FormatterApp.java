@@ -12,7 +12,7 @@ public class FormatterApp {
 
         // *************** Pierwszy test ***************
         System.out.println("*************** Pierwszy test *************** \n*** Konstruktor Formater(String) ***\n");
-        Formatter formatter1 = new Formatter("887745677890567");
+        Formatter formatter1 = new Formatter("12345678901234");
 
         /*System.out.println("get digits: ");
         List<Byte> copyDigits1 = formatter1.getDigits();
@@ -25,10 +25,11 @@ public class FormatterApp {
         System.out.println("* Każda cyfra osobno: ");
         String[] digits = formatter1.formatDigits("pl");
         printDigits(digits);
+        System.out.println();
 
         System.out.println("* Cała liczba: ");
         String formattedNumber = formatter1.formatNumbers(FormattingLanguage.PL);
-        System.out.println(formattedNumber);
+        System.out.println(formattedNumber + "\n");
 
         System.out.println("* Cyfra z indeksu 5: ");
         String digitAtPosition = formatter1.getDigit(5, FormattingLanguage.PL);
@@ -37,7 +38,7 @@ public class FormatterApp {
         // *************** Drugi test ***************
         System.out.println("*************** Drugi test *************** \n*** Konstruktor Formater(long) ***\n");
 
-        Formatter formatter2 = new Formatter(2123456678999607567L);
+        Formatter formatter2 = new Formatter(2123456678919607567L);
 
         /*System.out.println("get digits: ");
         List<Byte> copyDigits = formatter2.getDigits();
