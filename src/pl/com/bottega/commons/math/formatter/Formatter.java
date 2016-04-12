@@ -55,10 +55,11 @@ public class Formatter {
 
         switch (lang){
             case PL:
-                ArrayList<ArrayList<Byte>> chunkedDigits = chunkArray(digits);
-                return UtilsPL.formatBigNumber(chunkedDigits);
+                ArrayList<ArrayList<Byte>> chunkedDigitsPL = chunkArray(digits);
+                return UtilsPL.formatBigNumber(chunkedDigitsPL);
             case ENG:
-                break;
+                ArrayList<ArrayList<Byte>> chunkedDigitsENG = chunkArray(digits);
+                return UtilsENG.formatBigNumber(chunkedDigitsENG);
             default:
                 break;
         }
@@ -111,7 +112,7 @@ public class Formatter {
                 return DICTIONARY[0][digitPL];
             case ENG:
                 byte digitENG = digits.get(position);
-                return DICTIONARY[0][digitENG];
+                return DICTIONARY[1][digitENG];
         }
         throw new IllegalArgumentException("This language is not supported.");
     }
@@ -127,7 +128,7 @@ public class Formatter {
             case "pl":
                 langNr = 0;
                 break;
-            case "en":
+            case "eng":
                 langNr = 1;
                 break;
             default:
@@ -162,7 +163,7 @@ public class Formatter {
                         return "dziewięć";
                 }
                 break;
-            case "en":
+            case "eng":
                 switch (digit) {
                     case 0:
                         return "zero";
