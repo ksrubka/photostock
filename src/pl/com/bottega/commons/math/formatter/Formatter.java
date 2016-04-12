@@ -123,7 +123,7 @@ public class Formatter {
     }
 
     private static final String[][] DICTIONARY = {
-            {"zero", "jeden", "dwa", "trzy", "cztery", "pięc", "sześć", "siedem", "osiem", "dziewięc"},
+            {"zero", "jeden", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć"},
             {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", " nine"}
     };
 
