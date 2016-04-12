@@ -6,15 +6,9 @@ import java.util.List;
 
 public class Formatter {
 
-    public List<Byte> getDigits() {
-        return digits;
-    }
-
     public List<Byte> digits = new ArrayList<>();
     private long number = 0L;
     private boolean godMode = true;
-
-
 
     public Formatter(long number) {
         if (godMode)//iterować jest rzeczą ludzką, rekursja jest rzeczą boską
@@ -198,5 +192,7 @@ public class Formatter {
         throw new RuntimeException("coś dziwnego z danymi " + lang + " " + digit);
     }
 
-
+    public List<Byte> getDigits() {
+        return digits;
+    }
 }
