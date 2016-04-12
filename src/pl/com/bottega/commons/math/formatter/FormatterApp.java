@@ -12,7 +12,15 @@ public class FormatterApp {
 
         // *************** Pierwszy test ***************
         System.out.println("*************** Pierwszy test *************** \n*** Konstruktor Formater(String) ***\n");
-        Formatter formatter1 = new Formatter("7654321098098750765");
+        Formatter formatter1 = new Formatter("887745677890567");
+
+        /*System.out.println("get digits: ");
+        List<Byte> copyDigits1 = formatter1.getDigits();
+        printArray((ArrayList<Byte>) copyDigits1);
+
+        System.out.println("This is chunkedArray:");
+        ArrayList<ArrayList<Byte>> chunkArray = UtilsPL.chunkArray(copyDigits1);
+        printDigits1(chunkArray);*/
 
         System.out.println("* Każda cyfra osobno: ");
         String[] digits = formatter1.formatDigits("pl");
@@ -29,13 +37,15 @@ public class FormatterApp {
         // *************** Drugi test ***************
         System.out.println("*************** Drugi test *************** \n*** Konstruktor Formater(long) ***\n");
 
-        Formatter formatter2 = new Formatter(986789697);
+        Formatter formatter2 = new Formatter(2123456678999607567L);
 
-        System.out.println("get digits: ");
+        /*System.out.println("get digits: ");
         List<Byte> copyDigits = formatter2.getDigits();
+        printArray((ArrayList<Byte>) copyDigits);
 
-        ArrayList<ArrayList<Byte>> chunkArray = UtilsPL.chunkArray(copyDigits);
-        printDigits1(chunkArray);
+        System.out.println("This is chunkedArray:");
+        ArrayList<ArrayList<Byte>> chunkArray1 = UtilsPL.chunkArray(copyDigits);
+        printDigits1(chunkArray1);*/
 
         System.out.println("* Każda cyfra osobno: ");
         String[] digits2 = formatter2.formatDigits("pl");
@@ -59,12 +69,19 @@ public class FormatterApp {
         System.out.println();
     }
 
+    /*public static void printArray(ArrayList<Byte> array) {
+        for (Byte digit : array) {
+            System.out.print(digit);
+        }
+        System.out.println("\n");
+    }
+
     public static void printDigits1(ArrayList<ArrayList<Byte>> digits){
         for (ArrayList<Byte> array : digits){
             for (byte b : array){
                 System.out.print(b);
             }
         }
-        System.out.println();
-    }
+        System.out.println("\n");
+    }*/
 }
