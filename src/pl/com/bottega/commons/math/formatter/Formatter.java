@@ -6,9 +6,15 @@ import java.util.List;
 
 public class Formatter {
 
+    public List<Byte> getDigits() {
+        return digits;
+    }
+
     public List<Byte> digits = new ArrayList<>();
-    private long number;
+    private long number = 0L;
     private boolean godMode = true;
+
+
 
     public Formatter(long number) {
         if (godMode)//iterować jest rzeczą ludzką, rekursja jest rzeczą boską
@@ -20,7 +26,7 @@ public class Formatter {
     }
 
     public Formatter(String number){
-        this.number = Integer.valueOf(number);
+        this.number = Long.valueOf(number);
 
         char[] digits = number.toCharArray();
 
@@ -56,8 +62,7 @@ public class Formatter {
         switch (lang){
             case PL:
                 ArrayList<ArrayList<Byte>> chunkedDigits = UtilsPL.chunkArray(digits);
-                String result = UtilsPL.formatBigNumber(chunkedDigits);
-                return result;
+                return UtilsPL.formatBigNumber(chunkedDigits);
             case ENG:
                 break;
             default:
@@ -91,16 +96,13 @@ public class Formatter {
         switch (lang){
             case PL:
                 byte lastDigitPL = digits.get(digits.size() - 1);
-                String lastPL = DICTIONARY[0][lastDigitPL];
-                return lastPL;
+                return DICTIONARY[0][lastDigitPL];
             case ENG:
                 byte lastDigitENG = digits.get(digits.size() - 1);
-                String lastENG = DICTIONARY[0][lastDigitENG];
-                return lastENG;
+                return DICTIONARY[0][lastDigitENG];
         }
         throw new IllegalArgumentException("This language is not supported.");
     }
-
 
     /**
      *
@@ -112,12 +114,10 @@ public class Formatter {
         switch (lang){
             case PL:
                 byte digitPL = digits.get(position);
-                String digit1 = DICTIONARY[0][digitPL];
-                return digit1;
+                return DICTIONARY[0][digitPL];
             case ENG:
                 byte digitENG = digits.get(position);
-                String digit2 = DICTIONARY[0][digitENG];
-                return digit2;
+                return DICTIONARY[0][digitENG];
         }
         throw new IllegalArgumentException("This language is not supported.");
     }
