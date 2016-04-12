@@ -30,8 +30,8 @@ public class UtilsPL {
         for (ArrayList<Byte> byteArray : arrayOfArrays){
             String formattedHundred = formatHundred(byteArray);
 
-            // if every digit in 3-element array == 0, add only name of a BIG_NUMBER
-            if ((byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 1) && index != 0 ) {
+            // if last digit of a number == 1, add only name of a BIG_NUMBER
+            if ((byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 1)) {
                 result.append(BIG_NUMBERS[0][index--]);
                 result.append(" ");
                 continue;
@@ -39,14 +39,16 @@ public class UtilsPL {
             result.append(formattedHundred);
 
             // append name of a big number
+            // if number is 0, don't write it's name
             if (byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 0) {
                 index--;
                 continue;
             }
+            // if number is 1
             else if ((byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 1)){
                 result.append(BIG_NUMBERS[0][index--]);
             }
-            else if (byteArray.get(1) == 1){
+            else if (byteArray.get(1) == 1) {
                 result.append(BIG_NUMBERS[2][index--]);
             }
             else if ((byteArray.get(2) == 2 || byteArray.get(2) == 3 || byteArray.get(2) == 4)){
@@ -108,13 +110,15 @@ public class UtilsPL {
     // in: {9,8,7,6,5,4,3,2,1,0}    out:{{0,0,9},{8,7,6},{5,4,3},{2,1,0}}
     public static ArrayList<ArrayList<Byte>> chunkArray(List<Byte> array){
         byte chunkSize = 3;
-        int numOfChunks = array.size() / chunkSize + 1;
         int remainingDigits = array.size() % chunkSize;
+        int numOfChunks = (int) Math.ceil((double) array.size() / chunkSize);
         ArrayList<ArrayList<Byte>> result = new ArrayList<>();
-
         result.add(getFirstArray(remainingDigits, array));
 
         int start = remainingDigits;
+        if (remainingDigits == 0){
+            start = 3;
+        }
         for (int i = 1; i < numOfChunks; i++){
             ArrayList<Byte> tempArray1 = new ArrayList<>();
             for (int j = 0; j < chunkSize; j++) {
