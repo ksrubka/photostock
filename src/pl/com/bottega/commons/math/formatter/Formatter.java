@@ -55,7 +55,7 @@ public class Formatter {
 
         switch (lang){
             case PL:
-                ArrayList<ArrayList<Byte>> chunkedDigits = UtilsPL.chunkArray(digits);
+                ArrayList<ArrayList<Byte>> chunkedDigits = chunkArray(digits);
                 return UtilsPL.formatBigNumber(chunkedDigits);
             case ENG:
                 break;
@@ -190,6 +190,60 @@ public class Formatter {
                 throw new IllegalArgumentException(lang + " is not supported");
         }
         throw new RuntimeException("coś dziwnego z danymi " + lang + " " + digit);
+    }
+
+    // Splits an array into equal 3-element arrays. If number of elements is not dividable by 3,
+    // additional zero's are inserted into the first array to make it contain 3-elements.
+    // in: {1}                      out: {{0,0,1}}
+    // in: {0,1,2,3}                out: {{0,0,0},{1,2,3}}
+    // in: {1,2,3,4}                out: {{0,0,1},{2,3,4}}
+    // in: {1,2,3,4,5},             out: {{0,1,2},{3,4,5}}
+    // in: {9,8,7,6,5,4,3,2,1,0}    out:{{0,0,9},{8,7,6},{5,4,3},{2,1,0}}
+    public static ArrayList<ArrayList<Byte>> chunkArray(List<Byte> array){
+        byte chunkSize = 3;
+        int remainingDigits = array.size() % chunkSize;
+        int numOfChunks = (int) Math.ceil((double) array.size() / chunkSize);
+        ArrayList<ArrayList<Byte>> result = new ArrayList<>();
+        result.add(getFirstArray(remainingDigits, array));
+
+        int start = remainingDigits;
+        if (remainingDigits == 0){
+            start = 3;
+        }
+        for (int i = 1; i < numOfChunks; i++){
+            ArrayList<Byte> tempArray1 = new ArrayList<>();
+            for (int j = 0; j < chunkSize; j++) {
+                tempArray1.add(array.get(start));
+                start++;
+            }
+            result.add(tempArray1);
+        }
+        return result;
+    }
+
+    private static ArrayList<Byte> getFirstArray(int remainingDigits, List<Byte> array){
+        ArrayList<Byte> tempArray = new ArrayList<>();
+
+        switch (remainingDigits){
+            case 1:
+                tempArray.add((byte) 0);
+                tempArray.add((byte) 0);
+                tempArray.add((array.get(0)));
+                break;
+            case 2:
+                tempArray.add((byte) 0);
+                tempArray.add((array.get(0)));
+                tempArray.add((array.get(1)));
+                break;
+            case 0:
+                tempArray.add((array.get(0)));
+                tempArray.add((array.get(1)));
+                tempArray.add((array.get(2)));
+                break;
+            default:
+                break;
+        }
+        return tempArray;
     }
 
     public List<Byte> getDigits() {
