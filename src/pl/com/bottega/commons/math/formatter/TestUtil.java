@@ -12,7 +12,7 @@ public class TestUtil {
     public static void main(String[] args) {
 
         ArrayList<Byte> a = new ArrayList<>();
-        a.add((byte)0);
+        a.add((byte)7);
         a.add((byte)0);
         a.add((byte)1);
 
@@ -22,14 +22,14 @@ public class TestUtil {
         b.add((byte)1);
 
         ArrayList<Byte> c = new ArrayList<>();
-        c.add((byte)0);
+        c.add((byte)8);
         c.add((byte)0);
         c.add((byte)1);
 
         ArrayList<Byte> d = new ArrayList<>();
-        d.add((byte)3);
-        d.add((byte)1);
-        d.add((byte)9);
+        d.add((byte)0);
+        d.add((byte)0);
+        d.add((byte)0);
 
         ArrayList<Byte> e = new ArrayList<>();
         e.add((byte)5);
@@ -44,7 +44,6 @@ public class TestUtil {
         result1.add(e);
 
         System.out.println(UtilsPL.formatBigNumber(result1));
-
 
     }
 }
