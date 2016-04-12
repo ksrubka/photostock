@@ -44,6 +44,5 @@ public class TestUtil {
         result1.add(e);
 
         System.out.println(UtilsPL.formatBigNumber(result1));
-
     }
 }
