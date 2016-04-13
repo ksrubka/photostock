@@ -71,7 +71,7 @@ public class Formatter {
      * @param lang
      * @return dla 123 zwraca jeden dwa trzy
      */
-    public String[] formatDigits(String lang) {
+    public String[] formatDigits(FormattingLanguage lang) {
         String[] result = new String[digits.size()];
 
         int nr = 0;
@@ -94,7 +94,7 @@ public class Formatter {
                 return DICTIONARY[0][lastDigitPL];
             case ENG:
                 byte lastDigitENG = digits.get(digits.size() - 1);
-                return DICTIONARY[0][lastDigitENG];
+                return DICTIONARY[1][lastDigitENG];
         }
         throw new IllegalArgumentException("This language is not supported.");
     }
@@ -122,13 +122,13 @@ public class Formatter {
             {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", " nine"}
     };
 
-    private String generteDigit2(Byte digit, String lang){
+    private String generteDigit2(Byte digit, FormattingLanguage lang){
         byte langNr;
         switch(lang){
-            case "pl":
+            case PL:
                 langNr = 0;
                 break;
-            case "eng":
+            case ENG:
                 langNr = 1;
                 break;
             default:
