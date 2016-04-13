@@ -12,7 +12,8 @@ public class FormatterApp {
 
 
 
-        System.out.println("********************************************************    Metoda  używająca  gotowej  instancji  Formattera    ********************************************************\n");
+        System.out.println("********************************************************    " +
+                "Metoda  używająca  gotowej  instancji  Formattera    ********************************************************\n");
 
 
         System.out.println("*************** Konstruktor Formater(String) *************** \n************ FormattingLanguage: PL ************\n");
@@ -41,8 +42,10 @@ public class FormatterApp {
 
 
 
-        System.out.println("********************************************************    Metody  tworzące  instancję  Formattera  z  parametru    ********************************************************");
-        System.out.println("********************************************************************    osobne  dla  String  i  long    *******************************************************************\n");
+        System.out.println("********************************************************    " +
+                "Metody  tworzące  instancję  Formattera  z  parametru    ********************************************************");
+        System.out.println("********************************************************************   " +
+                " osobne  dla  String  i  long    *******************************************************************\n");
 
 
 
@@ -65,11 +68,13 @@ public class FormatterApp {
 
 
 
-        System.out.println("***************************************  J E D N A   M E T O D A   B Y   W S Z Y S T K I M I   R Z Ą D Z I Ć . . . ***************************************\n");
+        System.out.println("***************************************  " +
+                "J E D N A   M E T O D A   B Y   W S Z Y S T K I M I   R Z Ą D Z I Ć . . . ***************************************\n");
 
         System.out.print(testThemAll("1234567457945178029", "123", 98263462811L, 46909L));
 
-        System.out.println("******************************************** . . .   I   W   C I E M N O Ś C I   Z G R O M A D Z I Ć   ********************************************");
+        System.out.println("******************************************** " +
+                ". . .   I   W   C I E M N O Ś C I   Z G R O M A D Z I Ć   ********************************************");
         System.out.println("************************ (tylko dla użytkowników Dracula Theme ;) ************************");
         System.out.println("... w przeciwnym wypadku należy gromadzić w jasności.");
     }
