@@ -1,5 +1,8 @@
 package pl.com.bottega.commons.math;
 
+import pl.com.bottega.commons.math.formatter.Formatter;
+import pl.com.bottega.commons.math.formatter.FormattingLanguage;
+
 /**
  * Created by Beata Iłowiecka on 19.03.2016.
  */
@@ -72,12 +75,6 @@ public class Fraction {
             return new Fraction(thisNominator + addendNominator, commonDenominator);
         }
     }
-
-    /*public String toString(){
-
-        return nominator + " / " + denominator;
-    }*/
-
 
     public String toString(){
 
@@ -180,5 +177,108 @@ public class Fraction {
         catch (IllegalArgumentException ex){
             throw new IllegalStateException("Zero can not be reversed", ex);
         }
+    }
+
+
+
+
+
+
+
+
+
+    public String toString(FormattingLanguage lang){
+        int newNominator = nominator % denominator;
+        int wholeNumber =  nominator / denominator;
+
+        Formatter wholeNumberFormatter = new Formatter(wholeNumber);
+        String wholeNumberFormatted = wholeNumberFormatter.formatNumbers(lang);
+
+        Formatter newNominatorFormatter = new Formatter(newNominator);
+        String newNominatorFormatted = newNominatorFormatter.formatNumbers(lang);
+
+        Formatter denominatorFormatter = new Formatter(denominator);
+        String denominatorFormatted = denominatorFormatter.formatNumbers(lang);
+
+        if (newNominator != 0){
+            return getFirstLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted, lang) +
+                    getSecondLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted, lang) +
+                    getThirdLineFormatted(wholeNumberFormatted, denominatorFormatted, lang);
+        }
+        else {
+            return getSecondLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted, lang);
+        }
+    }
+
+    private int addFormattedSpaces(String wholeNumberFormatted, FormattingLanguage lang){
+
+        int spaces = 0;
+
+        if (wholeNumberFormatted.length() != 0){
+            spaces += wholeNumberFormatted.length() + 1;
+        }
+        return spaces;
+    }
+
+    private int addMoreFormattedSpaces(String newNominatorFormatted, String denominatorFormatted, FormattingLanguage lang){
+
+
+        int spaces = (denominatorFormatted.length() / 2) - (newNominatorFormatted.length() / 2);
+
+        if (denominatorFormatted.length() - newNominatorFormatted.length() == 1){
+            return 0;
+        }
+        else if (newNominatorFormatted.length() % 2 == 1 && denominatorFormatted.length() % 2 == 0){
+            return --spaces;
+        }
+        else {
+            return spaces;
+        }
+    }
+
+    private String getFirstLineFormatted(String newNominatorFormatted, String denominatorFormatted, String wholeNumberFormatted, FormattingLanguage lang) {
+
+        StringBuilder firstLine = new StringBuilder();
+        int spaces = addFormattedSpaces(wholeNumberFormatted, lang) + addMoreFormattedSpaces(newNominatorFormatted, denominatorFormatted, lang);
+
+        for (int i = 0; i < spaces; i++){
+            firstLine.append(" ");
+        }
+        firstLine.append(newNominatorFormatted);
+        firstLine.append("\n");
+
+        return firstLine.toString();
+    }
+
+    private String getSecondLineFormatted(String newNominatorFormatted, String denominatorFormatted, String wholeNumberFormatted, FormattingLanguage lang) {
+
+        StringBuilder secondLine = new StringBuilder();
+
+        if (wholeNumberFormatted.length() != 0) {
+            secondLine.append(wholeNumberFormatted);
+            secondLine.append(" ");
+        }
+
+        if (newNominatorFormatted.length() != 0){
+            for (int i = 0; i < denominatorFormatted.length(); i++) {
+                secondLine.append("-");
+            }
+        }
+        secondLine.append("\n");
+
+        return secondLine.toString();
+    }
+
+    private String getThirdLineFormatted(String wholeNumberFormatted, String denominatorFormatted, FormattingLanguage lang) {
+
+        StringBuilder thirdLine = new StringBuilder();
+
+        for (int i = 0; i < addFormattedSpaces(wholeNumberFormatted, lang); i++){
+            thirdLine.append(" ");
+        }
+        thirdLine.append(denominatorFormatted);
+        thirdLine.append("\n");
+
+        return thirdLine.toString();
     }
 }
