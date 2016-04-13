@@ -8,16 +8,16 @@ import java.util.List;
  */
 public class UtilsPL {
 
-    public static final String[] HUNDREDS = {"", "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset"};
+    private static final String[] HUNDREDS = {"", "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset"};
 
-    public static final String[] TENS = {"", "", "dwadzieścia", "trzydzieści", "czterdzieści", "pięćdziesiąt", "sześćdziesiąt",
+    private static final String[] TENS = {"", "", "dwadzieścia", "trzydzieści", "czterdzieści", "pięćdziesiąt", "sześćdziesiąt",
             "siedemdziesiąt", "osiemdziesiąt", "dziewięćdziesiąt"};
 
-    public static final String[] SEVERALS = {"", "jeden", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć","dziesięć",
+    private static final String[] SEVERALS = {"", "jeden", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć","dziesięć",
             "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście",
             "siedemnaście", "osiemnaście", "dziewiętnaście"};
 
-    public static final String[][] BIG_NUMBERS = {
+    private static final String[][] BIG_NUMBERS = {
             {"", "tysiąc", "milion", "miliard", "bilion", "biliard", "trylion"},
             {"", "tysiące", "miliony", "miliardy", "biliony", "biliardy", "tryliony"},
             {"", "tysięcy", "milionów", "miliardów", "bilionów", "biliardów", "trylionów"}
@@ -77,8 +77,7 @@ public class UtilsPL {
                     result.append(HUNDREDS[currentDigit]);
                     break;
                 case 1:
-                    byte secondDigit = hundred.get(i);
-                    if (secondDigit == 1) {
+                    if (currentDigit == 1) {
                         String tempResult = String.valueOf(1) + String.valueOf(hundred.get(i + 1));
                         int several = Integer.parseInt(tempResult);
                         result.append(SEVERALS[several]);
