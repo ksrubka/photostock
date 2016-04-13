@@ -10,98 +10,144 @@ public class FormatterApp {
 
     public static void main(String[] args) {
 
-        // *************** Pierwszy test ***************
-        System.out.println("*************** Pierwszy test *************** \n*** Konstruktor Formater(String) ***\n");
+
+
+        System.out.println("********************************************************    Metoda  używająca  gotowej  instancji  Formattera    ********************************************************\n");
+
+
+        System.out.println("*************** Konstruktor Formater(String) *************** \n************ FormattingLanguage: PL ************\n");
         Formatter formatter1 = new Formatter("12345678901234");
 
-        /*System.out.println("get digits: ");
-        List<Byte> copyDigits1 = formatter1.getDigits();
-        printArray((ArrayList<Byte>) copyDigits1);
+        System.out.println(testFormatter(formatter1, FormattingLanguage.PL));
 
-        System.out.println("This is chunkedArray:");
-        ArrayList<ArrayList<Byte>> chunkArray = UtilsPL.chunkArray(copyDigits1);
-        printDigits1(chunkArray);*/
-
-        System.out.println("* Każda cyfra osobno: ");
-        String[] digits = formatter1.formatDigits("pl");
-        printDigits(digits);
-        System.out.println();
-
-        System.out.println("* Cała liczba: ");
-        String formattedNumber = formatter1.formatNumbers(FormattingLanguage.PL);
-        System.out.println(formattedNumber + "\n");
-
-        System.out.println("* Cyfra z indeksu 5: ");
-        String digitAtPosition = formatter1.getDigit(5, FormattingLanguage.PL);
-        System.out.println(digitAtPosition + "\n");
-
-        // *************** Drugi test ***************
-        System.out.println("*************** Drugi test *************** \n*** Konstruktor Formater(long) ***\n");
+        System.out.println("*************** Konstruktor Formater(long) *************** \n************ FormattingLanguage: PL ************\n");
 
         Formatter formatter2 = new Formatter(2123456678919607567L);
 
-        /*System.out.println("get digits: ");
-        List<Byte> copyDigits = formatter2.getDigits();
-        printArray((ArrayList<Byte>) copyDigits);
-
-        System.out.println("This is chunkedArray:");
-        ArrayList<ArrayList<Byte>> chunkArray1 = UtilsPL.chunkArray(copyDigits);
-        printDigits1(chunkArray1);*/
-
-        System.out.println("* Każda cyfra osobno: ");
-        String[] digits2 = formatter2.formatDigits("pl");
-        printDigits(digits2);
-        System.out.println();
-
-        System.out.println("* Cała liczba: ");
-        String formattedNumber2 = formatter2.formatNumbers(FormattingLanguage.PL);
-        System.out.println(formattedNumber2 + "\n");
-
-        System.out.println("* Cyfra z indeksu 5: ");
-        String digitAtPosition2 = formatter2.getDigit(5, FormattingLanguage.PL);
-        System.out.println(digitAtPosition2 + "\n");
+        System.out.println(testFormatter(formatter2, FormattingLanguage.PL));
 
 
-        // *************** Trzeci test ***************
-        System.out.println("*************** Trzeci test *************** \n*** FormattingLanguage: ENG ***\n");
+        System.out.println("*************** Konstruktor Formater(String) *************** \n*************** FormattingLanguage: ENG ***************\n");
 
-        Formatter formatter3 = new Formatter("1234789019876587234");
+        Formatter formatter3 = new Formatter("5567432147890194");
 
-        System.out.println("* Każda cyfra osobno: ");
-        String[] digits3 = formatter3.formatDigits("eng");
-        printDigits(digits3);
-        System.out.println();
+        System.out.println(testFormatter(formatter3, FormattingLanguage.ENG));
 
-        System.out.println("* Cała liczba: ");
-        String formattedNumber3 = formatter3.formatNumbers(FormattingLanguage.ENG);
-        System.out.println(formattedNumber3 + "\n");
+        System.out.println("*************** Konstruktor Formater(long) *************** \n************ FormattingLanguage: ENG ************\n");
 
-        System.out.println("* Cyfra z indeksu 5: ");
-        String digitAtPosition3 = formatter3.getDigit(5, FormattingLanguage.ENG);
-        System.out.println(digitAtPosition3 + "\n");
+        Formatter formatter4 = new Formatter("1587234");
+
+        System.out.println(testFormatter(formatter3, FormattingLanguage.ENG));
+
+
+
+        System.out.println("********************************************************    Metody  tworzące  instancję  Formattera  z  parametru    ********************************************************");
+        System.out.println("********************************************************************    osobne  dla  String  i  long    *******************************************************************\n");
+
+
+
+        System.out.println("*************** Konstruktor Formater(String) *************** \n************ FormattingLanguage: PL ************\n");
+
+        System.out.println(testStringFormatter("9090909090909112", FormattingLanguage.PL));
+
+        System.out.println("*************** Konstruktor Formater(long) *************** \n************ FormattingLanguage: PL ************\n");
+
+        System.out.println(testLongFormatter(2123456678919607567L, FormattingLanguage.PL));
+
+        System.out.println("*************** Konstruktor Formater(String) *************** \n*************** FormattingLanguage: ENG ***************\n");
+
+        System.out.println(testStringFormatter("123765432147890194", FormattingLanguage.ENG));
+
+        System.out.println("*************** Konstruktor Formater(long) *************** \n************ FormattingLanguage: ENG ************\n");
+
+        System.out.println(testLongFormatter(1587234L, FormattingLanguage.ENG));
+
+
+
+
+        System.out.println("***************************************  J E D N A   M E T O D A   B Y   W S Z Y S T K I M I   R Z Ą D Z I Ć . . . ***************************************\n");
+
+        System.out.print(testThemAll("1234567457945178029", "123", 98263462811L, 46909L));
+
+        System.out.println("******************************************** . . .   I   W   C I E M N O Ś C I   Z G R O M A D Z I Ć   ********************************************");
+        System.out.println("************************ (tylko dla użytkowników Dracula Theme ;) ************************");
+        System.out.println("... w przeciwnym wypadku należy gromadzić w jasności.");
     }
 
 
-    public static void printDigits(String[] digits){
-        for (String s : digits){
-            System.out.print(s + " ");
-        }
-        System.out.println();
+
+    public static String testThemAll(String stringFormatterParam1, String stringFormatterParam2, long longFormatterParam1, long longFormatterParam2){
+
+        StringBuilder test = new StringBuilder();
+
+        test.append("*************** Konstruktor Formater(String) *************** \n************ FormattingLanguage: PL ************\n");
+        test.append(testStringFormatter(stringFormatterParam1, FormattingLanguage.PL));
+
+        test.append("*************** Konstruktor Formater(long) *************** \n************ FormattingLanguage: PL ************\n");
+        test.append(testLongFormatter(longFormatterParam1, FormattingLanguage.PL));
+
+        test.append("*************** Konstruktor Formater(String) *************** \n*************** FormattingLanguage: ENG ***************\n");
+        test.append(testStringFormatter(stringFormatterParam2, FormattingLanguage.ENG));
+
+        test.append("*************** Konstruktor Formater(long) *************** \n************ FormattingLanguage: ENG ************\n");
+        test.append(testLongFormatter(longFormatterParam2, FormattingLanguage.ENG));
+
+        return test.toString();
     }
 
-    /*public static void printArray(ArrayList<Byte> array) {
-        for (Byte digit : array) {
-            System.out.print(digit);
-        }
-        System.out.println("\n");
+    private static String testStringFormatter(String formatterParam, FormattingLanguage lang){
+        Formatter formatter = new Formatter(formatterParam);
+
+        return testFormatter(formatter, lang);
     }
 
-    public static void printDigits1(ArrayList<ArrayList<Byte>> digits){
-        for (ArrayList<Byte> array : digits){
-            for (byte b : array){
-                System.out.print(b);
+    private static String testLongFormatter(Long formatterParam, FormattingLanguage lang){
+        Formatter formatter = new Formatter(formatterParam);
+
+        return testFormatter(formatter, lang);
+    }
+
+    private static String testFormatter(Formatter formatter, FormattingLanguage lang){
+        StringBuilder formatterTest = new StringBuilder();
+
+        formatterTest.append("* Liczba: \n");
+        ArrayList<ArrayList<Byte>> chunkedDigits = Formatter.chunkDigits(formatter.getDigits());
+        printDigits(chunkedDigits, formatterTest);
+
+        formatterTest.append("* Każda cyfra osobno: \n");
+        String[] digits = formatter.formatDigits(lang);
+        printDigits(digits, formatterTest);
+        formatterTest.append("\n");
+
+        formatterTest.append("* Cała liczba: \n");
+        String formattedNumber = formatter.formatNumbers(lang);
+        formatterTest.append(formattedNumber + "\n\n");
+
+        formatterTest.append("* Cyfra z indeksu 1: \n");
+        String digitAtPosition = formatter.getDigit(1, lang);
+        formatterTest.append(digitAtPosition + "\n\n");
+
+        return formatterTest.toString();
+    }
+
+    private static void printDigits(ArrayList<ArrayList<Byte>> digits, StringBuilder test){
+        for (ArrayList<Byte> hundred : digits){
+            for (byte digit : hundred){
+                // cut prefix zeros
+                if (digits.indexOf(hundred) == 0 && ((hundred.indexOf(digit) == 0 || hundred.indexOf(digit) == 1) && digit == 0)){
+                    continue;
+                }
+                test.append((digit));
             }
+            test.append(" ");
         }
-        System.out.println("\n");
-    }*/
+        test.append("\n\n");
+    }
+
+    private static void printDigits(String[] digits, StringBuilder test){
+        for (String digit : digits){
+            test.append((digit + " "));
+        }
+        test.append("\n");
+    }
 }
