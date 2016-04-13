@@ -15,25 +15,26 @@ public class UtilsENG {
             "seventeen", "eighteen", "nineteen"};
 
     private static final String[] BIG_NUMBERS =
-            {"", "thousand,", "million,", "billion,", "trillion,", "quadrillion,", "quintillion,"};
+            {"", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion"};
 
     public static String formatBigNumber(ArrayList<ArrayList<Byte>> hundredContainer){
         StringBuilder result = new StringBuilder();
         int index = hundredContainer.size() - 1;
 
-        for (ArrayList<Byte> byteArray : hundredContainer){
-            String formattedHundred = formatHundred(byteArray);
+        for (ArrayList<Byte> hundred : hundredContainer){
+            String formattedHundred = formatHundred(hundred);
 
             result.append(formattedHundred);
 
             // append name of a big number
             // if number is 0, don't write it's name
-            if (byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 0) {
+            if (hundred.get(0) == 0 && hundred.get(1) == 0 && hundred.get(2) == 0) {
                 index--;
                 continue;
             }
             result.append(BIG_NUMBERS[index--]);
-            result.append(" ");
+            if (hundredContainer.indexOf(hundred) != hundredContainer.size() - 1)
+                result.append(", ");
         }
         return result.toString();
     }

@@ -27,11 +27,11 @@ public class UtilsPL {
         StringBuilder result = new StringBuilder();
         int index = hundredContainer.size() - 1;
 
-        for (ArrayList<Byte> byteArray : hundredContainer){
-            String formattedHundred = formatHundred(byteArray);
+        for (ArrayList<Byte> hundred : hundredContainer){
+            String formattedHundred = formatHundred(hundred);
 
             // if last digit of a number == 1, add only name of a BIG_NUMBER
-            if ((byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 1)) {
+            if ((hundred.get(0) == 0 && hundred.get(1) == 0 && hundred.get(2) == 1)) {
                 result.append(BIG_NUMBERS[0][index--]);
                 result.append(" ");
                 continue;
@@ -40,25 +40,26 @@ public class UtilsPL {
 
             // append name of a big number
             // if number is 0, don't write it's name
-            if (byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 0) {
+            if (hundred.get(0) == 0 && hundred.get(1) == 0 && hundred.get(2) == 0) {
                 index--;
                 continue;
             }
             // if number is 1
-            else if ((byteArray.get(0) == 0 && byteArray.get(1) == 0 && byteArray.get(2) == 1)){
+            else if ((hundred.get(0) == 0 && hundred.get(1) == 0 && hundred.get(2) == 1)){
                 result.append(BIG_NUMBERS[0][index--]);
             }
-            else if (byteArray.get(1) == 1) {
+            else if (hundred.get(1) == 1) {
                 result.append(BIG_NUMBERS[2][index--]);
             }
-            else if ((byteArray.get(2) == 2 || byteArray.get(2) == 3 || byteArray.get(2) == 4)){
+            else if ((hundred.get(2) == 2 || hundred.get(2) == 3 || hundred.get(2) == 4)){
                 result.append(BIG_NUMBERS[1][index--]);
             }
             else {
                 result.append(BIG_NUMBERS[2][index--]);
             }
 
-            result.append(" ");
+            if (hundredContainer.indexOf(hundred) != hundredContainer.size() - 1)
+                result.append(", ");
         }
         return result.toString();
     }
