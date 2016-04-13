@@ -55,10 +55,10 @@ public class Formatter {
 
         switch (lang){
             case PL:
-                ArrayList<ArrayList<Byte>> chunkedDigitsPL = chunkArray(digits);
+                ArrayList<ArrayList<Byte>> chunkedDigitsPL = chunkDigits(digits);
                 return UtilsPL.formatBigNumber(chunkedDigitsPL);
             case ENG:
-                ArrayList<ArrayList<Byte>> chunkedDigitsENG = chunkArray(digits);
+                ArrayList<ArrayList<Byte>> chunkedDigitsENG = chunkDigits(digits);
                 return UtilsENG.formatBigNumber(chunkedDigitsENG);
             default:
                 break;
@@ -199,13 +199,14 @@ public class Formatter {
     // in: {0,1,2,3}                out: {{0,0,0},{1,2,3}}
     // in: {1,2,3,4}                out: {{0,0,1},{2,3,4}}
     // in: {1,2,3,4,5},             out: {{0,1,2},{3,4,5}}
-    // in: {9,8,7,6,5,4,3,2,1,0}    out:{{0,0,9},{8,7,6},{5,4,3},{2,1,0}}
-    public static ArrayList<ArrayList<Byte>> chunkArray(List<Byte> array){
+    // in: {9,8,7,6,5,4,3,2,1,0}    out: {{0,0,9},{8,7,6},{5,4,3},{2,1,0}}
+    public static ArrayList<ArrayList<Byte>> chunkDigits(List<Byte> digits){
         byte chunkSize = 3;
-        int remainingDigits = array.size() % chunkSize;
-        int numOfChunks = (int) Math.ceil((double) array.size() / chunkSize);
+        int remainingDigits = digits.size() % chunkSize;
+        int numOfChunks = (int) Math.ceil((double) digits.size() / chunkSize);
         ArrayList<ArrayList<Byte>> result = new ArrayList<>();
-        result.add(getFirstArray(remainingDigits, array));
+
+        result.add(getFirstHundred(remainingDigits, digits));
 
         int start = remainingDigits;
         if (remainingDigits == 0){
@@ -214,7 +215,7 @@ public class Formatter {
         for (int i = 1; i < numOfChunks; i++){
             ArrayList<Byte> tempArray1 = new ArrayList<>();
             for (int j = 0; j < chunkSize; j++) {
-                tempArray1.add(array.get(start));
+                tempArray1.add(digits.get(start));
                 start++;
             }
             result.add(tempArray1);
@@ -222,24 +223,24 @@ public class Formatter {
         return result;
     }
 
-    private static ArrayList<Byte> getFirstArray(int remainingDigits, List<Byte> array){
+    private static ArrayList<Byte> getFirstHundred(int remainingDigits, List<Byte> digits){
         ArrayList<Byte> tempArray = new ArrayList<>();
 
         switch (remainingDigits){
             case 1:
                 tempArray.add((byte) 0);
                 tempArray.add((byte) 0);
-                tempArray.add((array.get(0)));
+                tempArray.add((digits.get(0)));
                 break;
             case 2:
                 tempArray.add((byte) 0);
-                tempArray.add((array.get(0)));
-                tempArray.add((array.get(1)));
+                tempArray.add((digits.get(0)));
+                tempArray.add((digits.get(1)));
                 break;
             case 0:
-                tempArray.add((array.get(0)));
-                tempArray.add((array.get(1)));
-                tempArray.add((array.get(2)));
+                tempArray.add((digits.get(0)));
+                tempArray.add((digits.get(1)));
+                tempArray.add((digits.get(2)));
                 break;
             default:
                 break;

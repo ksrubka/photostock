@@ -7,21 +7,21 @@ import java.util.ArrayList;
  */
 public class UtilsENG {
 
-    public static final String[] TENS = {"", "", "twenty", "thirty", "fourty", "fifty", "sixty",
+    private static final String[] TENS = {"", "", "twenty", "thirty", "fourty", "fifty", "sixty",
             "seventy", "eighty", "ninety"};
 
-    public static final String[] SEVERALS = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+    private static final String[] SEVERALS = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
             "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
             "seventeen", "eighteen", "nineteen"};
 
-    public static final String[] BIG_NUMBERS =
+    private static final String[] BIG_NUMBERS =
             {"", "thousand,", "million,", "billion,", "trillion,", "quadrillion,", "quintillion,"};
 
-    public static String formatBigNumber(ArrayList<ArrayList<Byte>> arrayOfArrays){
+    public static String formatBigNumber(ArrayList<ArrayList<Byte>> hundredContainer){
         StringBuilder result = new StringBuilder();
-        int index = arrayOfArrays.size() - 1;
+        int index = hundredContainer.size() - 1;
 
-        for (ArrayList<Byte> byteArray : arrayOfArrays){
+        for (ArrayList<Byte> byteArray : hundredContainer){
             String formattedHundred = formatHundred(byteArray);
 
             result.append(formattedHundred);
@@ -38,14 +38,14 @@ public class UtilsENG {
         return result.toString();
     }
 
-    // in: {0,0,1}          out: jeden
-    // in: {1,0,5}          out: sto pięć
-    // in: {3,2,9}          out: trzysta dwadzieścia dziewięć
-    public static String formatHundred(ArrayList<Byte> byteArray){
+    // in: {0,0,1}          out: one
+    // in: {1,0,5}          out: one hundred five
+    // in: {3,2,9}          out: three hundred twenty-nine
+    public static String formatHundred(ArrayList<Byte> hundred){
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < 3; i++){
-            byte currentDigit = byteArray.get(i);
+            byte currentDigit = hundred.get(i);
 
             if (currentDigit != 0){
                 switch (i){
@@ -55,7 +55,7 @@ public class UtilsENG {
                         break;
                     case 1:
                         if (currentDigit == 1) {
-                            String tempResult = String.valueOf(1) + String.valueOf(byteArray.get(i + 1));
+                            String tempResult = String.valueOf(1) + String.valueOf(hundred.get(i + 1));
                             int several = Integer.parseInt(tempResult);
                             result.append(SEVERALS[several]);
                             // break for loop
@@ -63,7 +63,7 @@ public class UtilsENG {
                         }
                         else {
                             result.append(TENS[currentDigit]);
-                            if (byteArray.get(i + 1) != 0){
+                            if (hundred.get(i + 1) != 0){
                                 result.append("-");
                                 continue;
                             }

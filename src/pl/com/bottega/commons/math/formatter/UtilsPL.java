@@ -23,11 +23,11 @@ public class UtilsPL {
             {"", "tysięcy", "milionów", "miliardów", "bilionów", "biliardów", "trylionów"}
     };
 
-    public static String formatBigNumber(ArrayList<ArrayList<Byte>> arrayOfArrays){
+    public static String formatBigNumber(ArrayList<ArrayList<Byte>> hundredContainer){
         StringBuilder result = new StringBuilder();
-        int index = arrayOfArrays.size() - 1;
+        int index = hundredContainer.size() - 1;
 
-        for (ArrayList<Byte> byteArray : arrayOfArrays){
+        for (ArrayList<Byte> byteArray : hundredContainer){
             String formattedHundred = formatHundred(byteArray);
 
             // if last digit of a number == 1, add only name of a BIG_NUMBER
@@ -66,22 +66,23 @@ public class UtilsPL {
     // in: {0,0,1}          out: jeden
     // in: {1,0,5}          out: sto pięć
     // in: {3,2,9}          out: trzysta dwadzieścia dziewięć
-    public static String formatHundred(ArrayList<Byte> byteArray){
+    public static String formatHundred(ArrayList<Byte> hundred){
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < 3; i++){
-            byte currentDigit = byteArray.get(i);
+            byte currentDigit = hundred.get(i);
 
             switch (i){
                 case 0:
                     result.append(HUNDREDS[currentDigit]);
                     break;
                 case 1:
-                    byte secondDigit = byteArray.get(i);
+                    byte secondDigit = hundred.get(i);
                     if (secondDigit == 1) {
-                        String tempResult = String.valueOf(1) + String.valueOf(byteArray.get(i + 1));
+                        String tempResult = String.valueOf(1) + String.valueOf(hundred.get(i + 1));
                         int several = Integer.parseInt(tempResult);
                         result.append(SEVERALS[several]);
+                        // break for loop
                         i = 2;
                     }
                     else {
