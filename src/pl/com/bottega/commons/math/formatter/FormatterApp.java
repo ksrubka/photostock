@@ -132,6 +132,10 @@ public class FormatterApp {
         String digitAtPosition = formatter.getDigit(1, lang);
         formatterTest.append(digitAtPosition + "\n\n");
 
+        formatterTest.append("* Cyfra z ostatniego indeksu: \n");
+        String digitAtLastPosition = formatter.getLastDigit(lang);
+        formatterTest.append(digitAtLastPosition + "\n\n");
+
         return formatterTest.toString();
     }
 
