@@ -21,8 +21,9 @@ public class UtilsENG {
     public static String formatBigNumber(List<List<Byte>> hundredContainer){
         StringBuilder result = new StringBuilder();
         int index = hundredContainer.size() - 1;
+        List<Byte> lastHundred = hundredContainer.get(hundredContainer.size() - 1);
 
-        for (List<Byte> hundred : hundredContainer){
+        for (List<Byte> hundred : hundredContainer) {
             String formattedHundred = formatHundred(hundred);
 
             result.append(formattedHundred);
@@ -34,8 +35,7 @@ public class UtilsENG {
                 continue;
             }
             result.append(BIG_NUMBERS[index--]);
-            if (hundredContainer.indexOf(hundred) != hundredContainer.size() - 1)
-                result.append(", ");
+            result.append(" ");
         }
         return result.toString();
     }
