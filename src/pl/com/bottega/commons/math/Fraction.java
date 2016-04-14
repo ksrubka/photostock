@@ -193,16 +193,16 @@ public class Fraction {
         String denominatorFormatted = denominatorFormatter.formatNumbers(lang);
 
         if (newNominator != 0){
-            return getFirstLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted, lang) +
-                    getSecondLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted, lang) +
-                    getThirdLineFormatted(wholeNumberFormatted, denominatorFormatted, lang);
+            return getFirstLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted) +
+                    getSecondLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted) +
+                    getThirdLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted);
         }
         else {
-            return getSecondLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted, lang);
+            return getSecondLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted);
         }
     }
 
-    private int addFormattedSpaces(String wholeNumberFormatted, FormattingLanguage lang){
+    private int addFormattedSpaces(String wholeNumberFormatted){
 
         int spaces = 0;
 
@@ -212,26 +212,35 @@ public class Fraction {
         return spaces;
     }
 
-    private int addMoreFormattedSpaces(String newNominatorFormatted, String denominatorFormatted, FormattingLanguage lang){
+    private int addSpacesForDenominator(String newNominatorFormatted, String denominatorFormatted){
 
+        int spacesBiggerDenominator = (denominatorFormatted.length() / 2) - (newNominatorFormatted.length() / 2);
+        int spacesBiggerNominator = (newNominatorFormatted.length() / 2) - (denominatorFormatted.length() / 2);
 
-        int spaces = (denominatorFormatted.length() / 2) - (newNominatorFormatted.length() / 2);
+        int result = (denominatorFormatted.length() >= newNominatorFormatted.length()) ? spacesBiggerDenominator : spacesBiggerNominator;
+        int spaces = result;
 
-        if (denominatorFormatted.length() - newNominatorFormatted.length() == 1){
-            return 0;
-        }
-        else if (newNominatorFormatted.length() % 2 == 1 && denominatorFormatted.length() % 2 == 0){
-            return --spaces;
-        }
-        else {
-            return spaces;
-        }
+        return spaces;
     }
 
-    private String getFirstLineFormatted(String newNominatorFormatted, String denominatorFormatted, String wholeNumberFormatted, FormattingLanguage lang) {
+    private int addSpacesForNominator(String newNominatorFormatted, String denominatorFormatted){
+
+        int spacesBiggerDenominator = (denominatorFormatted.length() / 2) - (newNominatorFormatted.length() / 2);
+        int spacesBiggerNominator = (newNominatorFormatted.length() / 2) - (denominatorFormatted.length() / 2);
+
+        int result = (denominatorFormatted.length() <= newNominatorFormatted.length()) ? spacesBiggerNominator : spacesBiggerDenominator;
+        int spaces = result;
+
+        return spaces;
+    }
+
+    private String getFirstLineFormatted(String newNominatorFormatted, String denominatorFormatted, String wholeNumberFormatted) {
 
         StringBuilder firstLine = new StringBuilder();
-        int spaces = addFormattedSpaces(wholeNumberFormatted, lang) + addMoreFormattedSpaces(newNominatorFormatted, denominatorFormatted, lang);
+        int spaces = addFormattedSpaces(wholeNumberFormatted);
+        if (newNominatorFormatted.length() < denominatorFormatted.length()){
+            spaces+= addSpacesForNominator(newNominatorFormatted, denominatorFormatted);
+        }
 
         for (int i = 0; i < spaces; i++){
             firstLine.append(" ");
@@ -242,17 +251,20 @@ public class Fraction {
         return firstLine.toString();
     }
 
-    private String getSecondLineFormatted(String newNominatorFormatted, String denominatorFormatted, String wholeNumberFormatted, FormattingLanguage lang) {
+    private String getSecondLineFormatted(String newNominatorFormatted, String denominatorFormatted, String wholeNumberFormatted) {
 
         StringBuilder secondLine = new StringBuilder();
 
+        // if there is a whole number, append it
         if (wholeNumberFormatted.length() != 0) {
             secondLine.append(wholeNumberFormatted);
             secondLine.append(" ");
         }
 
+        // if there is a fraction, append it
         if (newNominatorFormatted.length() != 0){
-            for (int i = 0; i < denominatorFormatted.length(); i++) {
+            int result = (denominatorFormatted.length() >= newNominatorFormatted.length()) ? denominatorFormatted.length() : newNominatorFormatted.length();
+            for (int i = 0; i < result; i++) {
                 secondLine.append("-");
             }
         }
@@ -261,11 +273,16 @@ public class Fraction {
         return secondLine.toString();
     }
 
-    private String getThirdLineFormatted(String wholeNumberFormatted, String denominatorFormatted, FormattingLanguage lang) {
+    private String getThirdLineFormatted(String newNominatorFormatted, String denominatorFormatted, String wholeNumberFormatted) {
 
         StringBuilder thirdLine = new StringBuilder();
 
-        for (int i = 0; i < addFormattedSpaces(wholeNumberFormatted, lang); i++){
+        int spaces = addFormattedSpaces(wholeNumberFormatted);
+        if (newNominatorFormatted.length() > denominatorFormatted.length()){
+            spaces+= addSpacesForDenominator(newNominatorFormatted, denominatorFormatted);
+        }
+
+        for (int i = 0; i < spaces; i++){
             thirdLine.append(" ");
         }
         thirdLine.append(denominatorFormatted);

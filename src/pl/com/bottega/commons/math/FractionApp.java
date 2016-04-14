@@ -13,11 +13,17 @@ public class FractionApp {
         int b = Integer.parseInt(args[1]);
 
         Fraction f1 = new Fraction(a, b);
+        Fraction f2 = new Fraction(1000, 12345678);
 
         System.out.println("\n\n" + f1.toString());
 
-        System.out.println(f1.toString(FormattingLanguage.PL) + "\n");
-        System.out.println(f1.toString(FormattingLanguage.ENG));
+        System.out.println("***********************  L I C Z N I K   >   M I N A O W N I K  ***********************\n");
+        System.out.println(f1.toString(FormattingLanguage.PL));
+        System.out.println(f1.toString(FormattingLanguage.ENG)+ "\n\n");
+
+        System.out.println("***********************  L I C Z N I K   <   M I N A O W N I K  ***********************\n");
+        System.out.println(f2.toString(FormattingLanguage.PL));
+        System.out.println(f2.toString(FormattingLanguage.ENG) + "\n");
 
         /*try {
             Fraction fReversed = f1.reverse();
