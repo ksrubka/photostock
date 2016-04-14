@@ -21,7 +21,6 @@ public class UtilsENG {
     public static String formatBigNumber(List<List<Byte>> hundredContainer){
         StringBuilder result = new StringBuilder();
         int index = hundredContainer.size() - 1;
-        List<Byte> lastHundred = hundredContainer.get(hundredContainer.size() - 1);
 
         for (List<Byte> hundred : hundredContainer) {
             String formattedHundred = formatHundred(hundred);
