@@ -1,6 +1,7 @@
 package pl.com.bottega.commons.math.formatter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Beata Iłowiecka on 11.04.16.
@@ -17,11 +18,11 @@ public class UtilsENG {
     private static final String[] BIG_NUMBERS =
             {"", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion"};
 
-    public static String formatBigNumber(ArrayList<ArrayList<Byte>> hundredContainer){
+    public static String formatBigNumber(List<List<Byte>> hundredContainer){
         StringBuilder result = new StringBuilder();
         int index = hundredContainer.size() - 1;
 
-        for (ArrayList<Byte> hundred : hundredContainer){
+        for (List<Byte> hundred : hundredContainer){
             String formattedHundred = formatHundred(hundred);
 
             result.append(formattedHundred);
@@ -42,7 +43,7 @@ public class UtilsENG {
     // in: {0,0,1}          out: one
     // in: {1,0,5}          out: one hundred five
     // in: {3,2,9}          out: three hundred twenty-nine
-    public static String formatHundred(ArrayList<Byte> hundred){
+    public static String formatHundred(List<Byte> hundred){
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < 3; i++){

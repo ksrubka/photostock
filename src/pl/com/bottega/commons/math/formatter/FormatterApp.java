@@ -116,7 +116,7 @@ public class FormatterApp {
         StringBuilder formatterTest = new StringBuilder();
 
         formatterTest.append("* Liczba: \n");
-        ArrayList<ArrayList<Byte>> chunkedDigits = Formatter.chunkDigits(formatter.getDigits());
+        List<List<Byte>> chunkedDigits = Formatter.chunkDigits(formatter.getDigits());
         printDigits(chunkedDigits, formatterTest);
 
         formatterTest.append("* Każda cyfra osobno: \n");
@@ -139,8 +139,8 @@ public class FormatterApp {
         return formatterTest.toString();
     }
 
-    private static void printDigits(ArrayList<ArrayList<Byte>> digits, StringBuilder test){
-        for (ArrayList<Byte> hundred : digits){
+    private static void printDigits(List<List<Byte>> digits, StringBuilder test){
+        for (List<Byte> hundred : digits){
             for (byte digit : hundred){
                 // cut prefix zeros
                 if (digits.indexOf(hundred) == 0 && ((hundred.indexOf(digit) == 0 || hundred.indexOf(digit) == 1) && digit == 0)){

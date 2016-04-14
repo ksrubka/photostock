@@ -179,14 +179,6 @@ public class Fraction {
         }
     }
 
-
-
-
-
-
-
-
-
     public String toString(FormattingLanguage lang){
         int newNominator = nominator % denominator;
         int wholeNumber =  nominator / denominator;

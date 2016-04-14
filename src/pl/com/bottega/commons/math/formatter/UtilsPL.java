@@ -23,11 +23,11 @@ public class UtilsPL {
             {"", "tysięcy", "milionów", "miliardów", "bilionów", "biliardów", "trylionów"}
     };
 
-    public static String formatBigNumber(ArrayList<ArrayList<Byte>> hundredContainer){
+    public static String formatBigNumber(List<List<Byte>> hundredContainer){
         StringBuilder result = new StringBuilder();
         int index = hundredContainer.size() - 1;
 
-        for (ArrayList<Byte> hundred : hundredContainer){
+        for (List<Byte> hundred : hundredContainer){
             String formattedHundred = formatHundred(hundred);
 
             // if last digit of a number == 1, add only name of a BIG_NUMBER
@@ -67,7 +67,7 @@ public class UtilsPL {
     // in: {0,0,1}          out: jeden
     // in: {1,0,5}          out: sto pięć
     // in: {3,2,9}          out: trzysta dwadzieścia dziewięć
-    public static String formatHundred(ArrayList<Byte> hundred){
+    public static String formatHundred(List<Byte> hundred){
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < 3; i++){

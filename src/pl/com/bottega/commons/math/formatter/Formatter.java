@@ -55,10 +55,10 @@ public class Formatter {
 
         switch (lang){
             case PL:
-                ArrayList<ArrayList<Byte>> chunkedDigitsPL = chunkDigits(digits);
+                List<List<Byte>> chunkedDigitsPL = chunkDigits(digits);
                 return UtilsPL.formatBigNumber(chunkedDigitsPL);
             case ENG:
-                ArrayList<ArrayList<Byte>> chunkedDigitsENG = chunkDigits(digits);
+                List<List<Byte>> chunkedDigitsENG = chunkDigits(digits);
                 return UtilsENG.formatBigNumber(chunkedDigitsENG);
             default:
                 break;
@@ -200,11 +200,11 @@ public class Formatter {
     // in: {1,2,3,4}                out: {{0,0,1},{2,3,4}}
     // in: {1,2,3,4,5},             out: {{0,1,2},{3,4,5}}
     // in: {9,8,7,6,5,4,3,2,1,0}    out: {{0,0,9},{8,7,6},{5,4,3},{2,1,0}}
-    public static ArrayList<ArrayList<Byte>> chunkDigits(List<Byte> digits){
+    public static List<List<Byte>> chunkDigits(List<Byte> digits){
         byte chunkSize = 3;
         int remainingDigits = digits.size() % chunkSize;
         int numOfChunks = (int) Math.ceil((double) digits.size() / chunkSize);
-        ArrayList<ArrayList<Byte>> result = new ArrayList<>();
+        List<List<Byte>> result = new ArrayList<>();
 
         result.add(getFirstHundred(remainingDigits, digits));
 
@@ -213,7 +213,7 @@ public class Formatter {
             start = 3;
         }
         for (int i = 1; i < numOfChunks; i++){
-            ArrayList<Byte> tempArray1 = new ArrayList<>();
+            List<Byte> tempArray1 = new ArrayList<>();
             for (int j = 0; j < chunkSize; j++) {
                 tempArray1.add(digits.get(start));
                 start++;
@@ -223,8 +223,8 @@ public class Formatter {
         return result;
     }
 
-    private static ArrayList<Byte> getFirstHundred(int remainingDigits, List<Byte> digits){
-        ArrayList<Byte> tempArray = new ArrayList<>();
+    private static List<Byte> getFirstHundred(int remainingDigits, List<Byte> digits){
+        List<Byte> tempArray = new ArrayList<>();
 
         switch (remainingDigits){
             case 1:
