@@ -212,9 +212,9 @@ public class Formatter {
         if (remainingDigits == 0){
             start = 3;
         }
-        for (int i = 1; i < numOfChunks; i++){
+        for (int chunkNumber = 1; chunkNumber < numOfChunks; chunkNumber++){
             List<Byte> tempArray1 = new ArrayList<>();
-            for (int j = 0; j < chunkSize; j++) {
+            for (int hundredNumber = 1; hundredNumber <= chunkSize; hundredNumber++) {
                 tempArray1.add(digits.get(start));
                 start++;
             }
