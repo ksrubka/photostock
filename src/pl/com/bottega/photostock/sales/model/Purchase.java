@@ -13,10 +13,12 @@ public class Purchase {
 
     private Date PurchaseData;
     private Client owner;
+    private Date createDate;
     private List<Product> items;
 
     public Purchase(Client owner, List<Product> items) {
         this.owner = owner;
         this.items = items;
+        this.createDate = new Date();
     }
 }
