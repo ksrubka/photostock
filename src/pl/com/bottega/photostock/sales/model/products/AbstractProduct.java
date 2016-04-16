@@ -114,4 +114,19 @@ public abstract class AbstractProduct implements Product {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractProduct)) return false;
+
+        AbstractProduct product = (AbstractProduct) o;
+
+        return number.equals(product.number);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return number.hashCode();
+    }
 }
