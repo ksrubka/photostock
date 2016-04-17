@@ -20,25 +20,27 @@ public class ReservationTestConsoleApp {
         Product mustang = repo.load("nr1");
         Product multipla = repo.load("nr2");
         Product mazda = repo.load("nr3");
-        Product kotek = repo.load("01");
-        Product clip = repo.load("01a");
+        Product programming = repo.load("nr4");
+        Product boy = repo.load("nr5");
+        Product ceiling = repo.load("nr6");
 
         Client takiSobieClient = new Client("Zegrzysław", "tajny", 120);
 
         Reservation reservation = new Reservation(takiSobieClient);
 
         try {
-            reservation.add(mustang, mazda, multipla, kotek, clip);
+            reservation.add(mustang, boy, mazda, ceiling, multipla, programming);
             reservation.generateOffer();
         }
         catch (ProductNotAvailableException ex){
             System.out.println(ex.getClazz() + " " + ex.getMessage() + " " + ex.getNumber());
         }
 
-        repo.save(mustang);
+        /*repo.save(mustang);
         repo.save(multipla);
         repo.save(mazda);
-        repo.save(kotek);
-        repo.save(clip);
+        repo.save(programming);
+        repo.save(boy);
+        repo.save(ceiling);*/
     }
 }
