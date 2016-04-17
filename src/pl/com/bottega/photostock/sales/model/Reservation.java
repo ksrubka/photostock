@@ -3,9 +3,7 @@ package pl.com.bottega.photostock.sales.model;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 import pl.com.bottega.photostock.sales.model.products.Product;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
@@ -48,7 +46,14 @@ public class Reservation {
                 result.add(product);
             }
         }
+        Comparator<Product> comparator = new PriceAndNameProductComparator();
+        Collections.sort(result, comparator);
+
         Offer offer = new Offer(owner, result);
+
+        for (Product product : offer.getItems()){
+            System.out.println("Nr produktu: " + product.getNumber() + ", cena: " + product.getPrice());
+        }
         return offer;
     }
 
