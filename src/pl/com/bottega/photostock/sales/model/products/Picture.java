@@ -18,7 +18,7 @@ public class Picture extends AbstractProduct {
     }
 
     public Picture() {
-        this("01", 13, new String[]{"mouse", "screen", "coffee", "crayons"}, true);
+        this("nr4", 13, new String[]{"mouse", "screen", "coffee", "crayons"}, true);
     }
 
 

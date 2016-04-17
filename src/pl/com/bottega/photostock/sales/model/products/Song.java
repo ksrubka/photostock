@@ -40,6 +40,6 @@ public class Song extends AbstractProduct{
     }
 
     public Song(){
-        this("001", 12, new String[] {"black keys", "ceiling", "gold"}, "Black keys", "Gold on the ceiling", Duration.ofSeconds(225), CHANNEL.STEREO);
+        this("nr6", 12, new String[] {"black keys", "ceiling", "gold"}, "Black keys", "Gold on the ceiling", Duration.ofSeconds(225), CHANNEL.STEREO);
     }
 }

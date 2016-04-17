@@ -23,6 +23,6 @@ public class Clip extends AbstractProduct{
     }
 
     public Clip(){
-        this("01a", 10, new String[] {"Boy", "clapping", "numbers"}, Duration.ofSeconds(224), true);
+        this("nr5", 10, new String[] {"Boy", "clapping", "numbers"}, Duration.ofSeconds(224), true);
     }
 }
