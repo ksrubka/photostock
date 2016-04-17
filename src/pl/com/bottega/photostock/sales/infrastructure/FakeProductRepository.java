@@ -1,9 +1,6 @@
 package pl.com.bottega.photostock.sales.infrastructure;
 
-import pl.com.bottega.photostock.sales.model.products.Clip;
-import pl.com.bottega.photostock.sales.model.products.Picture;
-import pl.com.bottega.photostock.sales.model.products.Product;
-import pl.com.bottega.photostock.sales.model.products.ProductRepository;
+import pl.com.bottega.photostock.sales.model.products.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,17 +14,20 @@ public class FakeProductRepository implements ProductRepository {
 
     // inicjalizator klasy ale nie dla obiektów tej klasy
     static {
-        Picture mustang = new Picture("nr1", 10, new String[] {"ford", "mustang"});
-        Picture multipla = new Picture("nr2", 10, new String[] {"fiat", "multipla"});
-        Picture mazda = new Picture("nr3", 10, new String[] {"mazda", "multipla"});
-        Picture kotek = new Picture(); // nr: 01
-        Clip clip = new Clip(); // 01a
+        Product mustang = new Picture("nr1", 10, new String[] {"ford", "mustang"});
+        Product multipla = new Picture("nr2", 10, new String[] {"fiat", "multipla"});
+        Product mazda = new Picture("nr3", 10, new String[] {"mazda", "multipla"});
+        Product programming = new Picture(); // nr4
+        Product boy = new Clip(); // nr5
+        Product ceiling = new Song(); //nr6
+
 
         fakeDatabase.put(mustang.getNumber(), mustang);
         fakeDatabase.put(multipla.getNumber(), multipla);
         fakeDatabase.put(mazda.getNumber(), mazda);
-        fakeDatabase.put(kotek.getNumber(), kotek);
-        fakeDatabase.put(clip.getNumber(), clip);
+        fakeDatabase.put(programming.getNumber(), programming);
+        fakeDatabase.put(boy.getNumber(), boy);
+        fakeDatabase.put(ceiling.getNumber(), ceiling);
     }
     @Override
     public Product load(String number) {
