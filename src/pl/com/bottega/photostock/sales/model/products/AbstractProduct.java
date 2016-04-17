@@ -1,6 +1,7 @@
 package pl.com.bottega.photostock.sales.model.products;
 
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.ProductNotAvailableException;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,10 @@ public abstract class AbstractProduct implements Product {
     }
 
     public boolean isAvailable(){
+
+        if (active == false){
+            throw new ProductNotAvailableException("Produkt jest niedostępny", number, this.getClass());
+        }
         return active;
     }
 
