@@ -35,4 +35,22 @@ public class Probability {
             throw new IllegalArgumentException("value must be <0,1>");
         return new Probability(value);
     }
+
+    public boolean equals(Probability p2) {
+        if (this == p2) return true;
+
+        double delta = 0.00001;
+        Probability lessLikely;
+        Probability moreLikely;
+
+        if (this.value - p2.value < 0){
+            lessLikely = this;
+            moreLikely = p2;
+        }
+        else {
+            lessLikely = p2;
+            moreLikely = this;
+        }
+        return (moreLikely.value - lessLikely.value < delta);
+    }
 }
