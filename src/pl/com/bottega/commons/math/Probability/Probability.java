@@ -5,7 +5,7 @@ package pl.com.bottega.commons.math.Probability;
  */
 public class Probability {
 
-    /*public enum EventType {
+      /*public enum EventType {
         FRACTION, PERCENT;
     }*/
 
@@ -24,13 +24,13 @@ public class Probability {
         return Double.toString(value);
     }
 
-    public static Probability fromPercentage(double value){
+    public static Probability fromPercentage(double value) {
         if (value < 0 || value > 100)
-            throw new IllegalArgumentException("value must be <0,100>");
+            throw new IllegalArgumentException("value must be <0, 100>");
         return new Probability(value);
     }
 
-    public static Probability fromFraction(double value){
+    public static Probability fromFraction(double value) {
         if (value < 0 || value > 1)
             throw new IllegalArgumentException("value must be <0,1>");
         return new Probability(value);
