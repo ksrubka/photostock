@@ -51,6 +51,13 @@ public class Probability {
             lessLikely = p2;
             moreLikely = this;
         }
+
         return (moreLikely.value - lessLikely.value < delta);
     }
+
+   /* @Override
+    public int hashCode() {
+        long temp = Double.doubleToLongBits(value);
+        return (int) (temp ^ (temp >>> 32));
+    }*/
 }
