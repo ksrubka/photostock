@@ -1,10 +1,9 @@
 package pl.com.bottega.photostock.sales.application;
 
-import pl.com.bottega.photostock.sales.infrastructure.FakeProductRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeProductRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.ProductNotAvailableException;
 import pl.com.bottega.photostock.sales.model.Reservation;
-import pl.com.bottega.photostock.sales.model.products.Clip;
 import pl.com.bottega.photostock.sales.model.products.Product;
 import pl.com.bottega.photostock.sales.model.products.ProductRepository;
 
