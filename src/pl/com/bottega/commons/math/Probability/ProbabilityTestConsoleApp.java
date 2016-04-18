@@ -9,11 +9,11 @@ import static pl.com.bottega.commons.math.Probability.Probability.fromPercentage
 public class ProbabilityTestConsoleApp {
 
     public static void main(String[] args){
-        /*shouldCreateFractionRepresentation();
-        canNotCreateFractionRepresentation();
+        shouldCreateFractionRepresentation();
+        canNotCreateFractionRepresentationIfValueGTOne();
 
         shouldCreatePercentageRepresentation();
-        canNotCreatePercentageRepresentation();*/
+        canNotCreatePercentageRepresentation();
 
         shouldCalculateIfDifferentRepresentation();
         shouldEqualZeroIfOneIsZero();
@@ -29,9 +29,9 @@ public class ProbabilityTestConsoleApp {
         System.out.println("wynik: " + bothEvents);
     }
 
-    /*private static void canNotCreatePercentageRepresentation() {
+    private static void canNotCreatePercentageRepresentation() {
         try {
-            Probability p = new Probability(190.5);
+            Probability p = Probability.fromPercentage(190.5);
             throw new RuntimeException("Powinien być wyjątek");
         } catch (IllegalArgumentException ex){
         }
@@ -39,7 +39,7 @@ public class ProbabilityTestConsoleApp {
 
     private static void shouldCreatePercentageRepresentation() {
         try {
-            Probability p = new Probability(190.5, Probability.EventType.PERCENT);
+            Probability p = Probability.fromPercentage(190.5);
             throw new RuntimeException("Powinien być wyjątek");
         } catch (IllegalArgumentException ex) {
 
@@ -48,13 +48,13 @@ public class ProbabilityTestConsoleApp {
 
     private static void canNotCreateFractionRepresentationIfValueGTOne() {
         try {
-            Probability p = new Probability(1.5, Probability.EventType.FRACTION);
+            Probability p = Probability.fromFraction(1.5);
             throw new RuntimeException("Powinien być wyjątek");
         } catch (IllegalArgumentException ex) {
         }
     }
 
     private static void shouldCreateFractionRepresentation() {
-        Probability p = new Probability(0.5, Probability.EventType.FRACTION);
-    }*/
+        Probability p = Probability.fromFraction(0.5);
+    }
 }
