@@ -43,7 +43,7 @@ public class Probability {
         Probability probability2 = (Probability) p2;
         double delta = 0.00001;
 
-        return ((value < probability2.value) ? value : probability2.value) < delta;
+        return (Math.abs(value - probability2.value) < delta);
     }
 
    /* @Override
