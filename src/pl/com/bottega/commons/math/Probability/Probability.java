@@ -36,23 +36,14 @@ public class Probability {
         return new Probability(value);
     }
 
-    public boolean equals(Probability p2) {
+    public boolean equals(Object p2) {
         if (this == p2) return true;
+        if (p2 == null || getClass() != p2.getClass()) return false;
 
+        Probability probability2 = (Probability) p2;
         double delta = 0.00001;
-        Probability lessLikely;
-        Probability moreLikely;
 
-        if (this.value - p2.value < 0){
-            lessLikely = this;
-            moreLikely = p2;
-        }
-        else {
-            lessLikely = p2;
-            moreLikely = this;
-        }
-
-        return (moreLikely.value - lessLikely.value < delta);
+        return ((value < probability2.value) ? value : probability2.value) < delta;
     }
 
    /* @Override

@@ -46,7 +46,7 @@ public class Money {
         return null;//TODO
     }
 
-    public boolean equals(Money m2) {
+    public boolean equals(Object m2) {
         /*if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -56,23 +56,16 @@ public class Money {
         return currency.equals(money.currency);*/
 // ===============================================================
         if (this == m2) return true;
-        else {
-            if (this.currency == m2.currency){
-                double delta;
-                double smallerAmount;
-                double biggerAmount;
+        if (m2 == null || getClass() != m2.getClass()) return false;
 
-                if (this.value - m2.value < 0){
-                    smallerAmount = this.value;
-                    biggerAmount = m2.value;
-                }
-                else {
-                    smallerAmount = m2.value;
-                    biggerAmount = this.value;
-                }
-                delta = (smallerAmount > 100) ? 0.001 : 0.01;
-                return  (biggerAmount - smallerAmount < delta);
-            }
+        Money money2 = (Money) m2;
+
+        if (this.currency.equals(money2.currency)){
+            double delta;
+
+            delta = (((value < money2.value) ? value : money2.value) > 100) ? 0.001 : 0.01;
+
+            return  (Math.abs(value - money2.value) < delta);
         }
         return false;
     }
