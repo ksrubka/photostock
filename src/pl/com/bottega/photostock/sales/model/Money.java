@@ -61,9 +61,7 @@ public class Money {
         Money money2 = (Money) m2;
 
         if (this.currency.equals(money2.currency)){
-            double delta;
-
-            delta = (((value < money2.value) ? value : money2.value) > 100) ? 0.001 : 0.01;
+            double delta = (((value < money2.value) ? value : money2.value) > 100) ? 0.001 : 0.01;
 
             return  (Math.abs(value - money2.value) < delta);
         }
