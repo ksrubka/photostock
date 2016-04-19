@@ -183,14 +183,11 @@ public class Fraction {
         int newNominator = nominator % denominator;
         int wholeNumber =  nominator / denominator;
 
-        Formatter wholeNumberFormatter = new Formatter(wholeNumber);
-        String wholeNumberFormatted = wholeNumberFormatter.formatNumbers(lang);
+        String wholeNumberFormatted = new Formatter(wholeNumber).formatNumbers(lang);
 
-        Formatter newNominatorFormatter = new Formatter(newNominator);
-        String newNominatorFormatted = newNominatorFormatter.formatNumbers(lang);
+        String newNominatorFormatted = new Formatter(newNominator).formatNumbers(lang);
 
-        Formatter denominatorFormatter = new Formatter(denominator);
-        String denominatorFormatted = denominatorFormatter.formatNumbers(lang);
+        String denominatorFormatted = new Formatter(denominator).formatNumbers(lang);
 
         if (newNominator != 0){
             return getFirstLineFormatted(newNominatorFormatted, denominatorFormatted, wholeNumberFormatted) +
@@ -217,10 +214,7 @@ public class Fraction {
         int spacesBiggerDenominator = (denominatorFormatted.length() / 2) - (newNominatorFormatted.length() / 2);
         int spacesBiggerNominator = (newNominatorFormatted.length() / 2) - (denominatorFormatted.length() / 2);
 
-        int result = (denominatorFormatted.length() >= newNominatorFormatted.length()) ? spacesBiggerDenominator : spacesBiggerNominator;
-        int spaces = result;
-
-        return spaces;
+        return (denominatorFormatted.length() >= newNominatorFormatted.length()) ? spacesBiggerDenominator : spacesBiggerNominator;
     }
 
     private int addSpacesForNominator(String newNominatorFormatted, String denominatorFormatted){
@@ -228,10 +222,7 @@ public class Fraction {
         int spacesBiggerDenominator = (denominatorFormatted.length() / 2) - (newNominatorFormatted.length() / 2);
         int spacesBiggerNominator = (newNominatorFormatted.length() / 2) - (denominatorFormatted.length() / 2);
 
-        int result = (denominatorFormatted.length() <= newNominatorFormatted.length()) ? spacesBiggerNominator : spacesBiggerDenominator;
-        int spaces = result;
-
-        return spaces;
+        return (denominatorFormatted.length() <= newNominatorFormatted.length()) ? spacesBiggerNominator : spacesBiggerDenominator;
     }
 
     private String getFirstLineFormatted(String newNominatorFormatted, String denominatorFormatted, String wholeNumberFormatted) {
