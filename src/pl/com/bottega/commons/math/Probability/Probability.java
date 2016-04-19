@@ -10,6 +10,7 @@ public class Probability {
     }*/
 
     private double value; // wartość procentowa
+    public static final double DELTA = 0.00001;
 
     private Probability(double value){
         this.value = value;
@@ -41,9 +42,8 @@ public class Probability {
         if (p2 == null || getClass() != p2.getClass()) return false;
 
         Probability probability2 = (Probability) p2;
-        double delta = 0.00001;
 
-        return (Math.abs(value - probability2.value) < delta);
+        return (Math.abs(value - probability2.value) < DELTA);
     }
 
    /* @Override
