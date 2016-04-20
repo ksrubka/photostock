@@ -27,7 +27,7 @@ public class Probability {
 
     public static Probability fromPercentage(double value) {
         if (value < 0 || value > 100)
-            throw new IllegalArgumentException("value must be <0, 100>");
+            throw new IllegalArgumentException("value must be <0,100>");
         return new Probability(value);
     }
 
@@ -46,9 +46,9 @@ public class Probability {
         return (Math.abs(value - probability2.value) < DELTA);
     }
 
-   /* @Override
+    @Override
     public int hashCode() {
         long temp = Double.doubleToLongBits(value);
         return (int) (temp ^ (temp >>> 32));
-    }*/
+    }
 }
