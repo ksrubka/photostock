@@ -24,7 +24,7 @@ public class Fraction {
      */
     public Fraction(int numerator, int denominator) throws IllegalArgumentException {
         if (denominator == 0)
-            throw new IllegalArgumentException("Denominator can not be zero");
+            throw new IllegalArgumentException("Minownik nie może być równy zero");
 
         this.numerator = numerator;
         this.denominator = denominator;
@@ -288,9 +288,7 @@ public class Fraction {
 
         Fraction fraction = (Fraction) o;
 
-        if (numerator != fraction.numerator) return false;
-        return denominator == fraction.denominator;
-
+        return (numerator == fraction.numerator) && (denominator == fraction.denominator);
     }
 
     @Override
