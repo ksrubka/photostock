@@ -229,6 +229,10 @@ public class Fraction {
         return thirdLine.toString();
     }
 
+    public int getNumerator() {
+        return numerator;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
