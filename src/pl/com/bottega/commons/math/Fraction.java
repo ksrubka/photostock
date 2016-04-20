@@ -55,7 +55,7 @@ public class Fraction {
             denominator = Integer.parseInt(words[1]);
 
             if (denominator == 0)
-                throw new IllegalArgumentException("Denominator can not be zero");
+                throw new IllegalArgumentException("Zero w mianowniku");
         }
         catch (NumberFormatException ex){
             throw new IllegalArgumentException("To nie jest ułamek" + ex);
@@ -161,9 +161,9 @@ public class Fraction {
         return thirdLine.toString();
     }
 
-    public Fraction reverseV2()throws IllegalArgumentException {
+    public Fraction reverseV2() throws IllegalStateException {
         if (numerator == 0){
-            throw new IllegalStateException("Can not reverse zero");
+            throw new IllegalStateException("Nie mogę odwrócić zera");
         }
         return new Fraction(denominator, numerator);
     }
@@ -174,7 +174,7 @@ public class Fraction {
             return new Fraction(denominator, numerator);
         }
         catch (IllegalArgumentException ex){
-            throw new IllegalStateException("Zero can not be reversed", ex);
+            throw new IllegalStateException("Nie mogę odwrócić zera, ", ex);
         }
     }
 
@@ -279,5 +279,24 @@ public class Fraction {
         thirdLine.append("\n");
 
         return thirdLine.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Fraction)) return false;
+
+        Fraction fraction = (Fraction) o;
+
+        if (numerator != fraction.numerator) return false;
+        return denominator == fraction.denominator;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = numerator;
+        result = 31 * result + denominator;
+        return result;
     }
 }
