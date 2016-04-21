@@ -59,4 +59,7 @@ public class Reservation {
         return items.size();
     }
 
+    public String getNumber() {
+        return number;
+    }
 }

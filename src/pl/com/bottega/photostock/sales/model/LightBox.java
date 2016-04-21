@@ -81,4 +81,8 @@ public class LightBox {
         if (!owner.isActive())
                 throw new IllegalStateException("Użytkownik jest nieaktywny");
     }
+
+    public String getNumber() {
+        return number;
+    }
 }
