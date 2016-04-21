@@ -1,4 +1,6 @@
-package pl.com.bottega.photostock.sales.model;
+package pl.com.bottega.photostock.sales.model.client_strategies;
+
+import pl.com.bottega.photostock.sales.model.Money;
 
 /**
  * Created by Beata Iłowiecka on 21.04.16.
