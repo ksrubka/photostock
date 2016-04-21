@@ -48,11 +48,11 @@ public class Money {
     }
 
     public Money multiple(int ratio){
-        return null;//TODO
+        return new Money((double) (value.getNumerator() * ratio), currency.getCurrencyCode());
     }
 
     public Money multiple(double ratio){
-        return null;//TODO
+        return new Money((value.getNumerator() * ratio), currency.getCurrencyCode());
     }
 
     public boolean equals(Object m2) {
@@ -79,39 +79,19 @@ public class Money {
         return result;
     }
 
-    /**
-     *
-     * @param val
-     * @return true if this is grater or equals than val
-     */
-    public boolean ge(Money val) {
+    public boolean greaterOrEqual(Money val) {
         return this.value.getNumerator() >= val.value.getNumerator();
     }
 
-    /**
-     *
-     * @param val
-     * @return true if this is less or equals than val
-     */
-    public boolean le(Money val) {
+    public boolean lowerOrEqual(Money val) {
         return this.value.getNumerator() <= val.value.getNumerator();
     }
 
-    /**
-     *
-     * @param val
-     * @return  true if this is less than val
-     */
-    public boolean lt(Money val) {
+    public boolean lowerThan(Money val) {
         return this.value.getNumerator() < val.value.getNumerator();
     }
 
-    /**
-     *
-     * @param val
-     * @return  true if this is greater than val
-     */
-    public boolean gt(Money val) {
+    public boolean GreaterThan(Money val) {
         return this.value.getNumerator() > val.value.getNumerator();
     }
 
