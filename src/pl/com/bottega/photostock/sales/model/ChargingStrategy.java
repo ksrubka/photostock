@@ -5,8 +5,8 @@ package pl.com.bottega.photostock.sales.model;
  */
 public interface ChargingStrategy {
 
-    boolean canAfford(double money);
-    void charge(double pictureCost, String cause);
-    void recharge(double amount);
-    double getSaldo();
+    boolean canAfford(Money productCost);
+    void charge(Money productCost, String cause);
+    void recharge(Money amount);
+    Money getSaldo();
 }
