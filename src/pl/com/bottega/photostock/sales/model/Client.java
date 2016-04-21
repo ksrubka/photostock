@@ -7,14 +7,17 @@ public class Client {
 
     protected String name;
     protected String address;
-    protected ClientStatus status;
+    protected ChargingStrategy chargingStrategy;
     protected Money amount;
+    protected Money debt;
+    protected Money creditLimit;
     protected boolean active;
+
 
     public Client(String name, String address, ClientStatus status, double amount, boolean active) {
         this.name = name;
         this.address = address;
-        this.status = status;
+        this.chargingStrategy = (status == ClientStatus.VIP) ? new VIPChargingStrategy() : new StandardChargingStrategy();
         this.amount = new Money(amount);
         this.active = active;
     }
@@ -27,28 +30,6 @@ public class Client {
         this("Helena Ferenc", "Księżyc", ClientStatus.STANDARD, 500, true);
     }
 
-    public boolean canAfford(double money) {
-        return  amount. >= money;
-    }
-
-    public void charge(double pictureCost, String cause){ //TODO what to do with 'cause'?
-
-        if (canAfford(pictureCost)) {
-            amount -= pictureCost;
-        }
-        else {
-            throw new IllegalStateException("Sorry, you can not afford this product.");
-        }
-    }
-
-    public void recharge(double amount){
-        this.amount += amount;
-    }
-
-    public double getSaldo(){
-        return amount;
-    }
-
     public String getName() {
         return name;
     }
@@ -57,11 +38,32 @@ public class Client {
         return active;
     }
 
-    public boolean isVip(){
+    /*public boolean isVip(){
         return false;
+    }*/
+    /*if (status == ClientStatus.VIP)
+            this.chargingStrategy = new VIPChargingStrategy();
+        else {
+            this.chargingStrategy = new StandardChargingStrategy();
+        }*/
+
+    /*public String introduce(){
+        return name + " - " + status.getPolishString();
+    }*/
+
+     public boolean canAfford(Money money) {
+        return chargingStrategy.canAfford(money);
     }
 
-    public String introduce(){
-        return name + " - " + status.getPolishString();
+    public void charge(Money productCost, String cause){ //TODO what to do with 'cause'?
+        chargingStrategy.charge(productCost, cause);
+    }
+
+    public void recharge(Money amount){
+        chargingStrategy.recharge(amount);
+    }
+
+    public Money getSaldo(){
+        return chargingStrategy.getSaldo();
     }
 }
