@@ -2,6 +2,7 @@ package pl.com.bottega.photostock.sales.model.products;
 
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
+import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.ProductNotAvailableException;
 
 import java.util.ArrayList;

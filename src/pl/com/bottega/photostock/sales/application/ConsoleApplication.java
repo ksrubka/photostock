@@ -2,7 +2,7 @@ package pl.com.bottega.photostock.sales.application;
 
 import pl.com.bottega.photostock.sales.model.*;
 import pl.com.bottega.photostock.sales.model.products.Picture;
-import pl.com.bottega.photostock.sales.model.products.Product;
+import pl.com.bottega.photostock.sales.model.Product;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class ConsoleApplication {
         //7
         Offer offer1 = reservation1.generateOffer();
 
-        //8
+       /* //8
         double offerTotalCost = offer1.getTotalCost();
 
         boolean canAfford = client1.canAfford(offerTotalCost);
@@ -78,7 +78,7 @@ public class ConsoleApplication {
         } else {
             System.out.println("You can not afford that. You need " +
                     offerTotalCost);
-        }
+        }*/
 
         //11
 

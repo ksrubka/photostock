@@ -4,7 +4,7 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeProductRe
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.ProductNotAvailableException;
 import pl.com.bottega.photostock.sales.model.Reservation;
-import pl.com.bottega.photostock.sales.model.products.Product;
+import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.ProductRepository;
 
 /**

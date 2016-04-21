@@ -1,8 +1,5 @@
 package pl.com.bottega.photostock.sales.model;
 
-import pl.com.bottega.photostock.sales.model.products.AbstractProduct;
-import pl.com.bottega.photostock.sales.model.products.Product;
-
 import java.util.List;
 
 /**
@@ -17,13 +14,13 @@ public class Offer {
     public Offer(Client owner, List<Product> items) {
         this.items = items;
         this.owner = owner;
-        this.totalCost = new Money(calculateTotalCost());
+        this.totalCost = calculateTotalCost();
     }
 
-    private double calculateTotalCost() {
-        double totalCost = 0;
+    private Money calculateTotalCost() {
+        Money totalCost = new Money(0);
         for (Product product : items){
-            totalCost += product.getPrice();
+            totalCost.add(product.getPrice());
         }
         return totalCost;
     }

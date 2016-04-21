@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
+import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.*;
 
 import java.util.HashMap;

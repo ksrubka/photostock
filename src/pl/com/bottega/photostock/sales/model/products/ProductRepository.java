@@ -1,5 +1,7 @@
 package pl.com.bottega.photostock.sales.model.products;
 
+import pl.com.bottega.photostock.sales.model.Product;
+
 /**
  * Created by Beata Iłowiecka on 17.04.16.
  */
