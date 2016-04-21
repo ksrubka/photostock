@@ -1,6 +1,7 @@
 package pl.com.bottega.photostock.sales.model.products;
 
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.Money;
 
 /**
  * Created by Beata Iłowiecka on 06.04.16.
@@ -11,7 +12,7 @@ public interface Product {
 
     double calculatePrice();
 
-    double getPrice();
+    Money getPrice();
 
     //make inactive
     void cancel();
