@@ -13,7 +13,7 @@ public class LightBoxTest {
 
         Client panJanusz = new Client();
 
-        LightBox lightBoxJanusza = new LightBox(panJanusz);
+        LightBox lightBoxJanusza = new LightBox(panJanusz, "nr1");
 
         String[] var1 = {"tree", "grass", "big"};
         String[] var2 = {"tree", "dog", "big", "oak"};

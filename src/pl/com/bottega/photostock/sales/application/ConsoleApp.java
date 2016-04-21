@@ -18,11 +18,11 @@ public class ConsoleApp {
         Product littleNumbers = new Clip();
 
         Client paniHelenka = new Client();
-        LightBox lightBoxPaniHelenki = new LightBox(paniHelenka);
+        LightBox lightBoxPaniHelenki = new LightBox(paniHelenka, "nr1");
 
         lightBoxPaniHelenki.add(programming, goldOnTheCeiling, littleNumbers);
 
-        Reservation rezerwacjaPaniHelenki = new Reservation(paniHelenka);
+        Reservation rezerwacjaPaniHelenki = new Reservation(paniHelenka, "nr1");
 
         // TODO sensowne byłoby overloadowanie kontruktora tak żeby można było tworzyć rezerwację z lightboxa, o tak:
         // public Reservation(LightBox lbx)){ // tu idzie kodzik przerzucający itemsy}
@@ -50,7 +50,7 @@ public class ConsoleApp {
         // to nie bierzemy pod uwage tego hasOfferGenerated bo wtedy i tak można rezerwować
 
         ClientVIP paniKasia = new ClientVIP();
-        Reservation rezerwacjaPaniKasi = new Reservation(paniKasia);
+        Reservation rezerwacjaPaniKasi = new Reservation(paniKasia, "nr1");
         rezerwacjaPaniKasi.add(programming);
 
         System.out.print("Tyle pani Kasia ma produktów w rezerwacji: ");

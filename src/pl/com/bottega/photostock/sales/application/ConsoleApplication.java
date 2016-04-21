@@ -19,11 +19,11 @@ public class ConsoleApplication {
 
         Client client1 = new Client("Kasia", "Leśna 5", 120);
 
-        Reservation reservation1 = new Reservation(client1);
+        Reservation reservation1 = new Reservation(client1, "nr1");
 
 
         // nowy lightbox dostaje nazwę i ją wywołuje
-        LightBox lbx = new LightBox(client1);
+        LightBox lbx = new LightBox(client1, "nr1");
         lbx.changeName("drzewo");
         System.out.println(lbx.getName());
         lbx.close();

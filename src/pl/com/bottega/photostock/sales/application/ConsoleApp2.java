@@ -37,22 +37,22 @@ public class ConsoleApp2 {
         //====== 1st client ======
         //paniZdzisia
         Client paniZdzisia = new Client("paniZdzisia", "kasandry", ClientStatus.GOLD, 40, true);
-        LightBox lightBox1 = new LightBox(paniZdzisia);
+        LightBox lightBox1 = new LightBox(paniZdzisia, "nr1");
         lightBox1.add(pic1);
 
         //====== 2nd client ======
         //panJanusz
         Client panJanusz = new Client("Janusz", "Księżycowa", 4);
-        LightBox lightBox2 = new LightBox(panJanusz);
+        LightBox lightBox2 = new LightBox(panJanusz, "nr1");
         lightBox2.add(pic1);
         //++++++++++ dodali to samo zdjęcie ++++++++++
 
         // ... ale paniZdzisia pierwsza zarezerwowała
-        Reservation reservation1 = new Reservation(paniZdzisia);
+        Reservation reservation1 = new Reservation(paniZdzisia, "nr1");
         reservation1.generateOffer();
 
         // panJanusz się niestety spóźnił
-        Reservation reservation2 = new Reservation(panJanusz);
+        Reservation reservation2 = new Reservation(panJanusz, "nr1");
         reservation2.generateOffer();
 
         // oferta nie powinna się wygenerować dla niego, ani rezerwacja zrobić
@@ -71,20 +71,20 @@ public class ConsoleApp2 {
 
         //====== 1st client ======
         Client panAntek = new Client("panAntek", "Mars", ClientStatus.GOLD, 200, true);
-        LightBox lightBox3 = new LightBox(panAntek);
+        LightBox lightBox3 = new LightBox(panAntek, "nr1");
         lightBox3.add(pic2);
 
         //====== 2nd client ======
         Client paniHeleka = new Client("paniHeleka", "Ziemia", ClientStatus.GOLD, 200, true);
-        LightBox lightBox4 = new LightBox(paniHeleka);
+        LightBox lightBox4 = new LightBox(paniHeleka, "nr1");
         lightBox4.add(pic2);
-
+/*
         // testy metody charge
         paniHeleka.charge(100, "za coś tam");
         paniHeleka.charge(101, "");
 
         panAntek.charge(200, "za zdjęcia");
-        panAntek.charge(1, "yhm");
+        panAntek.charge(1, "yhm");*/
 
 
         // +++++++++++++++++ oboje próbowali dodać niedostępne zdjęcie +++++++++++++++++
@@ -100,12 +100,12 @@ public class ConsoleApp2 {
 
         //====== 1st client ======
         Client paniKazia = new Client("paniKazia", "Ziemia", ClientStatus.GOLD, 200, true);
-        LightBox lightBox5 = new LightBox(paniKazia);
+        LightBox lightBox5 = new LightBox(paniKazia, "nr1");
         lightBox5.add(pic3);
 
         //====== 2nd client ======
         Client panStach = new Client("panStach", "Ziemia", ClientStatus.GOLD, 200, true);
-        LightBox lightBox6 = new LightBox(panStach);
+        LightBox lightBox6 = new LightBox(panStach, "nr1");
         lightBox6.add(pic3);
 
 
@@ -131,18 +131,18 @@ public class ConsoleApp2 {
 
         //====== 1st client ======
         Client panFranek = new Client("panFranek", "Ziemia", 1);
-        LightBox lightBox7 = new LightBox(panFranek);
+        LightBox lightBox7 = new LightBox(panFranek, "nr1");
         lightBox7.add(pic5);
 
         //====== 2nd client ======
         Client panKarol = new Client("panKarol", "krańcowa",ClientStatus.GOLD, 1, true);
-        LightBox lightBox8 = new LightBox(panKarol);
+        LightBox lightBox8 = new LightBox(panKarol, "nr1");
         lightBox8.add(pic4);
         lightBox8.add(pic5);
 
         //====== 3rd client ======
         Client paniAsia = new Client("paniAsia", "kaczeńcowa",ClientStatus.GOLD, 5, true);
-        LightBox lightBox9 = new LightBox(paniAsia);
+        LightBox lightBox9 = new LightBox(paniAsia, "nr1");
         lightBox9.add(pic5);
 
         //************************************************** 2nd CASE **************************************************
@@ -159,18 +159,18 @@ public class ConsoleApp2 {
 
         //====== 1st client ======
         Client paniEla = new Client("paniEla", "Saturn",ClientStatus.GOLD, 5, true);
-        LightBox lightBox10 = new LightBox(paniEla);
+        LightBox lightBox10 = new LightBox(paniEla, "nr1");
         lightBox10.add(pic7);
 
         //====== 2nd client ======
         Client paniAniela = new Client("paniAniela", "Ziemia",ClientStatus.GOLD, 5, true);
-        LightBox lightBox11 = new LightBox(paniAniela);
+        LightBox lightBox11 = new LightBox(paniAniela, "nr1");
         lightBox11.add(pic7);
         lightBox11.add(pic6);
 
         //====== 3rd client ======
         Client panLeszek = new Client("panLeszek", "Ziemia",ClientStatus.GOLD, 5, true);
-        LightBox lightBox12 = new LightBox(panLeszek);
+        LightBox lightBox12 = new LightBox(panLeszek, "nr1");
         lightBox12.add(pic6);
 
         //************************************************ 3rd CASE ************************************************
@@ -184,18 +184,18 @@ public class ConsoleApp2 {
 
         //====== 1st client ======
         Client paniGosia = new Client("paniGosia", "Ziemia",ClientStatus.GOLD, 5, true);
-        LightBox lightBox13 = new LightBox(paniGosia);
+        LightBox lightBox13 = new LightBox(paniGosia, "nr1");
         lightBox13.add(pic8);
 
         //====== 2nd client ======
         Client panKuba = new Client("panKuba", "Ziemia",ClientStatus.GOLD, 5, true);
-        LightBox lightBox14 = new LightBox(panKuba);
+        LightBox lightBox14 = new LightBox(panKuba, "nr1");
         lightBox14.add(pic8);
         lightBox14.remove(pic8);
 
         //====== 3rd client ======
         Client panJan = new Client("panJan", "Ziemia",ClientStatus.GOLD, 5, true);
-        LightBox lightBox15 = new LightBox(panJan);
+        LightBox lightBox15 = new LightBox(panJan, "nr1");
         lightBox15.add(pic8);
         lightBox14.add(pic9);
     }

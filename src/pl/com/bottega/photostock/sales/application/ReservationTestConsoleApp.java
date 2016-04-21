@@ -5,7 +5,7 @@ import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.ProductNotAvailableException;
 import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.model.Product;
-import pl.com.bottega.photostock.sales.model.products.ProductRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.ProductRepository;
 
 /**
  * Created by Beata Iłowiecka on 17.04.16.
@@ -25,7 +25,7 @@ public class ReservationTestConsoleApp {
 
         Client takiSobieClient = new Client("Zegrzysław", "tajny", 120);
 
-        Reservation reservation = new Reservation(takiSobieClient);
+        Reservation reservation = new Reservation(takiSobieClient, "nr1");
 
         try {
             reservation.add(mustang, boy, mazda, ceiling, multipla, programming);

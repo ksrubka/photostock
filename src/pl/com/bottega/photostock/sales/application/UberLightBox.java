@@ -41,10 +41,10 @@ public class UberLightBox {
 
         Client paniHelenka = new Client();
 
-        LightBox lightBox1 = new LightBox(paniHelenka);
-        LightBox lightBox2 = new LightBox(paniHelenka);
-        LightBox lightBox3 = new LightBox(paniHelenka);
-        LightBox lightBox4 = new LightBox(paniHelenka);
+        LightBox lightBox1 = new LightBox(paniHelenka, "nr1");
+        LightBox lightBox2 = new LightBox(paniHelenka, "nr1");
+        LightBox lightBox3 = new LightBox(paniHelenka, "nr1");
+        LightBox lightBox4 = new LightBox(paniHelenka, "nr1");
 
         lightBox1.add(pic1, pic2);
         lightBox2.add(pic3, pic4);
@@ -57,7 +57,7 @@ public class UberLightBox {
     }
 
     public static LightBox createUberLightBox(Client client, LightBox... lbxs) {
-        LightBox newLightBox = new LightBox(client);
+        LightBox newLightBox = new LightBox(client, "nr1");
 
         for (LightBox lb : lbxs) {
             for (Product product : lb.getItems()) {

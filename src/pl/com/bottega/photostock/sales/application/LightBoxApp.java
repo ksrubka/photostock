@@ -35,10 +35,10 @@ public class LightBoxApp {
 
         Client paniHeleka = new Client();
 
-        LightBox lightBox1 = new LightBox(paniHeleka);
-        LightBox lightBox2 = new LightBox(paniHeleka);
-        LightBox lightBox3 = new LightBox(paniHeleka);
-        LightBox lightBox4 = new LightBox(paniHeleka);
+        LightBox lightBox1 = new LightBox(paniHeleka, "nr1");
+        LightBox lightBox2 = new LightBox(paniHeleka, "nr1");
+        LightBox lightBox3 = new LightBox(paniHeleka, "nr1");
+        LightBox lightBox4 = new LightBox(paniHeleka, "nr1");
 
         lightBox1.add(pic1, pic2);
         lightBox2.add(pic3, pic4);
