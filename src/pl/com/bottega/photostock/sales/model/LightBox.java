@@ -12,9 +12,11 @@ public class LightBox {
     private Client owner;
     private List<Product> items = new ArrayList<>();
     private boolean closed;
+    private String number;
 
-    public LightBox(Client owner) {
+    public LightBox(Client owner, String number) {
         this.owner = owner;
+        this.number = number;
     }
 
     public void close() {

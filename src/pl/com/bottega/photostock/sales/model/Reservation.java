@@ -9,10 +9,11 @@ public class Reservation {
 
     private Client owner;
     private List<Product> items = new LinkedList<>();
+    private String number;
 
-    public Reservation(Client owner) {
-
+    public Reservation(Client owner, String number) {
         this.owner = owner;
+        this.number = number;
     }
 
     public void add(Product... products){
