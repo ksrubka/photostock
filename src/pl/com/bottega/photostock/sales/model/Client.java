@@ -8,14 +8,14 @@ public class Client {
     protected String name;
     protected String address;
     protected ClientStatus status;
-    protected double amount;
+    protected Money amount;
     protected boolean active;
 
     public Client(String name, String address, ClientStatus status, double amount, boolean active) {
         this.name = name;
         this.address = address;
         this.status = status;
-        this.amount = amount;
+        this.amount = new Money(amount);
         this.active = active;
     }
 
@@ -28,7 +28,7 @@ public class Client {
     }
 
     public boolean canAfford(double money) {
-        return  amount >= money;
+        return  amount. >= money;
     }
 
     public void charge(double pictureCost, String cause){ //TODO what to do with 'cause'?

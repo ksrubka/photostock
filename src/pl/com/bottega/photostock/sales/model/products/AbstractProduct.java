@@ -1,6 +1,7 @@
 package pl.com.bottega.photostock.sales.model.products;
 
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.ProductNotAvailableException;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public abstract class AbstractProduct implements Product {
 
     protected String number;
     protected String[] tags;
-    protected double price;
+    protected Money price;
     protected boolean active;
     protected ArrayList<Client> reservedPer = new ArrayList<>();
     protected ArrayList<Client> soldPer = new ArrayList<>();;
@@ -20,7 +21,7 @@ public abstract class AbstractProduct implements Product {
 
     public AbstractProduct(String number, double price, String[] tags, boolean active) {
         this.number = number;
-        this.price = price;
+        this.price = new Money(price);
         this.tags = tags;
         this.active = active;
     }

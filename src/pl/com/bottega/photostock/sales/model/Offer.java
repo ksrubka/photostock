@@ -12,22 +12,17 @@ public class Offer {
 
     final Client owner;
     private List<Product> items;
-    double totalCost;
+    Money totalCost;
 
     public Offer(Client owner, List<Product> items) {
         this.items = items;
         this.owner = owner;
-        this.totalCost = calculateTotalCost();
+        this.totalCost = new Money(calculateTotalCost());
     }
 
     private double calculateTotalCost() {
         double totalCost = 0;
         for (Product product : items){
-            // niepotrzebne sprawdzenie bo było sprawdzane przy generowaniu oferty w klasie Reservation
-            /*if (!product.canBeReservedBy(owner)){
-                continue;
-            }
-            else {*/
             totalCost += product.getPrice();
         }
         return totalCost;
@@ -48,10 +43,6 @@ public class Offer {
 
     public List<Product> getItems(){
         return items;
-    }
-
-    public double getTotalCost(){
-        return totalCost;
     }
 
 }
