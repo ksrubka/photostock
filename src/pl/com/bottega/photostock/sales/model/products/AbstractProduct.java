@@ -43,7 +43,7 @@ public abstract class AbstractProduct implements Product {
         //TODO do implementacji gdy będą dostępne rabaty i rozdzielczości i cena będzie zależeć od nich.
     }
 
-    public double getPrice(){
+    public Money getPrice(){
         return price;
     }
 
@@ -96,22 +96,10 @@ public abstract class AbstractProduct implements Product {
     }
 
     private boolean isReservedPerVip() throws IllegalStateException {
-
-        if (reservedPer.isEmpty()){
-            return false;
-        }
-        else {
-            for (Client client : reservedPer){
-                if (client.isVip()){
-                    throw new IllegalStateException("Produkt jest już zarezerwowany");
-                }
-            }
-            return false;
-        }
+        return false;
     }
 
     public void sellPer(Client client) throws IllegalStateException {
-
         if (canBeReservedBy(client)) {
             soldPer.add(client);
         }
