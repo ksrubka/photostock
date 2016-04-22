@@ -70,13 +70,14 @@ public abstract class AbstractProduct implements Product {
         boolean removed = reservedPer.remove(client);
 
         if (!removed){
-            throw new IllegalArgumentException("Klient " + client.getName() +" nie rezerwował tego zdjęcia");
+            throw new IllegalArgumentException("Klient " + client.getName() +" nie rezerwował tego produktu");
         }
     }
 
     public boolean canBeReservedBy(Client client){
 
-        return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedPerVip());
+        return client.canAfford(price, client.generateData()) && isAvailable() && (!isSoldOut()) && (!isReservedPerVip());
+        //todo this.generateData() ? (ChargingData type)
     }
 
     public boolean isSoldOut() throws IllegalStateException {
@@ -117,7 +118,6 @@ public abstract class AbstractProduct implements Product {
         AbstractProduct product = (AbstractProduct) o;
 
         return number.equals(product.number);
-
     }
 
     @Override
