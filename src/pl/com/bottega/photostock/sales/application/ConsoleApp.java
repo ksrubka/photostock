@@ -49,11 +49,11 @@ public class ConsoleApp {
         // wracając do AbstractProduct - jeśli canBeBoughtByMany == true (do zmiany zamiast to enigmatyczne !shared) (zrobione!)
         // to nie bierzemy pod uwage tego hasOfferGenerated bo wtedy i tak można rezerwować
 
-        ClientVIP paniKasia = new ClientVIP();
+        /*ClientVIP paniKasia = new ClientVIP();
         Reservation rezerwacjaPaniKasi = new Reservation(paniKasia, "nr1");
         rezerwacjaPaniKasi.add(programming);
 
         System.out.print("Tyle pani Kasia ma produktów w rezerwacji: ");
-        System.out.println(rezerwacjaPaniKasi.getItemsCount());
+        System.out.println(rezerwacjaPaniKasi.getItemsCount());*/
     }
 }
