@@ -16,6 +16,7 @@ public class Client {
     private String name;
     private String address;
     private ChargingStrategy chargingStrategy;
+
     private ClientStatus status;
     private Money amount;
 
@@ -93,5 +94,9 @@ public class Client {
 
     public Money getCreditLimit() {
         return creditLimit;
+    }
+
+    public ClientStatus getStatus() {
+        return status;
     }
 }
