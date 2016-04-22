@@ -28,10 +28,10 @@ public class Money {
         this(value, "PLN");
     }
 
-    private int getNumerator(Double value){
+    public int getNumerator(Double value){
         return (int) ((Math.floor(value)) + (value - Math.floor(value)) * 100);
     }
-    private int getNumerator(int value, int cents){
+    public int getNumerator(int value, int cents){
         return (value * 100) + cents;
     }
 
@@ -99,5 +99,16 @@ public class Money {
         return new Money(0d, currency.getCurrencyCode());
     }
 
+    public Fraction getValue() {
+        return value;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public double getDoubleValue(){
+        return value.getNumerator()/100;
+    }
 
 }
