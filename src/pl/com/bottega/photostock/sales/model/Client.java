@@ -27,7 +27,7 @@ public class Client {
         this.name = name;
         this.address = address;
         this.status = status;
-        this.chargingStrategy = StrategyFactory.create(status);
+        this.chargingStrategy = StrategyFactory.create(status,this.generateData());
         this.amount = new Money(amount);
         this.debt = new Money(debt);
         this.creditLimit = new Money(creditLimit);
@@ -64,20 +64,19 @@ public class Client {
     }
 
     public boolean canAfford(Money productCost, ChargingData chargingData) {
-        return chargingStrategy.canAfford(productCost, this.generateData());
+        return chargingStrategy.canAfford(productCost);
     }
 
-    //todo this.generateData() ? (ChargingData type)
     public void charge(Money productCost, String cause){ //TODO what to do with 'cause'?
-        chargingStrategy.charge(productCost, cause, this.generateData());
+        chargingStrategy.charge(productCost, cause);
     }
 
     public void recharge(Money amount){
-        chargingStrategy.recharge(amount, this.generateData());
+        chargingStrategy.recharge(amount);
     }
 
     public Money getSaldo(){
-        return chargingStrategy.getSaldo(this.generateData());
+        return chargingStrategy.getSaldo();
     }
 
     public ChargingData generateData() {
