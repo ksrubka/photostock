@@ -7,8 +7,8 @@ import pl.com.bottega.photostock.sales.model.Money;
  */
 public interface ChargingStrategy {
 
-    boolean canAfford(Money productCost, ChargingData chargingData);
-    void charge(Money productCost, String cause, ChargingData chargingData);
-    void recharge(Money amount, ChargingData chargingData);
-    Money getSaldo(ChargingData chargingData);
+    boolean canAfford(Money productCost);
+    void charge(Money productCost, String cause);
+    void recharge(Money amount);
+    Money getSaldo();
 }
