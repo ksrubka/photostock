@@ -13,12 +13,10 @@ public class Reservation {
     private Client owner;
     private List<Product> items = new LinkedList<>();
     private String number;
-    private ApprovingStrategy approvingStrategy;
 
     public Reservation(Client owner, String number) {
         this.owner = owner;
         this.number = number;
-        this.approvingStrategy = ApprovingFactory.create(owner.getStatus());
     }
 
     public void add(Product... products){

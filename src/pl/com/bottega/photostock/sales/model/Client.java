@@ -1,10 +1,8 @@
 package pl.com.bottega.photostock.sales.model;
 
+import pl.com.bottega.photostock.sales.infrastructure.repositories.factory.ApprovingFactory;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.factory.StrategyFactory;
-import pl.com.bottega.photostock.sales.model.client_strategies.ChargingData;
-import pl.com.bottega.photostock.sales.model.client_strategies.ChargingStrategy;
-import pl.com.bottega.photostock.sales.model.client_strategies.StandardChargingStrategy;
-import pl.com.bottega.photostock.sales.model.client_strategies.VIPChargingStrategy;
+import pl.com.bottega.photostock.sales.model.client_strategies.*;
 
 import java.sql.ClientInfoStatus;
 
@@ -16,10 +14,9 @@ public class Client {
     private String name;
     private String address;
     private ChargingStrategy chargingStrategy;
-
+    private ApprovingStrategy approvingStrategy;
     private ClientStatus status;
     private Money amount;
-
     private Money debt;
     private Money creditLimit;
     private boolean active;
@@ -29,6 +26,7 @@ public class Client {
         this.address = address;
         this.status = status;
         this.chargingStrategy = StrategyFactory.create(status,this.generateData());
+        this.approvingStrategy = ApprovingFactory.create(status);
         this.amount = new Money(amount);
         this.debt = new Money(debt);
         this.creditLimit = new Money(creditLimit);
