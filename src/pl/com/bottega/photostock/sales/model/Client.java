@@ -1,27 +1,31 @@
 package pl.com.bottega.photostock.sales.model;
 
+import pl.com.bottega.photostock.sales.model.client_strategies.ChargingData;
 import pl.com.bottega.photostock.sales.model.client_strategies.ChargingStrategy;
 import pl.com.bottega.photostock.sales.model.client_strategies.StandardChargingStrategy;
 import pl.com.bottega.photostock.sales.model.client_strategies.VIPChargingStrategy;
+
+import java.sql.ClientInfoStatus;
 
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
  */
 public class Client {
 
-    protected String name;
-    protected String address;
-    protected ChargingStrategy chargingStrategy;
-    protected Money amount;
-    protected Money debt;
-    protected Money creditLimit;
-    protected boolean active;
+    private String name;
+    private String address;
+    private ChargingStrategy chargingStrategy;
+    private ClientStatus status;
+    private Money amount;
+    private boolean active;
 
 
     public Client(String name, String address, ClientStatus status, double amount, boolean active) {
         this.name = name;
         this.address = address;
-        this.chargingStrategy = (status == ClientStatus.VIP) ? new VIPChargingStrategy() : new StandardChargingStrategy();
+        this.status = status;
+        this.chargingStrategy = ;//todo chargingStrategyFactory
+                //(status == ClientStatus.VIP) ? new VIPChargingStrategy() : new StandardChargingStrategy();
         this.amount = new Money(amount);
         this.active = active;
     }
@@ -51,11 +55,11 @@ public class Client {
             this.chargingStrategy = new StandardChargingStrategy();
         }*/
 
-    /*public String introduce(){
+    public String introduce(){
         return name + " - " + status.getPolishString();
-    }*/
+    }
 
-     public boolean canAfford(Money money) {
+    public boolean canAfford(Money money) {
         return chargingStrategy.canAfford(money);
     }
 
@@ -69,5 +73,13 @@ public class Client {
 
     public Money getSaldo(){
         return chargingStrategy.getSaldo();
+    }
+
+    public ChargingData generateData() {
+        return new ChargingData(amount);
+    }
+
+    public Money getAmount() {
+        return amount;
     }
 }
