@@ -1,6 +1,7 @@
 package pl.com.bottega.photostock.sales.model.client_strategies;
 
 import pl.com.bottega.commons.math.Fraction;
+import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.client_strategies.ChargingStrategy;
 
@@ -9,9 +10,16 @@ import pl.com.bottega.photostock.sales.model.client_strategies.ChargingStrategy;
  */
 public class VIPChargingStrategy implements ChargingStrategy {
 
-    private Money debt;
-    private Money creditLimit;
-    private Money amount;
+    Money amount;
+    Money debt;
+    Money creditLimit;
+
+    public VIPChargingStrategy(ChargingData chargingData){
+        this.amount = chargingData.amount;
+        this.debt = chargingData.debt;
+        this.creditLimit = chargingData.creditLimit;
+
+    }
 
     @Override
     public boolean canAfford(Money money) {
@@ -54,7 +62,7 @@ public class VIPChargingStrategy implements ChargingStrategy {
             return amount;
         }
         else {
-            return new Money(-(debt.getValue().getNumerator()));
+            return new Money(-(debt.getDoubleValue()));
         }
     }
 }
