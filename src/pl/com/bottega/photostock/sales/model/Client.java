@@ -67,6 +67,7 @@ public class Client {
         return chargingStrategy.canAfford(productCost, this.generateData());
     }
 
+    //todo this.generateData() ? (ChargingData type)
     public void charge(Money productCost, String cause){ //TODO what to do with 'cause'?
         chargingStrategy.charge(productCost, cause, this.generateData());
     }
