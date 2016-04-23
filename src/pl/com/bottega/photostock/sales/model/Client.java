@@ -20,8 +20,9 @@ public class Client {
     private Money debt;
     private Money creditLimit;
     private boolean active;
+    private String number;
 
-    public Client(String name, String address, ClientStatus status, double amount, double debt, double creditLimit, boolean active) {
+    public Client(String name, String address, ClientStatus status, double amount, double debt, double creditLimit, boolean active, String nr) {
         this.name = name;
         this.address = address;
         this.status = status;
@@ -31,14 +32,15 @@ public class Client {
         this.debt = new Money(debt);
         this.creditLimit = new Money(creditLimit);
         this.active = active;
+        this.number = nr;
     }
 
-    public Client(String name, String address, double amount) {
-        this(name, address, ClientStatus.STANDARD, amount, 0, 0, true);
+    public Client(String name, String address, double amount, String nr) {
+        this(name, address, ClientStatus.STANDARD, amount, 0, 0, true, nr);
     }
 
-    public Client() {
-        this("Helena Ferenc", "Księżyc", ClientStatus.STANDARD, 500, 0, 0, true);
+    public Client(String nr) {
+        this("Helena Ferenc", "Księżyc", ClientStatus.STANDARD, 500, 0, 0, true, nr);
     }
 
     public String getName() {
@@ -52,17 +54,12 @@ public class Client {
     /*public boolean isVip(){
         return false;
     }*/
-    /*if (status == ClientStatus.VIP)
-            this.chargingStrategy = new VIPChargingStrategy();
-        else {
-            this.chargingStrategy = new StandardChargingStrategy();
-        }*/
 
     public String introduce(){
         return name + " - " + status.getPolishString();
     }
 
-    public boolean canAfford(Money productCost, ChargingData chargingData) {
+    public boolean canAfford(Money productCost) {
         return chargingStrategy.canAfford(productCost);
     }
 
@@ -96,5 +93,13 @@ public class Client {
 
     public ClientStatus getStatus() {
         return status;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }
