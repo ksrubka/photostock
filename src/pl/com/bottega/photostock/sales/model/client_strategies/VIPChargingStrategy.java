@@ -39,6 +39,7 @@ public class VIPChargingStrategy implements ChargingStrategy {
                 }
             }
         }
+        //todo rzuć wyjątkiem
     }
 
     @Override

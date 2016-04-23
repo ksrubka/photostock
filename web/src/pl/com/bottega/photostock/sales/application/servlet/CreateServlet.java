@@ -17,19 +17,19 @@ import java.io.PrintWriter;
 @WebServlet(name="Create", displayName="Create Servlet", urlPatterns = {"/create"}, loadOnStartup=1)
 public class CreateServlet extends HttpServlet {
 
-    //private PurchaseComponent purchaseComponent = new PurchaseComponent();
+    private PurchaseComponent purchaseComponent = new PurchaseComponent(); // todo process, not purchaseComponent
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         String clientNr = req.getParameter("clientNr");
 
-        //String resNr = purchaseComponent.createReservation(clientNr);
+        String resNr = purchaseComponent.createReservation(clientNr);
 
         response.setContentType("text/plain");
         response.setStatus(HttpServletResponse.SC_OK);
 
         PrintWriter out = response.getWriter();
-        //out.println(resNr);
-        out.close();
+        out.println(resNr);
+        out.close(); //zamykaj strumień zawsze
     }
 }
