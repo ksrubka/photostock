@@ -12,10 +12,19 @@ public class Purchase {
     private Client owner;
     private Date createDate;
     private List<Product> items;
+    private static String number;
 
     public Purchase(Client owner, List<Product> items) {
         this.owner = owner;
         this.items = items;
         this.createDate = new Date();
+    }
+
+    public static String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        Purchase.number = number;
     }
 }
