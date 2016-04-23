@@ -11,11 +11,11 @@ import pl.com.bottega.photostock.sales.model.Product;
 public class UberLightBox {
 
     /* Łączy wiele LightBoxów
-    nie zawiera zdjęć: nieaktywnych, duplikatów*/
+    nie zawiera zdjęć: nieaktywnych, duplikatów*//*
 
     public static void main(String[] args) {
 
-        //********************************************* Pictures *********************************************
+        /*//********************************************* Pictures *********************************************
 
         String[] var1 = {"tree", "grass", "big"};
         String[] var2 = {"tree", "dog", "big", "oak"};
@@ -37,7 +37,7 @@ public class UberLightBox {
         Picture pic8 = new Picture("08", 1, var8, true);
         Picture pic9 = new Picture("09", 1, var9, false);
 
-        //********************************************* LightBoxes ********************************************
+        /*//********************************************* LightBoxes ********************************************
 
         Client paniHelenka = new Client();
 
@@ -78,5 +78,5 @@ public class UberLightBox {
         for (Product product : lb.getItems()) {
             System.out.println(product.getNumber() + " | " + product.getPrice());
         }
-    }
+    }*/
 }

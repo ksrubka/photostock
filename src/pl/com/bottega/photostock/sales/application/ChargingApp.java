@@ -12,7 +12,7 @@ import pl.com.bottega.photostock.sales.model.Product;
  */
 public class ChargingApp {
 
-    public static void main(String[] args) {
+ /*   public static void main(String[] args) {
 
         ClientRepository clientRepo = new FakeClientRepository();
         Client panLeszek = clientRepo.load("Pan Leszek");
@@ -26,5 +26,5 @@ public class ChargingApp {
         System.out.println("Tyle " + panLeszek.getName() + " zapłacił za produkt " + mustang.getNumber() + ": " + mustang.getPrice().getDoubleValue());
         panLeszek.recharge(mustang.getPrice());
         System.out.println("Saldo Pana Leszka po kupnnie produktu: " + saldoPanaLeszka);
-    }
+    }*/
 }

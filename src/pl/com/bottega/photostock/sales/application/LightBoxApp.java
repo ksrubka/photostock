@@ -7,9 +7,9 @@ import pl.com.bottega.photostock.sales.model.Product;
 import java.util.ArrayList;
 
 public class LightBoxApp {
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
-        //********************************************* Pictures *********************************************
+        /*//********************************************* Pictures *********************************************
 
         String[] var1 = {"tree", "grass", "big"};
         String[] var2 = {"tree", "dog", "big", "oak"};
@@ -31,7 +31,7 @@ public class LightBoxApp {
         Picture pic8 = new Picture("08", 1, var8, true);
         Picture pic9 = new Picture("09", 1, var9, false);
 
-        //********************************************* LightBoxy w tablicy ********************************************
+        /*//********************************************* LightBoxy w tablicy ********************************************
 
         Client paniHeleka = new Client();
 
@@ -74,9 +74,9 @@ public class LightBoxApp {
         int argsIndex = 0;
 
         for (LightBox l : lightBoxes1){
-            /*Scanner sc = new Scanner(System.in);
+            *//*Scanner sc = new Scanner(System.in);
             System.out.println("Podaj imię dla nowego lightBoxa:");
-            String name = sc.next();*/
+            String name = sc.next();*//*
             l.setName(args[argsIndex]);
             ++argsIndex;
         }
@@ -100,10 +100,10 @@ public class LightBoxApp {
                 }
                 System.out.println(product.getNumber() + " | " + product.getPrice());
             }
-            /*if (!((lightBoxes1.size()) == lineNumber)){
+            *//*if (!((lightBoxes1.size()) == lineNumber)){
                 System.out.println("=========================");
-            }*/ ++lineNumber;
+            }*//* ++lineNumber;
 
         }
-    }
+    }*/
 }

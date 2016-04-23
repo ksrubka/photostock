@@ -13,7 +13,7 @@ public class ConsoleApp {
 
     public static void main(String[] args) {
 
-        Picture programming = new Picture();
+       /* Picture programming = new Picture();
         Product goldOnTheCeiling = new Song();
         Product littleNumbers = new Clip();
 
@@ -31,7 +31,7 @@ public class ConsoleApp {
         Offer ofertaPaniHelenki = rezerwacjaPaniHelenki.generateOffer();
 
         System.out.println("Pani Helenka ma w ofercie " + ofertaPaniHelenki.getItemsCount() + " produkty.");
-        System.out.println();
+        System.out.println();*/
 
         // Zaraz nastąpi próba rezerwacji zdjęcia przez drugiego klienta
         // zdjęcie jest niepodzielne (shared == false) więc nie powinno być można zarezerwować

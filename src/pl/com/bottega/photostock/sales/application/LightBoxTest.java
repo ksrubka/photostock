@@ -9,7 +9,7 @@ import pl.com.bottega.photostock.sales.model.products.Picture;
  */
 public class LightBoxTest {
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
 
         Client panJanusz = new Client();
 
@@ -42,5 +42,5 @@ public class LightBoxTest {
         int count = lightBoxJanusza.getItemsCount();
         System.out.println("Ilość elementów w lightboxie: " + count);
 
-    }
+    }*/
 }

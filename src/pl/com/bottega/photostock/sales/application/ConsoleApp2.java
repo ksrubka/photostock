@@ -8,9 +8,9 @@ import pl.com.bottega.photostock.sales.model.products.Picture;
  */
 public class ConsoleApp2 {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
-        /*Client panJanusz = new Client("Janusz", "Księżycowa", 4);
+        *//*Client panJanusz = new Client("Janusz", "Księżycowa", 4);
         panJanusz.recharge(10);
 
         panJanusz.charge(12, "for the pictures");
@@ -19,7 +19,7 @@ public class ConsoleApp2 {
             panJanusz.charge(12, "za coś");
         } else {
             System.out.println("can not afford");
-        }*/
+        }*//*
 
 
 
@@ -28,7 +28,7 @@ public class ConsoleApp2 {
         //================================================  ONE PICTURE ================================================
 
 
-        //***************************************** 1st CASE **********************************************************
+        /*//***************************************** 1st CASE **********************************************************
 
         //++++++ PICTURE ++++++++
         String[] var1 = {"tree", "grass", "big"};
@@ -62,7 +62,7 @@ public class ConsoleApp2 {
         // nie można do niej dodać zarezerwowanego zdęcia
 
         System.out.println("\n\n");
-        //******************************************* 2nd CASE ********************************************************
+        /*//******************************************* 2nd CASE ********************************************************
 
         // pic2 jest niedostępne
         //++++++ PICTURE ++++++++
@@ -78,13 +78,13 @@ public class ConsoleApp2 {
         Client paniHeleka = new Client("paniHeleka", "Ziemia", ClientStatus.GOLD, 200, true);
         LightBox lightBox4 = new LightBox(paniHeleka, "nr1");
         lightBox4.add(pic2);
-/*
+*//*
         // testy metody charge
         paniHeleka.charge(100, "za coś tam");
         paniHeleka.charge(101, "");
 
         panAntek.charge(200, "za zdjęcia");
-        panAntek.charge(1, "yhm");*/
+        panAntek.charge(1, "yhm");*//*
 
 
         // +++++++++++++++++ oboje próbowali dodać niedostępne zdjęcie +++++++++++++++++
@@ -92,7 +92,7 @@ public class ConsoleApp2 {
         // to nie powinno się udać
 
         System.out.println("\n\n");
-        //*********************************************** 3rd CASE ***************************************************
+        /*//*********************************************** 3rd CASE ***************************************************
 
         //++++++ PICTURE ++++++++
         String[] var3 = {"lines", "stripes", "green", "oak"};
@@ -117,7 +117,7 @@ public class ConsoleApp2 {
         //============================================   Two PICTUREs   ================================================
 
 
-        //************************************************ 1st CASE ************************************************
+        /*//************************************************ 1st CASE ************************************************
 
         // zdjęcie z pustą tabelą tagów nie powinno przejść
         //
@@ -145,7 +145,7 @@ public class ConsoleApp2 {
         LightBox lightBox9 = new LightBox(paniAsia, "nr1");
         lightBox9.add(pic5);
 
-        //************************************************** 2nd CASE **************************************************
+        /*//************************************************** 2nd CASE **************************************************
 
         //jedno zdjęcie kosztuje 10tys creditów więc nie powinno być nikogo na nie stać
         // drugie zdjęcie paradosalnie może dodać zamiast odejmować credity
@@ -173,7 +173,7 @@ public class ConsoleApp2 {
         LightBox lightBox12 = new LightBox(panLeszek, "nr1");
         lightBox12.add(pic6);
 
-        //************************************************ 3rd CASE ************************************************
+        /*//************************************************ 3rd CASE ************************************************
 
         //++++++ PICTURE ++++++++
         String[] var8 = {"cloud", "elephant", "nice"};
@@ -198,6 +198,6 @@ public class ConsoleApp2 {
         LightBox lightBox15 = new LightBox(panJan, "nr1");
         lightBox15.add(pic8);
         lightBox14.add(pic9);
-    }
+    }*/
 
 }

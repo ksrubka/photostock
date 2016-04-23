@@ -12,7 +12,7 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.ProductReposi
  */
 public class ReservationTestConsoleApp {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         ProductRepository repo = new FakeProductRepository();
 
@@ -35,11 +35,11 @@ public class ReservationTestConsoleApp {
             System.out.println(ex.getClazz() + " " + ex.getMessage() + " " + ex.getNumber());
         }
 
-        /*repo.save(mustang);
+        *//*repo.save(mustang);
         repo.save(multipla);
         repo.save(mazda);
         repo.save(programming);
         repo.save(boy);
-        repo.save(ceiling);*/
-    }
+        repo.save(ceiling);*//*
+    }*/
 }

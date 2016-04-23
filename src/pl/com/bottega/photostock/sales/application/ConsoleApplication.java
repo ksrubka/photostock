@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ConsoleApplication {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         Picture pic1 = new Picture("01", 3, new String[]{"#piła", "#drzewo"});
         Picture pic2 = new Picture("02", 4, new String[]{"#skakanka", "#trawa"});
@@ -35,13 +35,13 @@ public class ConsoleApplication {
        // if (true)
          //   return;
 
-        /*LightBox lightBox1, lightBox2, lightBox3 = new LightBox();
+        *//*LightBox lightBox1, lightBox2, lightBox3 = new LightBox();
         LightBox lightBox2 = new LightBox();
         LightBox lightBox3 = new LightBox();
         Picture pictureSaw = new Picture();
-        lightBox1.add(pictureSaw);*/
+        lightBox1.add(pictureSaw);*//*
 
-      /*  Picture pic5, pic6, pic7 = new Picture();*/
+      *//*  Picture pic5, pic6, pic7 = new Picture();*//*
 
         // symulacja dostepu do bazy danych
 
@@ -63,7 +63,7 @@ public class ConsoleApplication {
         //7
         Offer offer1 = reservation1.generateOffer();
 
-       /* //8
+       *//* //8
         double offerTotalCost = offer1.getTotalCost();
 
         boolean canAfford = client1.canAfford(offerTotalCost);
@@ -78,9 +78,9 @@ public class ConsoleApplication {
         } else {
             System.out.println("You can not afford that. You need " +
                     offerTotalCost);
-        }*/
+        }*//*
 
         //11
 
-    }
+    }*/
 }
