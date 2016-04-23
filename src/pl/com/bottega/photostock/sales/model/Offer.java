@@ -17,7 +17,7 @@ public class Offer {
         this.totalCost = calculateTotalCost();
     }
 
-    private Money calculateTotalCost() {
+    public Money calculateTotalCost() {
         Money totalCost = new Money(0);
         for (Product product : items){
             totalCost.add(product.getPrice());
@@ -42,4 +42,7 @@ public class Offer {
         return items;
     }
 
+    public Client getOwner() {
+        return owner;
+    }
 }
