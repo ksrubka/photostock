@@ -1,7 +1,6 @@
 package pl.com.bottega.photostock.sales.application.servlet;
 
-import pl.com.bottega.photostock.sales.model.Offer;
-import pl.com.bottega.photostock.sales.process.PurchaseComponent;
+import pl.com.bottega.photostock.sales.api.PurchaseProcess;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,19 +16,19 @@ import java.io.PrintWriter;
 @WebServlet(name="Create", displayName="Create Servlet", urlPatterns = {"/create"}, loadOnStartup=1)
 public class CreateServlet extends HttpServlet {
 
-    private PurchaseComponent purchaseComponent = new PurchaseComponent(); // todo process, not purchaseComponent
+    private PurchaseProcess purchaseProcess = new PurchaseProcess();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         String clientNr = req.getParameter("clientNr");
 
-        String resNr = purchaseComponent.createReservation(clientNr);
+        String resNr = purchaseProcess.create(clientNr);
 
         response.setContentType("text/plain");
         response.setStatus(HttpServletResponse.SC_OK);
 
         PrintWriter out = response.getWriter();
         out.println(resNr);
-        out.close(); //zamykaj strumień zawsze
+        out.close();
     }
 }

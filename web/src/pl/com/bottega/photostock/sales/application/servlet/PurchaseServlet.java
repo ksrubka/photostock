@@ -4,7 +4,7 @@ import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Offer;
 import pl.com.bottega.photostock.sales.model.Reservation;
-import pl.com.bottega.photostock.sales.process.PurchaseComponent;
+import pl.com.bottega.photostock.sales.api.PurchaseProcess;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,23 +21,23 @@ import java.io.PrintWriter;
 @WebServlet(name="Purchase", displayName="Purchase Servlet", urlPatterns = {"/purchase"}, loadOnStartup=1)
 public class PurchaseServlet extends HttpServlet {
 
-    //private PurchaseComponent purchaseComponent = new PurchaseComponent();
+    private PurchaseProcess purchaseProcess = new PurchaseProcess();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         String prodNr = req.getParameter("prodNr");
         String reservationNr = req.getParameter("resNr");
 
-        //purchaseComponent.addProduct(prodNr, reservationNr);
-        //Offer offer = purchaseComponent.generateOffer(reservationNr);
+        purchaseProcess.add(reservationNr, prodNr);
+        Offer offer = purchaseProcess.calculateOffer(reservationNr);
 
 
         response.setContentType("text/plain");
         response.setStatus(HttpServletResponse.SC_OK);
 
         PrintWriter out = response.getWriter();
-        //out.println(offer.getTotalCost().toString());
-        out.println(prodNr + " " + reservationNr);
+        out.println(offer.getTotalCost().toString());
+        //out.println(prodNr + " " + reservationNr);
         out.close();
     }
 }
