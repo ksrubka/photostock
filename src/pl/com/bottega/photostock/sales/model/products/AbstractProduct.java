@@ -76,7 +76,7 @@ public abstract class AbstractProduct implements Product {
 
     public boolean canBeReservedBy(Client client){
 
-        return client.canAfford(price, client.generateData()) && isAvailable() && (!isSoldOut()) && (!isReservedPerVip());
+        return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedPerVip());
         //todo this.generateData() ? (ChargingData type)
     }
 
@@ -108,6 +108,10 @@ public abstract class AbstractProduct implements Product {
         else {
             throw new IllegalStateException("Nie można sprzedać.");
         }
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     @Override

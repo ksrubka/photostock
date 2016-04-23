@@ -26,4 +26,6 @@ public interface Product {
     void setShared(boolean bool);
 
     String getNumber();
+
+    void setNumber(String nr);
 }
