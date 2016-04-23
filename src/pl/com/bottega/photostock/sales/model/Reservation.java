@@ -14,9 +14,8 @@ public class Reservation {
     private List<Product> items = new LinkedList<>();
     private String number;
 
-    public Reservation(Client owner, String number) {
+    public Reservation(Client owner) {
         this.owner = owner;
-        this.number = number;
     }
 
     public void add(Product... products){
@@ -62,7 +61,15 @@ public class Reservation {
         return items.size();
     }
 
+    public Client getOwner() {
+        return owner;
+    }
+
     public String getNumber() {
         return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }
