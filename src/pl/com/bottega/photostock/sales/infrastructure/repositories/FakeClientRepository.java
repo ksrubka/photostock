@@ -7,6 +7,7 @@ import pl.com.bottega.photostock.sales.model.LightBox;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Beata Iłowiecka on 21.04.16.
@@ -16,12 +17,12 @@ public class FakeClientRepository implements ClientRepository {
     private static Map<String, Client> fakeDatabase = new HashMap<>();
 
     static {
-        Client paniEla = new Client("Pani Ela", "Saturn", ClientStatus.SILVER, 15, true);
-        Client paniAniela = new Client("Pani Aniela", "Merkury",ClientStatus.STANDARD, 7, true);
-        Client panLeszek = new Client("Pan Leszek", "Niebieski księżyc",ClientStatus.VIP, 500, true);
-        Client paniGosia = new Client("Pani Gosia", "Ziemia",ClientStatus.VIP, 56, true);
-        Client panKuba = new Client("Pan Kuba", "Mars",ClientStatus.PLATINUM, 85, false);
-        Client panJan = new Client("Pan Jan", "Jowisz", 5);
+        Client paniEla = new Client("Pani Ela", "Saturn", ClientStatus.SILVER, 15, 0, 0, true, "nr1");
+        Client paniAniela = new Client("Pani Aniela", "Merkury", 7, "nr2");
+        Client panLeszek = new Client("Pan Leszek", "Niebieski księżyc",ClientStatus.VIP, 500, 7, 9, true, "nr3");
+        Client paniGosia = new Client("Pani Gosia", "Ziemia",ClientStatus.VIP, 56, 89, 7, true, "nr4");
+        Client panKuba = new Client("Pan Kuba", "Mars",ClientStatus.PLATINUM, 85, 0, 0, false, "nr5");
+        Client panJan = new Client("Pan Jan", "Jowisz", 5, "nr5");
 
         fakeDatabase.put(paniEla.getName(), paniEla);
         fakeDatabase.put(paniAniela.getName(), paniAniela);
@@ -41,6 +42,9 @@ public class FakeClientRepository implements ClientRepository {
 
     @Override
     public void save(Client client) {
+        if (client.getNumber() == null){
+            client.setNumber(UUID.randomUUID().toString()); // symulacja generowania ID przez bazę danych
+        }
         fakeDatabase.put(client.getName(), client);
     }
 }

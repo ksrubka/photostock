@@ -5,6 +5,7 @@ import pl.com.bottega.photostock.sales.model.products.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Beata Iłowiecka on 17.04.16.
@@ -30,6 +31,7 @@ public class FakeProductRepository implements ProductRepository {
         fakeDatabase.put(boy.getNumber(), boy);
         fakeDatabase.put(ceiling.getNumber(), ceiling);
     }
+
     @Override
     public Product load(String number) {
         Product product = fakeDatabase.get(number);
@@ -41,6 +43,9 @@ public class FakeProductRepository implements ProductRepository {
 
     @Override
     public void save(Product product) {
+        if (product.getNumber() == null){
+            product.setNumber(UUID.randomUUID().toString()); // symulacja generowania ID przez bazę danych
+        }
         fakeDatabase.put(product.getNumber(), product);
     }
 }
