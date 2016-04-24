@@ -14,9 +14,8 @@ public class LightBox {
     private boolean closed;
     private String number;
 
-    public LightBox(Client owner, String number) {
+    public LightBox(Client owner) {
         this.owner = owner;
-        this.number = number;
     }
 
     public void close() {
