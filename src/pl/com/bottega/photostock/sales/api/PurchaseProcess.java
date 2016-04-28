@@ -23,9 +23,7 @@ public class PurchaseProcess {
     public void add(String reservationNr, String productNr){
         Reservation reservation = reservationRepository.load(reservationNr);
         Product product = productRepository.load(productNr);
-
         reservation.add(product);
-
         reservationRepository.save(reservation);
         productRepository.save(product);
     }
@@ -45,7 +43,6 @@ public class PurchaseProcess {
         Reservation reservation = reservationRepository.load(payerNr);
         Client client = clientRepository.load(payerNr);
         confirm(client, reservation);
-
     }
 
     private void confirm(Client client, Reservation reservation){
