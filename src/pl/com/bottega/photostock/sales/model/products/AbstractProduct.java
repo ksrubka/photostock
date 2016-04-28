@@ -56,32 +56,31 @@ public abstract class AbstractProduct implements Product {
     }
 
     public void reservePer(Client client) throws IllegalArgumentException {
-        if (!canBeReservedBy(client)) {
+        if (!canBeReservedBy(client))
             throw new IllegalArgumentException("Nie można zarezerwować.");
-        }
-        else {
+        else
             reservedPer.add(client);
-        }
     }
 
     public void unreservePer(Client client) throws IllegalArgumentException {
         boolean removed = reservedPer.remove(client);
-        if (!removed){
+        if (!removed)
             throw new IllegalArgumentException("Klient " + client.getName() +" nie rezerwował tego produktu");
-        }
     }
 
     public boolean canBeReservedBy(Client client){
         return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedByVip());
+        //todo w przypadku rozbudowy o różne modele rezerwacji w zależności od statusu klienta zastosować
+        //dodatkowo client.canReserve(picture), i w tej metodzie w klasie Client odwołać się do metody
+        //w klasie typu ApprovingStrategy i tam będą implementacje dla każdego z poszczególnych statusów
+        //np.GoldApprovingStrategy klient gold nie może zarezerwować jeśli zarezerwował klient platinum
     }
 
     public boolean isSoldOut() throws IllegalStateException {
-        if (!canBeBoughtByMany() && isSold()){
+        if (!canBeBoughtByMany() && isSold())
             throw new IllegalStateException("Produkt został już sprzedany.");
-        }
-        else {
+        else
             return false;
-        }
     }
 
     private boolean canBeBoughtByMany(){
