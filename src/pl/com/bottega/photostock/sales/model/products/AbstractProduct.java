@@ -66,14 +66,12 @@ public abstract class AbstractProduct implements Product {
 
     public void unreservePer(Client client) throws IllegalArgumentException {
         boolean removed = reservedPer.remove(client);
-
         if (!removed){
             throw new IllegalArgumentException("Klient " + client.getName() +" nie rezerwował tego produktu");
         }
     }
 
     public boolean canBeReservedBy(Client client){
-
         return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedByVip());
     }
 
