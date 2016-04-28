@@ -74,13 +74,12 @@ public abstract class AbstractProduct implements Product {
 
     public boolean canBeReservedBy(Client client){
 
-        return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedPerVip());
-        //todo this.generateData() ? (ChargingData type)
+        return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedByVip());
     }
 
     public boolean isSoldOut() throws IllegalStateException {
         if (!canBeBoughtByMany() && isSold()){
-            throw new IllegalStateException(" Produkt został już sprzedany.");
+            throw new IllegalStateException("Produkt został już sprzedany.");
         }
         else {
             return false;
@@ -95,17 +94,19 @@ public abstract class AbstractProduct implements Product {
         return !soldPer.isEmpty();
     }
 
-    private boolean isReservedPerVip() throws IllegalStateException {
-        return false;
+    private boolean isReservedByVip() throws IllegalStateException {
+        for (Client client : reservedPer){
+            if (client.isVip())
+                return true;
+        }
+        throw new IllegalStateException("Zdjęcie jest zarezerwowane przez klienta o statusie VIP.");
     }
 
     public void sellPer(Client client) throws IllegalStateException {
-        if (canBeReservedBy(client)) {
+        if (canBeReservedBy(client))
             soldPer.add(client);
-        }
-        else {
+        else
             throw new IllegalStateException("Nie można sprzedać.");
-        }
     }
 
     public void setNumber(String number) {
@@ -115,10 +116,9 @@ public abstract class AbstractProduct implements Product {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AbstractProduct)) return false;
-
+        if (!(o instanceof AbstractProduct))
+            return false;
         AbstractProduct product = (AbstractProduct) o;
-
         return number.equals(product.number);
     }
 
