@@ -15,6 +15,7 @@ public class Client {
     private String address;
     private ChargingStrategy chargingStrategy;
     private ApprovingStrategy approvingStrategy;
+    private Charging charging = new ChargingData();
     private ClientStatus status;
     private Money amount;
     private boolean active;
@@ -24,7 +25,7 @@ public class Client {
         this.name = name;
         this.address = address;
         this.status = status;
-        this.chargingStrategy = StrategyFactory.create(status, generateData());
+        this.chargingStrategy = StrategyFactory.create(status);
         this.approvingStrategy = ApprovingFactory.create(status);
         this.amount = new Money(amount);
         //this.debt = new Money(debt);
@@ -51,9 +52,6 @@ public class Client {
         }
     }
 
-    public ChargingData generateData() {
-        return new ChargingData();
-    }
 
     public String getName() {
         return name;
@@ -72,19 +70,19 @@ public class Client {
     }
 
     public boolean canAfford(Money productCost) {
-        return chargingStrategy.canAfford(productCost);
+        return chargingStrategy.canAfford(charging, productCost);
     }
 
     public void charge(Money productCost, String cause){ //TODO what to do with 'cause'?
-        chargingStrategy.charge(productCost, cause);
+        chargingStrategy.charge(charging, productCost, cause);
     }
 
     public void recharge(Money amount){
-        chargingStrategy.recharge(amount);
+        chargingStrategy.recharge(charging, amount);
     }
 
     public Money getSaldo(){
-        return chargingStrategy.getSaldo();
+        return chargingStrategy.getSaldo(charging);
     }
 
     /*public Money getAmount() {
