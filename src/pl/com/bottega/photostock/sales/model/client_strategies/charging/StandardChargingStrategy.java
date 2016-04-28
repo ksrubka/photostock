@@ -8,46 +8,29 @@ import pl.com.bottega.photostock.sales.model.Money;
 public class StandardChargingStrategy implements ChargingStrategy {
 
     @Override
-    public boolean canAfford(Money productCost) {
-        return false;
+    public boolean canAfford(Charging charging, Money productCost) {
+        return charging.getAmount().greaterOrEqual(productCost);
     }
 
     @Override
-    public void charge(Money productCost, String cause) {
-
-    }
-
-    @Override
-    public void recharge(Money amount) {
-
-    }
-
-    @Override
-    public Money getSaldo() {
-        return null;
-    }
-
-
-
-    /*public boolean canAfford(double money) {
-        return  amount >= money;
-    }
-
-    public void charge(double pictureCost, String cause){ //TODO what to do with 'cause'?
-
-        if (canAfford(pictureCost)) {
-            amount -= pictureCost;
+    public void charge(Charging charging, Money productCost, String cause) {
+        if (canAfford(charging, productCost)){
+            Money newAmount = charging.getAmount().substract(productCost);
+            charging.setAmount(newAmount);
         }
         else {
-            throw new IllegalStateException("Sorry, you can not afford this product.");
+            throw new IllegalStateException("Przepraszamy, nie posiadasz wystarczającej kwoty by nabyć ten produkt.");
         }
     }
 
-    public void recharge(double amount){
-        this.amount += amount;
+    @Override
+    public void recharge(Charging charging, Money amount) {
+        Money newAmount = charging.getAmount().add(amount);
+        charging.setAmount(newAmount);
     }
 
-    public double getSaldo(){
-        return amount;
-    }*/
+    @Override
+    public Money getSaldo(Charging charging) {
+        return charging.getAmount();
+    }
 }
