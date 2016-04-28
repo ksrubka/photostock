@@ -9,5 +9,5 @@ import pl.com.bottega.photostock.sales.model.Money;
 public interface Charging {
 
     Money getAmount();
-    void setAmount(Client client, Money amount);
+    void setAmount(Money amount);
 }
