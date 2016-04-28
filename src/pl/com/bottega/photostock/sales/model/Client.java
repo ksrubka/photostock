@@ -17,8 +17,8 @@ public class Client {
     private ApprovingStrategy approvingStrategy;
     private ClientStatus status;
     private Money amount;
-    private Money debt;
-    private Money creditLimit;
+    Money debt;
+    Money creditLimit;
     private boolean active;
     private String number;
 
@@ -26,7 +26,7 @@ public class Client {
         this.name = name;
         this.address = address;
         this.status = status;
-        this.chargingStrategy = StrategyFactory.create(status,this.generateData());
+        this.chargingStrategy = StrategyFactory.create(status, generateData());
         this.approvingStrategy = ApprovingFactory.create(status);
         this.amount = new Money(amount);
         this.debt = new Money(debt);
@@ -41,6 +41,20 @@ public class Client {
 
     public Client(String nr) {
         this("Helena Ferenc", "Księżyc", ClientStatus.STANDARD, 500, 0, 0, true, nr);
+    }
+
+    public class ChargingData implements Charging {
+        public Money getAmount(){
+            return amount;
+        }
+
+        public void setAmount(Client client, Money amount){
+            client.amount = amount;
+        }
+    }
+
+    public ChargingData generateData() {
+        return new ChargingData();
     }
 
     public String getName() {
@@ -73,10 +87,6 @@ public class Client {
 
     public Money getSaldo(){
         return chargingStrategy.getSaldo();
-    }
-
-    public ChargingData generateData() {
-        return new ChargingData(this);
     }
 
     public Money getAmount() {
