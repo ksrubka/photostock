@@ -17,30 +17,28 @@ public class Client {
     private ApprovingStrategy approvingStrategy;
     private ClientStatus status;
     private Money amount;
-    Money debt;
-    Money creditLimit;
     private boolean active;
     private String number;
 
-    public Client(String name, String address, ClientStatus status, double amount, double debt, double creditLimit, boolean active, String nr) {
+    public Client(String name, String address, ClientStatus status, double amount, boolean active, String nr) {
         this.name = name;
         this.address = address;
         this.status = status;
         this.chargingStrategy = StrategyFactory.create(status, generateData());
         this.approvingStrategy = ApprovingFactory.create(status);
         this.amount = new Money(amount);
-        this.debt = new Money(debt);
-        this.creditLimit = new Money(creditLimit);
+        //this.debt = new Money(debt);
+        //this.creditLimit = new Money(creditLimit);
         this.active = active;
         this.number = nr;
     }
 
     public Client(String name, String address, double amount, String nr) {
-        this(name, address, ClientStatus.STANDARD, amount, 0, 0, true, nr);
+        this(name, address, ClientStatus.STANDARD, amount, true, nr);
     }
 
     public Client(String nr) {
-        this("Helena Ferenc", "Księżyc", ClientStatus.STANDARD, 500, 0, 0, true, nr);
+        this("Helena Ferenc", "Księżyc", ClientStatus.STANDARD, 500, true, nr);
     }
 
     public class ChargingData implements Charging {
@@ -48,8 +46,8 @@ public class Client {
             return amount;
         }
 
-        public void setAmount(Client client, Money amount){
-            client.amount = amount;
+        public void setAmount(Money newAmount){
+            amount = newAmount;
         }
     }
 
