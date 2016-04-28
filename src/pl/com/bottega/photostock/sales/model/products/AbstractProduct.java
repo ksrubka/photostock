@@ -28,10 +28,8 @@ public abstract class AbstractProduct implements Product {
     }
 
     public boolean isAvailable(){
-
-        if (active == false){
+        if (!active)
             throw new ProductNotAvailableException("Produkt jest niedostępny", number, this.getClass());
-        }
         return active;
     }
 
