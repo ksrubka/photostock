@@ -89,7 +89,7 @@ public class Client {
         return chargingStrategy.getSaldo();
     }
 
-    public Money getAmount() {
+    /*public Money getAmount() {
         return amount;
     }
 
@@ -99,7 +99,7 @@ public class Client {
 
     public Money getCreditLimit() {
         return creditLimit;
-    }
+    }*/
 
     public ClientStatus getStatus() {
         return status;
