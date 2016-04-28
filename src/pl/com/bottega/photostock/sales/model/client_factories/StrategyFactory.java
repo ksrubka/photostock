@@ -1,9 +1,9 @@
 package pl.com.bottega.photostock.sales.model.client_factories;
 
-import pl.com.bottega.photostock.sales.model.client_strategies.ChargingStrategy;
+import pl.com.bottega.photostock.sales.model.client_strategies.charging.ChargingStrategy;
 import pl.com.bottega.photostock.sales.model.ClientStatus;
-import pl.com.bottega.photostock.sales.model.client_strategies.StandardChargingStrategy;
-import pl.com.bottega.photostock.sales.model.client_strategies.VIPChargingStrategy;
+import pl.com.bottega.photostock.sales.model.client_strategies.charging.StandardChargingStrategy;
+import pl.com.bottega.photostock.sales.model.client_strategies.charging.VIPChargingStrategy;
 
 /**
  * Created by Beata Iłowiecka on 22.04.16.

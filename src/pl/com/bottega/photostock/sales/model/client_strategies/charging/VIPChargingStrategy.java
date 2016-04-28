@@ -1,4 +1,4 @@
-package pl.com.bottega.photostock.sales.model.client_strategies;
+package pl.com.bottega.photostock.sales.model.client_strategies.charging;
 
 import pl.com.bottega.photostock.sales.model.Money;
 
@@ -12,7 +12,7 @@ public class VIPChargingStrategy implements ChargingStrategy {
 
     public VIPChargingStrategy(){
         this.debt = new Money(0);
-        this.creditLimit = new Money(200); //todo do ustalenia czy każdy vip ma tyle sam czy może każdy inaczej
+        this.creditLimit = new Money(200); //todo do ustalenia czy każdy vip ma tyle samo czy może każdy inaczej
     }
 
     @Override
@@ -25,7 +25,7 @@ public class VIPChargingStrategy implements ChargingStrategy {
     public void charge(Charging charging, Money productCost, String cause){ //TODO what to do with 'cause'?
         if (canAfford(charging, productCost)){
             if (charging.getAmount().greaterOrEqual(productCost)){
-                charging.setAmount(charging.getAmount().substract(productCost)); // wyrażenie po znaku '=' nie odejmuje od amount ale zwraca nowy obiekt
+                charging.setAmount(charging.getAmount().substract(productCost));
             } else {
                 if ((productCost.substract(charging.getAmount())).lowerOrEqual(creditLimit)){
                     debt = productCost.substract(charging.getAmount());

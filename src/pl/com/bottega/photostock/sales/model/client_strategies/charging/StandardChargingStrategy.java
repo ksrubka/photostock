@@ -1,7 +1,6 @@
-package pl.com.bottega.photostock.sales.model.client_strategies;
+package pl.com.bottega.photostock.sales.model.client_strategies.charging;
 
 import pl.com.bottega.photostock.sales.model.Money;
-import pl.com.bottega.photostock.sales.model.client_strategies.ChargingStrategy;
 
 /**
  * Created by Beata Iłowiecka on 21.04.16.

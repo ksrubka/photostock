@@ -1,4 +1,4 @@
-package pl.com.bottega.photostock.sales.model.client_strategies;
+package pl.com.bottega.photostock.sales.model.client_strategies.charging;
 
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
