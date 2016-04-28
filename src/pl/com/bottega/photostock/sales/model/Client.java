@@ -2,7 +2,9 @@ package pl.com.bottega.photostock.sales.model;
 
 import pl.com.bottega.photostock.sales.model.client_factories.ApprovingFactory;
 import pl.com.bottega.photostock.sales.model.client_factories.StrategyFactory;
-import pl.com.bottega.photostock.sales.model.client_strategies.*;
+import pl.com.bottega.photostock.sales.model.client_strategies.approving.ApprovingStrategy;
+import pl.com.bottega.photostock.sales.model.client_strategies.charging.Charging;
+import pl.com.bottega.photostock.sales.model.client_strategies.charging.ChargingStrategy;
 
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
@@ -49,7 +51,6 @@ public class Client {
             amount = newAmount;
         }
     }
-
 
     public String getName() {
         return name;

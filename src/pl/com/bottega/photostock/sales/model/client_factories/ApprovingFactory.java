@@ -1,9 +1,9 @@
 package pl.com.bottega.photostock.sales.model.client_factories;
 
 import pl.com.bottega.photostock.sales.model.ClientStatus;
-import pl.com.bottega.photostock.sales.model.client_strategies.ApprovingStrategy;
-import pl.com.bottega.photostock.sales.model.client_strategies.StandardApprovingStrategy;
-import pl.com.bottega.photostock.sales.model.client_strategies.VIPApprovigStrategy;
+import pl.com.bottega.photostock.sales.model.client_strategies.approving.ApprovingStrategy;
+import pl.com.bottega.photostock.sales.model.client_strategies.approving.StandardApprovingStrategy;
+import pl.com.bottega.photostock.sales.model.client_strategies.approving.VIPApprovigStrategy;
 
 /**
  * Created by Beata Iłowiecka on 22.04.16.
