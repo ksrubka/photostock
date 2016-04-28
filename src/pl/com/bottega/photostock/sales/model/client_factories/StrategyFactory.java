@@ -1,4 +1,4 @@
-package pl.com.bottega.photostock.sales.infrastructure.repositories.factory;
+package pl.com.bottega.photostock.sales.model.client_factories;
 
 import pl.com.bottega.photostock.sales.model.client_strategies.ChargingStrategy;
 import pl.com.bottega.photostock.sales.model.ClientStatus;

@@ -1,10 +1,8 @@
 package pl.com.bottega.photostock.sales.model;
 
-import pl.com.bottega.photostock.sales.infrastructure.repositories.factory.ApprovingFactory;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.factory.StrategyFactory;
+import pl.com.bottega.photostock.sales.model.client_factories.ApprovingFactory;
+import pl.com.bottega.photostock.sales.model.client_factories.StrategyFactory;
 import pl.com.bottega.photostock.sales.model.client_strategies.*;
-
-import java.sql.ClientInfoStatus;
 
 /**
  * Created by Beata Iłowiecka on 12.03.2016.

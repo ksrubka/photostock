@@ -1,8 +1,5 @@
 package pl.com.bottega.photostock.sales.model;
 
-import pl.com.bottega.photostock.sales.infrastructure.repositories.factory.ApprovingFactory;
-import pl.com.bottega.photostock.sales.model.client_strategies.ApprovingStrategy;
-
 import java.util.*;
 
 /**
