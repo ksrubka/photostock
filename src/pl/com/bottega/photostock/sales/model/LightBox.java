@@ -11,13 +11,13 @@ import java.util.List;
 public class LightBox {
 
     private String name;
-    private Client owner;
+    private List<Client> owners = new ArrayList<>();
     private List<Product> items = new ArrayList<>();
     private boolean closed;
     private String number;
 
     public LightBox(Client owner) {
-        this.owner = owner;
+        this.owners.add(owner);
     }
 
     public void close() {
@@ -58,8 +58,8 @@ public class LightBox {
         this.name = name;
     }
 
-    public Client getOwner() {
-        return owner;
+    public List<Client> getOwners() {
+        return owners;
     }
 
     public List<Product> getItems() {
@@ -76,11 +76,12 @@ public class LightBox {
     }
 
     private void validate() {
-        if (closed) {
+        if (closed)
             throw new IllegalStateException("Przepraszamy, ten lightBox został zamknięty.");
-        }
-        if (!owner.isActive())
+        for (Client owner : owners) {
+            if (!owner.isActive())
                 throw new IllegalStateException("Użytkownik jest nieaktywny");
+        }
     }
 
     public String getNumber() {
