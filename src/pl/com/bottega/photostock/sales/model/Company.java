@@ -24,4 +24,11 @@ public class Company {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        Company company = (Company) o;
+        return number.equals(company.number);
+    }
 }
