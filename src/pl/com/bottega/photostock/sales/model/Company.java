@@ -13,4 +13,15 @@ public class Company {
     private List<Client> employee = new ArrayList<>();
 
 
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
