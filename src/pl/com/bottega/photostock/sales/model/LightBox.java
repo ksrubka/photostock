@@ -12,11 +12,13 @@ public class LightBox {
 
     private String name;
     private String number;
+    private Client owner;
     private List<Client> owners = new ArrayList<>();
     private List<Product> items = new ArrayList<>();
     private boolean closed;
 
     public LightBox(Client owner) {
+        this.owner = owner;
         addOwner(owner);
     }
 
@@ -46,6 +48,20 @@ public class LightBox {
             throw new IllegalArgumentException("Nie ma takiego produktu w LightBoxie");
     }
 
+    public void changeName(String newName) throws IllegalStateException {
+        validate();
+        this.name = newName;
+    }
+
+    private void validate() throws IllegalStateException {
+        if (closed)
+            throw new IllegalStateException("Przepraszamy, ten lightBox został zamknięty.");
+        for (Client owner : owners) {
+            if (!owner.isActive())
+                throw new IllegalStateException("Użytkownik jest nieaktywny");
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -66,25 +82,15 @@ public class LightBox {
         return items.size();
     }
 
-    public void changeName(String newName) throws IllegalStateException {
-        validate();
-        this.name = newName;
-    }
-
-    private void validate() throws IllegalStateException {
-        if (closed)
-            throw new IllegalStateException("Przepraszamy, ten lightBox został zamknięty.");
-        for (Client owner : owners) {
-            if (!owner.isActive())
-                throw new IllegalStateException("Użytkownik jest nieaktywny");
-        }
-    }
-
     public String getNumber() {
         return number;
     }
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public Client getOwner() {
+        return owner;
     }
 }
