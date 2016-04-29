@@ -102,4 +102,8 @@ public class Client {
         this.company = company;
         //todo jak podłączyć się do bazy danych i wstrzyknąć tu Company mając np jej numer?
     }
+
+    public Company getCompany() {
+        return company;
+    }
 }
