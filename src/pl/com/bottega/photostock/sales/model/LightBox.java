@@ -67,7 +67,7 @@ public class LightBox {
         this.name = newName;
     }
 
-    private void validate() {
+    private void validate() throws IllegalStateException {
         if (closed)
             throw new IllegalStateException("Przepraszamy, ten lightBox został zamknięty.");
         for (Client owner : owners) {
