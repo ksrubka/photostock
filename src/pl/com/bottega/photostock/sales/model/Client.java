@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.model;
 
+import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeCompanyRepository;
 import pl.com.bottega.photostock.sales.model.client_factories.ApprovingFactory;
 import pl.com.bottega.photostock.sales.model.client_factories.StrategyFactory;
 import pl.com.bottega.photostock.sales.model.client_strategies.approving.ApprovingStrategy;
@@ -95,5 +96,10 @@ public class Client {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public void setCompany(Company company){ //albo w parametrze companyNr
+        this.company = company;
+        //todo jak podłączyć się do bazy danych i wstrzyknąć tu Company mając np jej numer?
     }
 }
