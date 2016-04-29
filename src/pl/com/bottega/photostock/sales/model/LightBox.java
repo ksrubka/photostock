@@ -11,12 +11,16 @@ import java.util.List;
 public class LightBox {
 
     private String name;
+    private String number;
     private List<Client> owners = new ArrayList<>();
     private List<Product> items = new ArrayList<>();
     private boolean closed;
-    private String number;
 
     public LightBox(Client owner) {
+        addOwner(owner);
+    }
+
+    public void addOwner(Client owner){
         this.owners.add(owner);
     }
 
