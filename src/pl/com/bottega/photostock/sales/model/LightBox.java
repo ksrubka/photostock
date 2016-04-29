@@ -25,29 +25,21 @@ public class LightBox {
     }
 
     public void add(Product... products)throws IllegalStateException, IllegalArgumentException {
-
         validate();
-
         for (Product product : products) {
-            if (items.contains(product)) {
+            if (items.contains(product))
                 throw new IllegalArgumentException("LightBox już zawiera ten produkt.");
-            }
-            if (!product.isAvailable()){
+            if (!product.isAvailable())
                 throw new ProductNotAvailableException("Produkt jest nieaktywny ", product.getNumber(), product.getClass());
-            }
             items.add(product);
         }
     }
 
     public void remove(Product productToRemove) throws IllegalArgumentException {
-
         validate();
-
         boolean removed = items.remove(productToRemove);
-
-        if (!removed) {
+        if (!removed)
             throw new IllegalArgumentException("Nie ma takiego produktu w LightBoxie");
-        }
     }
 
     public String getName() {
