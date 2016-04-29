@@ -5,6 +5,7 @@ import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.exceptions.ClientDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.LightBox;
 import pl.com.bottega.photostock.sales.model.Product;
+import pl.com.bottega.photostock.sales.model.exceptions.DataDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
 /**
@@ -43,6 +44,18 @@ public class LightBoxManagment {
     }
 
     public void share(String lightBoxNr, String clientNr){
+        LightBox lbx = lightBoxRepository.load(lightBoxNr);
+        Client lbxOwner = lbx.getOwner();
+        Client client = clientRepository.load(clientNr);
+        if (lbxOwner.getCompany().equals(client.getCompany())){
+            lbx.addOwner(client);
+            lightBoxRepository.save(lbx);
+        }
+        else
+            throw new IllegalStateException("Klient z którym chcesz dzielić LightBox nie należy do tej samej firmy");
+    }
+
+    public void reserve(String lbxNr, String reservationNr, String ...pictureNrs){
 
     }
 }
