@@ -2,6 +2,7 @@ package pl.com.bottega.photostock.sales.api;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.*;
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.ClientDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.LightBox;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.Picture;
@@ -16,11 +17,16 @@ public class LightBoxManagment {
     private ProductRepository productRepository = new FakeProductRepository();
     private LightBoxRepository lightBoxRepository = new FakeLightBoxRepository();
 
-    public String create(String clientNr) { //throws exception ClientDoesNotExist
-        Client client = clientRepository.load(clientNr);
-        LightBox lightBox = new LightBox(client);
-        lightBoxRepository.save(lightBox);
-        return lightBox.getNumber();
+    public String create(String clientNr) throws ClientDoesNotExistException {
+        try {
+            Client client = clientRepository.load(clientNr);
+            LightBox lightBox = new LightBox(client);
+            lightBoxRepository.save(lightBox);
+            return lightBox.getNumber();
+        }
+        catch(ClientDoesNotExistException ex) {
+            throw new ClientDoesNotExistException("Nie mogę odnaleźć klienta w bazie: ", ex.getName());
+        }
     }
 
     public void add(String lightBoxNr, String productNr) throws IllegalArgumentException{
@@ -32,7 +38,7 @@ public class LightBoxManagment {
             productRepository.save(product);
         }
         else {
-            throw new IllegalArgumentException("Produkt nie jeste zdjęciem, nie można dodać do LightBoxa.");
+            throw new IllegalArgumentException("Produkt nie jest zdjęciem, nie można dodać do LightBoxa.");
         }
     }
 
