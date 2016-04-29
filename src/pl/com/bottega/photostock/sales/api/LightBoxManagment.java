@@ -25,7 +25,7 @@ public class LightBoxManagment {
             return lightBox.getNumber();
         }
         catch(ClientDoesNotExistException ex) {
-            throw new ClientDoesNotExistException("Nie mogę odnaleźć klienta w bazie: ", ex.getName());
+            throw new ClientDoesNotExistException("Nie mogę odnaleźć klienta w bazie: ", ex.getNumber());
         }
     }
 
