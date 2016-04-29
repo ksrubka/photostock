@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.ClientStatus;
 import pl.com.bottega.photostock.sales.model.LightBox;
+import pl.com.bottega.photostock.sales.model.exceptions.ClientDoesNotExistException;
 ;
 
 import java.util.HashMap;
@@ -33,10 +34,10 @@ public class FakeClientRepository implements ClientRepository {
     }
 
     @Override
-    public Client load(String name) {
-        Client client = fakeDatabase.get(name);
+    public Client load(String number) throws ClientDoesNotExistException {
+        Client client = fakeDatabase.get(number);
         if  (client == null)
-            throw new RuntimeException("Client " + name + " does not exist");
+            throw new ClientDoesNotExistException("Client " + number + " does not exist", number);
         return client;
     }
 
