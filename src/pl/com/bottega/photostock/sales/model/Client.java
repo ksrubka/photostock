@@ -14,7 +14,7 @@ public class Client {
     private String name;
     private String address;
     private ChargingStrategy chargingStrategy;
-    private ApprovingStrategy approvingStrategy;
+    //private ApprovingStrategy approvingStrategy;
     private Charging charging = new ChargingData();
     private ClientStatus status;
     private Money amount;
@@ -26,10 +26,9 @@ public class Client {
         this.address = address;
         this.status = status;
         this.chargingStrategy = StrategyFactory.create(status);
-        this.approvingStrategy = ApprovingFactory.create(status);
+        //this.approvingStrategy = ApprovingFactory.create(status);
+        //todo gdy opcje przyznawania możliowości rezerwacji w zależności od statusu się skomplikują, warto będzie tego użyć
         this.amount = new Money(amount);
-        //this.debt = new Money(debt);
-        //this.creditLimit = new Money(creditLimit);
         this.active = active;
         this.number = nr;
     }
@@ -83,18 +82,6 @@ public class Client {
     public Money getSaldo(){
         return chargingStrategy.getSaldo(charging);
     }
-
-    /*public Money getAmount() {
-        return amount;
-    }
-
-    public Money getDebt() {
-        return debt;
-    }
-
-    public Money getCreditLimit() {
-        return creditLimit;
-    }*/
 
     public ClientStatus getStatus() {
         return status;
