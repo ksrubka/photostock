@@ -5,14 +5,14 @@ package pl.com.bottega.photostock.sales.model.exceptions;
  */
 public class ClientDoesNotExistException extends RuntimeException {
 
-    private String name;
+    private String number;
 
-    public ClientDoesNotExistException(String message, String name){
+    public ClientDoesNotExistException(String message, String number){
         super(message);
-        this.name = name;
+        this.number = number;
     }
 
-    public String getName() {
-        return name;
+    public String getNumber() {
+        return number;
     }
 }

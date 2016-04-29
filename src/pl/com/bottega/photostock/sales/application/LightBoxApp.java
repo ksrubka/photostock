@@ -89,7 +89,7 @@ public class LightBoxApp {
         for (LightBox l : lightBoxes1){
             System.out.println("=========================");
             System.out.println(lineNumber + ". " +
-                    l.getName() + " - " + (l.getOwner()).getName());
+                    l.getNumber() + " - " + (l.getOwner()).getNumber());
 
             for (Product product : l.getItems()){
                 if (!product.isAvailable()){

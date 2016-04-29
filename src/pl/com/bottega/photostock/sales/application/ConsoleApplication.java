@@ -25,11 +25,11 @@ public class ConsoleApplication {
         // nowy lightbox dostaje nazwę i ją wywołuje
         LightBox lbx = new LightBox(client1, "nr1");
         lbx.changeName("drzewo");
-        System.out.println(lbx.getName());
+        System.out.println(lbx.getNumber());
         lbx.close();
 
         lbx.changeName("piłki");
-        System.out.println(lbx.getName());
+        System.out.println(lbx.getNumber());
 
 
        // if (true)

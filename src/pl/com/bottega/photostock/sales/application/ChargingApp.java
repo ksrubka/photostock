@@ -23,7 +23,7 @@ public class ChargingApp {
         double saldoPanaLeszka = panLeszek.getSaldo().getDoubleValue();
 
         System.out.println("Saldo Pana Leszka przed kupnem produktu: " + saldoPanaLeszka);
-        System.out.println("Tyle " + panLeszek.getName() + " zapłacił za produkt " + mustang.getNumber() + ": " + mustang.getPrice().getDoubleValue());
+        System.out.println("Tyle " + panLeszek.getNumber() + " zapłacił za produkt " + mustang.getNumber() + ": " + mustang.getPrice().getDoubleValue());
         panLeszek.recharge(mustang.getPrice());
         System.out.println("Saldo Pana Leszka po kupnnie produktu: " + saldoPanaLeszka);
     }*/
