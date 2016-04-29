@@ -12,14 +12,16 @@ import pl.com.bottega.photostock.sales.model.client_strategies.charging.Charging
 public class Client {
 
     private String name;
+    private String number;
     private String address;
+    private Company company; //TODO jak połączyć klienta z firmą w której pracuje?
     private ChargingStrategy chargingStrategy;
     //private ApprovingStrategy approvingStrategy;
     private Charging charging = new ChargingData();
     private ClientStatus status;
     private Money amount;
     private boolean active;
-    private String number;
+
 
     public Client(String name, String address, ClientStatus status, double amount, boolean active, String nr) {
         this.name = name;
@@ -27,7 +29,7 @@ public class Client {
         this.status = status;
         this.chargingStrategy = StrategyFactory.create(status);
         //this.approvingStrategy = ApprovingFactory.create(status);
-        //todo gdy opcje przyznawania możliowości rezerwacji w zależności od statusu się skomplikują, warto będzie tego użyć
+        //TODO gdy opcje przyznawania możliowości rezerwacji w zależności od statusu się skomplikują, warto będzie tego użyć
         this.amount = new Money(amount);
         this.active = active;
         this.number = nr;
