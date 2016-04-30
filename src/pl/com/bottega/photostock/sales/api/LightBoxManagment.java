@@ -2,11 +2,14 @@ package pl.com.bottega.photostock.sales.api;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.*;
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.model.exceptions.ClientDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.LightBox;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.exceptions.DataDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.products.Picture;
+
+import java.util.List;
 
 /**
  * Created by Beata Iłowiecka on 23.04.2016.
@@ -30,7 +33,7 @@ public class LightBoxManagment {
         }
     }
 
-    public void add(String lightBoxNr, String productNr) throws IllegalArgumentException{
+    public void add(String lightBoxNr, String productNr) throws IllegalArgumentException {
         LightBox lightBox = lightBoxRepository.load(lightBoxNr);
         Product product = productRepository.load(productNr);
         if (product instanceof Picture) {
@@ -38,12 +41,11 @@ public class LightBoxManagment {
             lightBoxRepository.save(lightBox);
             productRepository.save(product);
         }
-        else {
+        else
             throw new IllegalArgumentException("Produkt nie jest zdjęciem, nie można dodać do LightBoxa.");
-        }
     }
 
-    public void share(String lightBoxNr, String clientNr){
+    public void share(String lightBoxNr, String clientNr) throws IllegalArgumentException {
         LightBox lbx = lightBoxRepository.load(lightBoxNr);
         Client lbxOwner = lbx.getOwner();
         Client client = clientRepository.load(clientNr);
@@ -52,10 +54,19 @@ public class LightBoxManagment {
             lightBoxRepository.save(lbx);
         }
         else
-            throw new IllegalStateException("Klient z którym chcesz dzielić LightBox nie należy do tej samej firmy");
+            throw new IllegalArgumentException("Klient z którym chcesz dzielić LightBox nie należy do tej samej firmy");
     }
 
-    public void reserve(String lbxNr, String reservationNr, String ...pictureNrs){
-
+    public void reserve(String lbxNr, String reservationNr, List<String> pictureNrs){
+        LightBox lbx = lightBoxRepository.load(lbxNr);
+        Reservation reservation = reservationRepository.load(reservationNr);
+        for (String pictureNr : pictureNrs) {
+            for (Product product : lbx.getItems()) {
+                if (product instanceof Picture && product.getNumber().equals(pictureNr))
+                    reservation.add(productRepository.load(pictureNr));
+            }
+        } //TODO dodaj wyjątki
     }
+
+
 }
