@@ -68,5 +68,12 @@ public class LightBoxManagment {
         } //TODO dodaj wyjątki
     }
 
-
+    public String clone(String lbxNr){
+        LightBox lbx1 = lightBoxRepository.load(lbxNr);
+        LightBox lbx2 = new LightBox(lbx1.getOwner());
+        for (Product product : lbx1.getItems())
+            lbx2.add(product);
+        lightBoxRepository.save(lbx2);
+        return lbx2.getNumber();
+    } //TODO dodaj wyjątki
 }
