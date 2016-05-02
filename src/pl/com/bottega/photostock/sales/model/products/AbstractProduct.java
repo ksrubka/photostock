@@ -23,6 +23,7 @@ public abstract class AbstractProduct implements Product {
     protected ArrayList<Client> reservedPer = new ArrayList<>();
     protected ArrayList<Client> soldPer = new ArrayList<>();;
     protected boolean shared;
+
     public AbstractProduct(String name, String number, double price, String[] tags, boolean active) {
         this.name = name;
         this.number = number;
@@ -30,6 +31,11 @@ public abstract class AbstractProduct implements Product {
         this.tags = tags;
         this.active = active;
     }
+
+    public  AbstractProduct(String name, String number, double price, String[] tags){
+        this(name, number, price, tags, true);
+    }
+
     public boolean isAvailable(){
         if (!active)
             throw new ProductNotAvailableException("Produkt jest niedostępny ", number, this.getClass());
