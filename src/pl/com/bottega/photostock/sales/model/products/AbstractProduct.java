@@ -15,7 +15,9 @@ public abstract class AbstractProduct implements Product {
     protected String name;
 
     protected String number;
+
     protected String[] tags;
+
     protected Money price;
     protected boolean active;
     protected ArrayList<Client> reservedPer = new ArrayList<>();
@@ -28,7 +30,6 @@ public abstract class AbstractProduct implements Product {
         this.tags = tags;
         this.active = active;
     }
-
     public boolean isAvailable(){
         if (!active)
             throw new ProductNotAvailableException("Produkt jest niedostępny ", number, this.getClass());
@@ -115,6 +116,11 @@ public abstract class AbstractProduct implements Product {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String[] getTags() {
+        return tags;
     }
 
     @Override

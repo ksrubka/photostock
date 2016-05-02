@@ -30,4 +30,6 @@ public interface Product {
     void setNumber(String nr);
 
     String getName();
+
+    String[] getTags();
 }
