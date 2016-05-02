@@ -26,9 +26,7 @@ public class AdminPanel {
 
     }
 
-    public void changeCreditLimit(Client client){
-        if (client.isVip()){
-
-        }
+    public void changeCreditLimit(String clientNr){
+        //if (client.isVip()){}
     }
 }
