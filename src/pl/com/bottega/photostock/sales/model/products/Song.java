@@ -7,20 +7,6 @@ import java.time.Duration;
  */
 public class Song extends AbstractProduct{
 
-    private enum CHANNEL{
-        STEREO("2.0"), FIVE_ONE("5.1"), SEVEN_ONE("7.1");
-
-        private String channel;
-
-        private CHANNEL(String channel){
-            this.channel = channel;
-        }
-
-        public String getChannel(){
-            return channel;
-        }
-    }
-
     private String performer;
     private String title;
     private Duration duration;
