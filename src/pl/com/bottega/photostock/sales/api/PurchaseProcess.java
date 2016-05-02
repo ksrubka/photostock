@@ -13,7 +13,7 @@ public class PurchaseProcess {
     private ProductRepository productRepository = new FakeProductRepository();
     private PurchaseRepository purchaseRepository = new FakePurchaseRepository() ;
 
-    public String create(String clientNr){
+    public String createReservation(String clientNr){
         Client client = clientRepository.load(clientNr);
         Reservation reservation = new Reservation(client);
         reservationRepository.save(reservation);
