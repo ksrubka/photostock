@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public abstract class AbstractProduct implements Product {
 
+    protected String name;
+
     protected String number;
     protected String[] tags;
     protected Money price;
@@ -19,8 +21,8 @@ public abstract class AbstractProduct implements Product {
     protected ArrayList<Client> reservedPer = new ArrayList<>();
     protected ArrayList<Client> soldPer = new ArrayList<>();;
     protected boolean shared;
-
-    public AbstractProduct(String number, double price, String[] tags, boolean active) {
+    public AbstractProduct(String name, String number, double price, String[] tags, boolean active) {
+        this.name = name;
         this.number = number;
         this.price = new Money(price);
         this.tags = tags;
@@ -108,6 +110,11 @@ public abstract class AbstractProduct implements Product {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

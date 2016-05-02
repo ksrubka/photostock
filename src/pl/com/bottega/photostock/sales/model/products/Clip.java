@@ -13,16 +13,16 @@ public class Clip extends AbstractProduct{
 
     private Duration duration;
 
-    public Clip(String number, double price, String[] tags, Duration duration, boolean active){
-        super(number, price, tags, active);
+    public Clip(String name, String number, double price, String[] tags, Duration duration, boolean active){
+        super(name, number, price, tags, active);
         this.duration = duration;
     }
 
-    public  Clip(String number, double price, String[] tags, Duration duration){
-        this(number, price, tags, duration, true);
+    public  Clip(String name, String number, double price, String[] tags, Duration duration){
+        this(name,number, price, tags, duration, true);
     }
 
     public Clip(){
-        this("nr5", 10, new String[] {"Boy", "clapping", "numbers"}, Duration.ofSeconds(224), true);
+        this("Little numbers", "nr5", 10, new String[] {"Boy", "clapping", "numbers"}, Duration.ofSeconds(224), true);
     }
 }

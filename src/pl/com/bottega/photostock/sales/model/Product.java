@@ -28,4 +28,6 @@ public interface Product {
     String getNumber();
 
     void setNumber(String nr);
+
+    String getName();
 }

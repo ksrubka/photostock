@@ -9,20 +9,16 @@ import java.util.ArrayList;
  */
 public class Picture extends AbstractProduct {
 
-    public Picture(String number, double price, String[] tags, boolean active) {
-        super(number, price, tags, active);
+    public Picture(String name, String number, double price, String[] tags, boolean active) {
+        super(name, number, price, tags, active);
     }
 
-    public Picture(String number, double price, String[] tags) {
-        this(number, price, tags, true);
+    public Picture(String name, String number, double price, String[] tags) {
+        this(name, number, price, tags, true);
     }
 
     public Picture() {
-        this("nr4", 13, new String[]{"mouse", "screen", "coffee", "crayons"}, true);
+        this("programming", "nr4", 13, new String[]{"mouse", "screen", "coffee", "crayons"}, true);
     }
-
-
-
-
 
 }
