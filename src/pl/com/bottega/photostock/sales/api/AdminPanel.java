@@ -2,6 +2,7 @@ package pl.com.bottega.photostock.sales.api;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.ProductRepository;
+import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.client_factories.ProductFactory;
 import pl.com.bottega.photostock.sales.model.products.PRODUCT_TYPE;
@@ -21,5 +22,13 @@ public class AdminPanel {
         productRepository.save(product);
     }
 
+    public void promoteClient(String clientNr){
 
+    }
+
+    public void changeCreditLimit(Client client){
+        if (client.isVip()){
+
+        }
+    }
 }
