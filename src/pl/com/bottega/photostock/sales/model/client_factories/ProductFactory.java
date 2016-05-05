@@ -12,7 +12,7 @@ import static pl.com.bottega.photostock.sales.model.products.CHANNEL.STEREO;
  */
 public class ProductFactory {
 
-    public static Product create(String name, String productNumber, double price, String[] tags, PRODUCT_TYPE productType) {
+    public static Product create(String name, String productNumber, double price, String[] tags, ProductType productType) {
         switch (productType){
             case PICTURE:
                 return new Picture(name, productNumber, price, tags);
