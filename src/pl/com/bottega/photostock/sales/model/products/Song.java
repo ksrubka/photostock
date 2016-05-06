@@ -10,9 +10,9 @@ public class Song extends AbstractProduct{
     private String performer;
     private String title;
     private Duration duration;
-    private CHANNEL channel;
+    private Channel channel;
 
-    public Song(String name, String number, double price, String[] tags, String performer, String title, Duration duration, CHANNEL channel, boolean active) {
+    public Song(String name, String number, double price, String[] tags, String performer, String title, Duration duration, Channel channel, boolean active) {
         super(name, number, price, tags, active);
         this.performer = performer;
         this.title = title;
@@ -21,11 +21,11 @@ public class Song extends AbstractProduct{
 
     }
 
-    public Song(String name, String number, double price, String[] tags, String performer, String title, Duration duration, CHANNEL channel) {
+    public Song(String name, String number, double price, String[] tags, String performer, String title, Duration duration, Channel channel) {
         this(name, number, price, tags, performer, title, duration, channel, true);
     }
 
     public Song(){
-        this("Gold on the ceiling", "nr6", 12, new String[] {"black keys", "ceiling", "gold"}, "Black keys", "Gold on the ceiling", Duration.ofSeconds(225), CHANNEL.STEREO);
+        this("Gold on the ceiling", "nr6", 12, new String[] {"black keys", "ceiling", "gold"}, "Black keys", "Gold on the ceiling", Duration.ofSeconds(225), Channel.STEREO);
     }
 }
