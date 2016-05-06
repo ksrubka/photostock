@@ -5,8 +5,10 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeClientRep
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.client_factories.ProductFactory;
+import pl.com.bottega.photostock.sales.model.exceptions.ClientIsNotAVipException;
 import pl.com.bottega.photostock.sales.model.products.ProductType;
 
 import java.util.UUID;
@@ -31,7 +33,13 @@ public class AdminPanel {
         clientRepository.save(client);
     }
 
-    public void changeCreditLimit(String clientNr){
-        //if (client.isVip()){}
+    public void changeCreditLimit(String clientNr, double amount) throws ClientIsNotAVipException {
+        Client client = clientRepository.load(clientNr);
+        if (client.isVip()){
+            client.getChargingStrategy().setCreditLimit(new Money(amount));
+            clientRepository.save(client);;
+        }
+        else
+            throw new ClientIsNotAVipException("This client is not a VIP: ", clientNr);
     }
 }
