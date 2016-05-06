@@ -69,7 +69,6 @@ public abstract class AbstractProduct implements Product {
             throw new IllegalArgumentException("Nie można zarezerwować.");
         else
             reservedPer.add(client);
-            client.addReservation();//???
     }
 
     public void unreservePer(Client client) throws IllegalArgumentException {
