@@ -15,7 +15,7 @@ public class ProductsCatalog {
     private ProductRepository productRepository = new FakeProductRepository();
 
     public List<Product> find(String nameFragment, String[] tags, double priceMin, double priceMax){
-        List<Product> products = new ArrayList<>();
+        List<Product> products = new ArrayList<>(); //set?
         for (Product product : productRepository.getProducts()){
             if (hasRightPrice(product, priceMin, priceMax)
                     || product.getName().contains(nameFragment)
