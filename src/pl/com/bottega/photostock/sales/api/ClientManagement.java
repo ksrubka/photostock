@@ -5,7 +5,6 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeClientRep
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.Reservation;
-import pl.com.bottega.photostock.sales.model.ClientStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class ClientManagement {
         return reservations;
     }
 
-    public List<Purchase> findPurrchases(String clientNr){
+    public List<Purchase> findPurchases(String clientNr){
         List<Purchase> purchases = new ArrayList<>();
         return purchases;
     }
