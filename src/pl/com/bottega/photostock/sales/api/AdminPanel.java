@@ -22,8 +22,7 @@ public class AdminPanel {
     private ClientRepository clientRepository = new FakeClientRepository();
 
     public void addProduct(String name, double price, String[] tags, ProductType productType){
-        String productNumber = UUID.randomUUID().toString();
-        Product product = ProductFactory.create(name, productNumber, price, tags, productType);
+        Product product = ProductFactory.create(name, null, price, tags, productType);
         productRepository.save(product);
     }
 
