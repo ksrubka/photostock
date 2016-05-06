@@ -111,4 +111,8 @@ public class Client {
         status = ClientStatus.VIP;
         chargingStrategy = StrategyFactory.create(status);
     }
+
+    public ChargingStrategy getChargingStrategy(){
+        return chargingStrategy;
+    }
 }
