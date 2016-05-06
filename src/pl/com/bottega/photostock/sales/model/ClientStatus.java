@@ -10,7 +10,7 @@ public enum ClientStatus {
     String polishStatus;
     String englishStaus;
 
-    private ClientStatus(String polishStatus, String englishStaus){
+    ClientStatus(String polishStatus, String englishStaus){
         this.polishStatus = polishStatus;
         this.englishStaus = englishStaus;
     }
