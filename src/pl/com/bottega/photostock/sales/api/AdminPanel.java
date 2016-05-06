@@ -8,6 +8,7 @@ import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.client_factories.ProductFactory;
+import pl.com.bottega.photostock.sales.model.exceptions.ClientDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.exceptions.InappropriateClientStatusException;
 import pl.com.bottega.photostock.sales.model.products.ProductType;
 
@@ -24,7 +25,7 @@ public class AdminPanel {
         productRepository.save(product);
     }
 
-    public void promoteClient(String clientNr){
+    public void promoteClient(String clientNr)throws ClientDoesNotExistException{
         Client client = clientRepository.load(clientNr);
         client.setVipStatus();
         clientRepository.save(client);
