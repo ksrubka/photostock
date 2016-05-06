@@ -60,4 +60,9 @@ public class VIPChargingStrategy implements ChargingStrategy {
             return new Money(-(debt.getDoubleValue()));
         }
     }
+
+    @Override
+    public void setCreditLimit(Money creditLimit) {
+        this.creditLimit = creditLimit;
+    }
 }

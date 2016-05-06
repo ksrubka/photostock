@@ -33,4 +33,9 @@ public class StandardChargingStrategy implements ChargingStrategy {
     public Money getSaldo(Charging charging) {
         return charging.getAmount();
     }
+
+    @Override
+    public void setCreditLimit(Money creditLimit) { // bez sensu
+        return;
+    }
 }

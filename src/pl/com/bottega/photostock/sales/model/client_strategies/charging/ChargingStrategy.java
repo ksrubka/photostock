@@ -12,4 +12,5 @@ public interface ChargingStrategy {
     void charge(Charging charging, Money productCost, String cause);
     void recharge(Charging charging, Money amount);
     Money getSaldo(Charging charging);
+    void setCreditLimit(Money creditLimit);
 }
