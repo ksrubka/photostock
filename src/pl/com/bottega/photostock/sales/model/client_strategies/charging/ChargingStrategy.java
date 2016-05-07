@@ -13,7 +13,7 @@ public interface ChargingStrategy {
     void recharge(Charging charging, Money amount);
     Money getSaldo(Charging charging);
 
-    void setCreditLimit(Money creditLimit);
+    void setCreditLimit(double amount);
     Money getDebt();
     void setDebt(double amount);
 }

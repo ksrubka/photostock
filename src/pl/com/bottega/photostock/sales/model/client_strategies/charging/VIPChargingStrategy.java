@@ -62,8 +62,8 @@ public class VIPChargingStrategy implements ChargingStrategy {
     }
 
     @Override
-    public void setCreditLimit(Money creditLimit) {
-        this.creditLimit = creditLimit;
+    public void setCreditLimit(double amount) {
+        this.creditLimit = new Money(amount);
     }
 
     @Override

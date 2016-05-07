@@ -35,7 +35,7 @@ public class StandardChargingStrategy implements ChargingStrategy {
     }
 
     @Override
-    public void setCreditLimit(Money creditLimit) { // bez sensu
+    public void setCreditLimit(double amount) { // bez sensu
         return;
     }
 
