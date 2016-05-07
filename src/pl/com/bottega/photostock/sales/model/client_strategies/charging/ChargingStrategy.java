@@ -13,6 +13,7 @@ public interface ChargingStrategy {
     void recharge(Charging charging, Money amount);
     Money getSaldo(Charging charging);
 
+    //TODO to mi się BARDZO nie podoba bo powinno być tylko w VIPChargingStrategy
     void setCreditLimit(double amount);
     Money getDebt();
     void setDebt(double amount);
