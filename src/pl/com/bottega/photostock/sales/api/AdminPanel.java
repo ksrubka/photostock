@@ -34,7 +34,7 @@ public class AdminPanel {
     public void changeCreditLimit(String clientNr, double amount) throws InappropriateClientStatusException {
         Client client = clientRepository.load(clientNr);
         if (client.isVip()){
-            client.getChargingStrategy().setCreditLimit(new Money(amount));
+            client.setLimit(amount);
             clientRepository.save(client);;
         }
         else
