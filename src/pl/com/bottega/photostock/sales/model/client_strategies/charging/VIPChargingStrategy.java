@@ -73,6 +73,6 @@ public class VIPChargingStrategy implements ChargingStrategy {
 
     @Override
     public void setDebt(double amount) {
-
+        debt = new Money(amount);
     }
 }
