@@ -15,6 +15,6 @@ public interface ChargingStrategy {
 
     //TODO to mi się BARDZO nie podoba bo powinno być tylko w VIPChargingStrategy
     void setCreditLimit(double amount);
-    Money getDebt();
+    double getDebt();
     void setDebt(double amount);
 }

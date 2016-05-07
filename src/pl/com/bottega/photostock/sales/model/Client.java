@@ -127,7 +127,7 @@ public class Client {
 
     private VIPChargingStrategy createNewVipStrategy(double amount){
         VIPChargingStrategy newVipStrategy = new VIPChargingStrategy();
-        double debt = chargingStrategy.getDebt().getDoubleValue();
+        double debt = chargingStrategy.getDebt();
         newVipStrategy.setDebt(debt);
         newVipStrategy.setCreditLimit(amount);
         return newVipStrategy;

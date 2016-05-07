@@ -41,8 +41,8 @@ public class StandardChargingStrategy implements ChargingStrategy {
     }
 
     @Override
-    public Money getDebt() {
-        return null;
+    public double getDebt() {
+        return 0;
     }
 
     @Override

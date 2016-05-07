@@ -67,8 +67,8 @@ public class VIPChargingStrategy implements ChargingStrategy {
     }
 
     @Override
-    public Money getDebt() {
-        return debt;
+    public double getDebt() {
+        return debt.getDoubleValue();
     }
 
     @Override
