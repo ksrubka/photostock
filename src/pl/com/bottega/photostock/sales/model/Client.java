@@ -6,6 +6,8 @@ import pl.com.bottega.photostock.sales.model.client_factories.StrategyFactory;
 import pl.com.bottega.photostock.sales.model.client_strategies.approving.ApprovingStrategy;
 import pl.com.bottega.photostock.sales.model.client_strategies.charging.Charging;
 import pl.com.bottega.photostock.sales.model.client_strategies.charging.ChargingStrategy;
+import pl.com.bottega.photostock.sales.model.client_strategies.charging.VIPChargingStrategy;
+import pl.com.bottega.photostock.sales.model.exceptions.InappropriateClientStatusException;
 
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
@@ -45,15 +47,15 @@ public class Client {
     }
 
     public class ChargingData implements Charging {
+
         public Money getAmount(){
             return amount;
         }
-
         public void setAmount(Money newAmount){
             amount = newAmount;
         }
-    }
 
+    }
     public String getName() {
         return name;
     }
@@ -114,5 +116,20 @@ public class Client {
 
     public ChargingStrategy getChargingStrategy(){
         return chargingStrategy;
+    }
+
+    public void setLimit(double amount) throws InappropriateClientStatusException {
+        if (this.status == ClientStatus.VIP)
+            chargingStrategy = createNewVipStrategy(amount);
+        else
+            throw new InappropriateClientStatusException("Nie mogę ustawić limitu kredytu klientowi, który nie posiada statusu VIP", this.number);
+    }
+
+    private VIPChargingStrategy createNewVipStrategy(double amount){
+        VIPChargingStrategy newVipStrategy = new VIPChargingStrategy();
+        double debt = chargingStrategy.getDebt().getDoubleValue();
+        newVipStrategy.setDebt(debt);
+        newVipStrategy.setCreditLimit(amount);
+        return newVipStrategy;
     }
 }
