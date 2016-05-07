@@ -38,4 +38,14 @@ public class StandardChargingStrategy implements ChargingStrategy {
     public void setCreditLimit(Money creditLimit) { // bez sensu
         return;
     }
+
+    @Override
+    public Money getDebt() {
+        return null;
+    }
+
+    @Override
+    public void setDebt(double amount) {
+        return;
+    }
 }
