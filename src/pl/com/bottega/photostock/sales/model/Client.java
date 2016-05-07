@@ -107,7 +107,7 @@ public class Client {
         return company;
     }
 
-    public void setVipStatus(){
+    public void promoteToVip(){
         status = ClientStatus.VIP;
         chargingStrategy = StrategyFactory.create(status);
     }

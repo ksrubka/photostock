@@ -27,7 +27,7 @@ public class AdminPanel {
 
     public void promoteClient(String clientNr)throws ClientDoesNotExistException{
         Client client = clientRepository.load(clientNr);
-        client.setVipStatus();
+        client.promoteToVip();
         clientRepository.save(client);
     }
 
