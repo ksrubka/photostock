@@ -27,4 +27,8 @@ public class Purchase {
     public void setNumber(String number) {
         Purchase.number = number;
     }
+
+    public Client getOwner() {
+        return owner;
+    }
 }
