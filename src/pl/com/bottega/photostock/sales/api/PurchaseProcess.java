@@ -11,7 +11,7 @@ public class PurchaseProcess {
     private ClientRepository clientRepository = new FakeClientRepository();
     private ReservationRepository reservationRepository = new FakeReservationRepository();
     private ProductRepository productRepository = new FakeProductRepository();
-    private PurchaseRepository purchaseRepository = new FakePurchaseRepository() ;
+    private PurchaseRepository purchaseRepository = new FakePurchaseRepository();
 
     public String createReservation(String clientNr){
         Client client = clientRepository.load(clientNr);
