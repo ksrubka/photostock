@@ -1,9 +1,6 @@
 package pl.com.bottega.photostock.sales.api;
 
-import pl.com.bottega.photostock.sales.infrastructure.repositories.ClientRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeClientRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeReservationRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.ReservationRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.*;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.Reservation;
@@ -18,6 +15,7 @@ public class ClientManagement {
 
     private ClientRepository clientRepository = new FakeClientRepository();
     private ReservationRepository reservationRepository = new FakeReservationRepository();
+    private PurchaseRepository purchaseRepository = new FakePurchaseRepository();
 
     public void register(String name, String surname, String address){
         String fullName = name + " " + surname;
@@ -38,6 +36,12 @@ public class ClientManagement {
 
     public List<Purchase> findPurchases(String clientNr){
         List<Purchase> purchases = new ArrayList<>();
+        Client client = clientRepository.load(clientNr);
+        for (Purchase purchase : purchaseRepository.getPurchases()){
+            if (purchase.getOwner() == client){
+                purchases.add(purchase);
+            }
+        }
         return purchases;
     }
 }
