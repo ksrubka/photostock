@@ -3,9 +3,7 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories;
 import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.Reservation;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Beata Iłowiecka on 23.04.2016.
@@ -29,5 +27,15 @@ public class FakePurchaseRepository implements PurchaseRepository {
             purchase.setNumber(UUID.randomUUID().toString()); // symulacja generowania ID przez bazę danych
         }
         fakeDatabase.put(Purchase.getNumber(), purchase);
+    }
+
+    @Override
+    public Set<Purchase> getPurchases() {
+        Set<Purchase> purchases = new HashSet<>();
+        for(Map.Entry<String, Purchase> entry : fakeDatabase.entrySet()){
+            Purchase purchase = entry.getValue();
+            purchases.add(purchase);
+        }
+        return purchases;
     }
 }
