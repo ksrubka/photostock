@@ -35,17 +35,11 @@ public class PurchaseProcessTest {
         //then
     }
 
-    @Test
+    @Test(expected=ProductNotAvailableException.class)
     public void shouldNotAddUnavailableProduct(){
         PurchaseProcess purchaseProcess = new PurchaseProcess();
         String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
-        try {
-            purchaseProcess.add(reservationNr, UNAVAILABLE_PRODUCT_NR);
-            Assert.fail();
-        }
-        catch (ProductNotAvailableException ex){
-
-        }
+        purchaseProcess.add(reservationNr, UNAVAILABLE_PRODUCT_NR);
     }
 
     @Test
