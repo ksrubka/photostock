@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.model.products;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
+import pl.com.bottega.photostock.sales.model.exceptions.InappropriateClientStatusException;
 import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
 
 import java.util.ArrayList;
@@ -108,18 +109,17 @@ public abstract class AbstractProduct implements Product {
         return false;
     }
 
-    public void sellPer(Client client) throws IllegalStateException {
+    public void sellPer(Client client) throws InappropriateClientStatusException {
         if (canBeReservedBy(client))
             soldPer.add(client);
         else
-            throw new IllegalStateException("Nie można sprzedać.");
+            throw new InappropriateClientStatusException("Nie można sprzedać.", client.getNumber());
     }
 
     public void setNumber(String number) {
         this.number = number;
     }
 
-    @Override
     public String getName() {
         return name;
     }

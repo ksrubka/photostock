@@ -2,6 +2,7 @@ package pl.com.bottega.photostock.sales.model;
 
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
+import pl.com.bottega.photostock.sales.model.exceptions.InappropriateClientStatusException;
 
 /**
  * Created by Beata Iłowiecka on 06.04.16.
@@ -32,4 +33,6 @@ public interface Product {
     String getName();
 
     String[] getTags();
+
+    void sellPer(Client client) throws InappropriateClientStatusException;
 }
