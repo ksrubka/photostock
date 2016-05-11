@@ -34,5 +34,5 @@ public interface Product {
 
     String[] getTags();
 
-    boolean sellPer(Client client);
+    void sellPer(Client client);
 }
