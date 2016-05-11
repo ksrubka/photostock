@@ -34,5 +34,5 @@ public interface Product {
 
     String[] getTags();
 
-    void sellPer(Client client) throws InappropriateClientStatusException;
+    void sellPer(Client client);
 }

@@ -14,11 +14,8 @@ import java.util.ArrayList;
 public abstract class AbstractProduct implements Product {
 
     protected String name;
-
     protected String number;
-
     protected String[] tags;
-
     protected Money price;
     protected boolean active;
     protected ArrayList<Client> reservedPer = new ArrayList<>();
@@ -109,11 +106,9 @@ public abstract class AbstractProduct implements Product {
         return false;
     }
 
-    public void sellPer(Client client) throws InappropriateClientStatusException {
+    public void sellPer(Client client) {
         if (canBeReservedBy(client))
             soldPer.add(client);
-        else
-            throw new InappropriateClientStatusException("Nie można sprzedać.", client.getNumber());
     }
 
     public void setNumber(String number) {
