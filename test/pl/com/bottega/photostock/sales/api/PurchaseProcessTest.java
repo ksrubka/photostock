@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.api;
 import org.junit.Assert;
 import org.junit.Test;
 import pl.com.bottega.photostock.sales.model.Purchase;
+import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
 
 /**
  * Created by Beata Iłowiecka on 08.05.16.
@@ -38,8 +39,17 @@ public class PurchaseProcessTest {
     public void shouldNotAddUnavailableProduct(){
         PurchaseProcess purchaseProcess = new PurchaseProcess();
         String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
-        purchaseProcess.add(reservationNr, UNAVAILABLE_PRODUCT_NR);
+        try {
+            purchaseProcess.add(reservationNr, UNAVAILABLE_PRODUCT_NR);
+            Assert.fail();
+        }
+        catch (ProductNotAvailableException ex){
+
+        }
     }
+
+    /*@Test
+    public*/
 
     @Test()
     public void canNotAddAlreadyAddedProduct(){

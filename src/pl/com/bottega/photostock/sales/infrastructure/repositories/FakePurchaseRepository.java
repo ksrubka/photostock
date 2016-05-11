@@ -23,10 +23,10 @@ public class FakePurchaseRepository implements PurchaseRepository {
 
     @Override
     public void save(Purchase purchase) {
-        if (Purchase.getNumber() == null){
+        if (purchase.getNumber() == null){
             purchase.setNumber(UUID.randomUUID().toString()); // symulacja generowania ID przez bazę danych
         }
-        fakeDatabase.put(Purchase.getNumber(), purchase);
+        fakeDatabase.put(purchase.getNumber(), purchase);
     }
 
     @Override
