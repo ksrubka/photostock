@@ -27,9 +27,8 @@ public class ClientManagement {
         List<Reservation> reservations = new ArrayList<>();
         Client client = clientRepository.load(clientNr);
         for (Reservation reservation : reservationRepository.getReservations()){
-            if (reservation.getOwner() == client){
+            if (reservation.getOwner().equals(client));
                 reservations.add(reservation);
-            }
         }
         return reservations;
     }
@@ -38,9 +37,8 @@ public class ClientManagement {
         List<Purchase> purchases = new ArrayList<>();
         Client client = clientRepository.load(clientNr);
         for (Purchase purchase : purchaseRepository.getPurchases()){
-            if (purchase.getOwner() == client){
+            if (purchase.getOwner().equals(client))
                 purchases.add(purchase);
-            }
         }
         return purchases;
     }
