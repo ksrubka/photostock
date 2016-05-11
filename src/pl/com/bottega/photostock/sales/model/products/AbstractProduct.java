@@ -106,9 +106,13 @@ public abstract class AbstractProduct implements Product {
         return false;
     }
 
-    public void sellPer(Client client) {
-        if (canBeReservedBy(client))
+    public boolean sellPer(Client client) {
+        if (canBeReservedBy(client)) {
             soldPer.add(client);
+            return true;
+        }
+        else
+            return false;
     }
 
     public void setNumber(String number) {
