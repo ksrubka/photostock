@@ -70,4 +70,8 @@ public class Reservation {
     public void setNumber(String number) {
         this.number = number;
     }
+
+    public boolean isClosed() {
+        return closed;
+    }
 }
