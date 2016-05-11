@@ -36,7 +36,7 @@ public class LightBox {
             if (items.contains(product))
                 throw new IllegalArgumentException("LightBox już zawiera ten produkt.");
             if (!product.isAvailable())
-                throw new ProductNotAvailableException("Produkt jest nieaktywny ", product.getNumber(), product.getClass());
+                throw new ProductNotAvailableException("Produkt " + product.getNumber() + " jest nieaktywny ", product.getNumber());
             items.add(product);
         }
     }

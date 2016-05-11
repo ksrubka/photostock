@@ -38,7 +38,7 @@ public abstract class AbstractProduct implements Product {
 
     public boolean isAvailable(){
         if (!active)
-            throw new ProductNotAvailableException("Produkt jest niedostępny ", number, this.getClass());
+            throw new ProductNotAvailableException("Produkt " + number + " jest niedostępny ", number);
         return active;
     }
 
