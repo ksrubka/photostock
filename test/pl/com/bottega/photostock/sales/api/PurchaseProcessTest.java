@@ -48,8 +48,15 @@ public class PurchaseProcessTest {
         }
     }
 
-    /*@Test
-    public*/
+    @Test
+    public void shouldNotAddProductReservedByVip(){
+    }
+
+
+    @Test
+    public void shouldNotConfirmPurchase(){
+
+    }
 
     @Test()
     public void canNotAddAlreadyAddedProduct(){
