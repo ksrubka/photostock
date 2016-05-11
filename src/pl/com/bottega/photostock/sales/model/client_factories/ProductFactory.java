@@ -5,7 +5,7 @@ import pl.com.bottega.photostock.sales.model.products.*;
 
 import java.time.Duration;
 
-import static pl.com.bottega.photostock.sales.model.products.CHANNEL.STEREO;
+import static pl.com.bottega.photostock.sales.model.products.Channel.STEREO;
 
 /**
  * Created by Beata Iłowiecka on 02.05.16.
