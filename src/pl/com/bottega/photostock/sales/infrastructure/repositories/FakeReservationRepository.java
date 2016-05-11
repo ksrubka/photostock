@@ -24,13 +24,13 @@ public class FakeReservationRepository implements ReservationRepository {
     }
 
     @Override
-    public Reservation load(Client client) throws DataDoesNotExistException {
+    public Reservation load(Client client) {
         for (Reservation reservation : fakeDatabase.values()){
             if (reservation.getOwner().equals(client))
                 return reservation;
         }
-        throw new DataDoesNotExistException("Reservation for " + client.getName() +
-                " does not exist", client.getNumber(), client.getClass());
+        Reservation reservation = new Reservation(client);
+        return reservation;
     }
 
     @Override
