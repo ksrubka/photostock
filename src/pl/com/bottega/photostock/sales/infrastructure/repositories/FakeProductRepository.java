@@ -1,6 +1,7 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
 import pl.com.bottega.photostock.sales.model.Product;
+import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
 import pl.com.bottega.photostock.sales.model.products.*;
 
 import java.util.*;
@@ -34,7 +35,7 @@ public class FakeProductRepository implements ProductRepository {
     public Product load(String number) {
         Product product = fakeDatabase.get(number);
         if  (product == null){
-            throw new RuntimeException("Product " + number + " does not exist");
+            throw new ProductNotAvailableException("Product " + number + " does not exist", number);
         }
         return product;
     }
