@@ -25,12 +25,12 @@ public class FakeClientRepository implements ClientRepository {
         Client panKuba = new Client("Pan Kuba", "Mars",ClientStatus.PLATINUM, 85, false, "nr5");
         Client panJan = new Client("Pan Jan", "Jowisz", 5, "nr6");
 
-        fakeDatabase.put(paniEla.getName(), paniEla);
-        fakeDatabase.put(paniAniela.getName(), paniAniela);
-        fakeDatabase.put(panLeszek.getName(), panLeszek);
-        fakeDatabase.put(paniGosia.getName(), paniGosia);
-        fakeDatabase.put(panKuba.getName(), panKuba);
-        fakeDatabase.put(panJan.getName(), panJan);
+        fakeDatabase.put(paniEla.getNumber(), paniEla);
+        fakeDatabase.put(paniAniela.getNumber(), paniAniela);
+        fakeDatabase.put(panLeszek.getNumber(), panLeszek);
+        fakeDatabase.put(paniGosia.getNumber(), paniGosia);
+        fakeDatabase.put(panKuba.getNumber(), panKuba);
+        fakeDatabase.put(panJan.getNumber(), panJan);
     }
 
     @Override
