@@ -20,6 +20,7 @@ public class PurchaseProcess {
         return  reservation.getNumber();
     }
 
+    //add product to the reservation
     public void add(String reservationNr, String productNr){
         Reservation reservation = reservationRepository.load(reservationNr);
         Product product = productRepository.load(productNr);
