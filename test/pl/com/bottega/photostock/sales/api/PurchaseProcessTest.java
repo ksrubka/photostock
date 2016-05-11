@@ -1,6 +1,7 @@
 package pl.com.bottega.photostock.sales.api;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
@@ -14,6 +15,12 @@ public class PurchaseProcessTest {
     private static final String VIP_USER_NR = "nr2";
     private static final String AVAILABLE_PRODUCT_NR = "nr1";
     private static final String UNAVAILABLE_PRODUCT_NR = "nr2";
+    private static final String NOT_EXISTING_PRODUCT_NR = "nr7";
+    //PurchaseProcess purchaseProcess = new PurchaseProcess();
+
+    /*@Before
+    public void createNewPurchaseProcess(){
+    }*/
 
     @Test
     public void shouldCreateEmptyReservationForStandardClient(){
@@ -36,20 +43,27 @@ public class PurchaseProcessTest {
         //then
     }
 
-    @Test(expected=ProductNotAvailableException.class)
+    @Test(expected = ProductNotAvailableException.class)
     public void shouldNotAddUnavailableProduct(){
         PurchaseProcess purchaseProcess = new PurchaseProcess();
         String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
         purchaseProcess.add(reservationNr, UNAVAILABLE_PRODUCT_NR);
     }
 
-    @Test
+    @Test(expected = ProductNotAvailableException.class)
     public void shouldNotAddNotExistingProduct(){
-
+        PurchaseProcess purchaseProcess = new PurchaseProcess();
+        String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
+        purchaseProcess.add(reservationNr, NOT_EXISTING_PRODUCT_NR);
     }
 
     @Test
     public void shouldNotAddProductReservedByVip(){
+        PurchaseProcess purchaseProcess = new PurchaseProcess();
+        String standardReservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
+        String vipReservationNr = purchaseProcess.createReservation(VIP_USER_NR);
+        purchaseProcess.add(vipReservationNr, AVAILABLE_PRODUCT_NR);
+        purchaseProcess.add(standardReservationNr, AVAILABLE_PRODUCT_NR);
     }
 
 
@@ -59,7 +73,7 @@ public class PurchaseProcessTest {
 
     }
 
-    @Test()
+    @Test(expected = ProductNotAvailableException.class)
     public void canNotAddAlreadyAddedProduct(){
         //given
         PurchaseProcess purchaseProcess = new PurchaseProcess();

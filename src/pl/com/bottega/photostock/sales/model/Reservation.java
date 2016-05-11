@@ -1,5 +1,7 @@
 package pl.com.bottega.photostock.sales.model;
 
+import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
+
 import java.util.*;
 
 /**
@@ -15,14 +17,15 @@ public class Reservation {
         this.owner = owner;
     }
 
-    public void add(Product... products){
-
+    public void add(Product... products) throws ProductNotAvailableException {
         for (Product product : products) {
             if (!product.canBeReservedBy(owner)) {
-                throw new IllegalArgumentException("Produkt jest niedostępny.");
+                throw new ProductNotAvailableException("Produkt " + product.getNumber() +
+                        " jest niedostępny dla danego klienta.", product.getNumber());
             }
             if (items.contains(product)) {
-                throw new IllegalArgumentException("Produkt jest już zarezerwowany.");
+                throw new ProductNotAvailableException("Produkt " + product.getNumber() +
+                        " jest już zarezerwowany.", product.getNumber());
             }
             items.add(product);
         }
