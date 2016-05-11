@@ -2,6 +2,7 @@ package pl.com.bottega.photostock.sales.api;
 
 import org.junit.Assert;
 import org.junit.Test;
+import pl.com.bottega.photostock.sales.model.Purchase;
 
 /**
  * Created by Beata Iłowiecka on 08.05.16.
@@ -35,11 +36,13 @@ public class PurchaseProcessTest {
 
     @Test
     public void shouldNotAddUnavailableProduct(){
-
+        PurchaseProcess purchaseProcess = new PurchaseProcess();
+        String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
+        purchaseProcess.add(reservationNr, UNAVAILABLE_PRODUCT_NR);
     }
 
     @Test()
-    public void canNotAddAlreadyAddedPRoduct(){
+    public void canNotAddAlreadyAddedProduct(){
         //given
         PurchaseProcess purchaseProcess = new PurchaseProcess();
         String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
