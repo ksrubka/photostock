@@ -1,8 +1,9 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
+import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Reservation;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Created by Beata Iłowiecka on 21.04.16.
@@ -10,7 +11,9 @@ import java.util.Set;
 public interface ReservationRepository {
 
     Reservation load(String number);
+    Reservation load(Client client);
+
     void save(Reservation reservation);
 
-    Set<Reservation> getReservations();
+    Collection<Reservation> getReservations();
 }

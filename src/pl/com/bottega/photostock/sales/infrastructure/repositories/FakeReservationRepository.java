@@ -1,8 +1,9 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
-import pl.com.bottega.photostock.sales.model.LightBox;
-import pl.com.bottega.photostock.sales.model.Product;
+import com.sun.org.apache.regexp.internal.RE;
+import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Reservation;
+import pl.com.bottega.photostock.sales.model.exceptions.DataDoesNotExistException;
 
 import java.util.*;
 
@@ -14,29 +15,33 @@ public class FakeReservationRepository implements ReservationRepository {
     private static Map<String, Reservation> fakeDatabase = new HashMap<>();
 
     @Override
-    public Reservation load(String number) {
+    public Reservation load(String number) throws DataDoesNotExistException {
         Reservation reservation = fakeDatabase.get(number);
-        if  (reservation == null){
-            throw new RuntimeException("Reservation " + number + " does not exist");
-        }
+        if  (reservation == null)
+            throw new DataDoesNotExistException("Reservation " + number +
+                    " does not exist", number, reservation.getClass());
         return reservation;
     }
 
     @Override
-    public void save(Reservation reservation) {
-        if (reservation.getNumber() == null){
-            reservation.setNumber(UUID.randomUUID().toString()); // symulacja generowania ID przez bazę danych
+    public Reservation load(Client client) throws DataDoesNotExistException {
+        for (Reservation reservation : fakeDatabase.values()){
+            if (reservation.getOwner().equals(client))
+                return reservation;
         }
+        throw new DataDoesNotExistException("Reservation for " + client.getName() +
+                " does not exist", client.getNumber(), client.getClass());
+    }
+
+    @Override
+    public void save(Reservation reservation) {
+        if (reservation.getNumber() == null)
+            reservation.setNumber(UUID.randomUUID().toString()); // symulacja generowania ID przez bazę danych
         fakeDatabase.put(reservation.getNumber(), reservation);
     }
 
     @Override
-    public Set<Reservation> getReservations() {
-        Set<Reservation> reservations = new HashSet<>();
-        for(Map.Entry<String, Reservation> entry : fakeDatabase.entrySet()){
-            Reservation reservation = entry.getValue();
-            reservations.add(reservation);
-        }
-        return reservations;
+    public Collection<Reservation> getReservations() {
+        return fakeDatabase.values();
     }
 }
