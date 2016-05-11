@@ -103,9 +103,9 @@ public abstract class AbstractProduct implements Product {
     private boolean isReservedByVip() throws IllegalStateException {
         for (Client client : reservedPer){
             if (client.isVip())
-                return true;
+                throw new IllegalStateException("Zdjęcie jest zarezerwowane przez klienta o statusie VIP.");
         }
-        throw new IllegalStateException("Zdjęcie jest zarezerwowane przez klienta o statusie VIP.");
+        return false;
     }
 
     public void sellPer(Client client) throws IllegalStateException {
