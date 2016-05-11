@@ -18,12 +18,12 @@ public class FakeClientRepository implements ClientRepository {
     private static Map<String, Client> fakeDatabase = new HashMap<>();
 
     static {
-        Client paniEla = new Client("Pani Ela", "Saturn", ClientStatus.SILVER, 15, true, "nr1");
-        Client paniAniela = new Client("Pani Aniela", "Merkury", 7, "nr2");
-        Client panLeszek = new Client("Pan Leszek", "Niebieski księżyc",ClientStatus.VIP, 500, true, "nr3");
+        Client paniEla = new Client("Pani Ela", "Saturn", ClientStatus.STANDARD, 15, true, "nr1");
+        Client panLeszek = new Client("Pan Leszek", "Niebieski księżyc",ClientStatus.VIP, 500, true, "nr2");
+        Client paniAniela = new Client("Pani Aniela", "Merkury", 7, "nr3");
         Client paniGosia = new Client("Pani Gosia", "Ziemia",ClientStatus.VIP, 56, true, "nr4");
         Client panKuba = new Client("Pan Kuba", "Mars",ClientStatus.PLATINUM, 85, false, "nr5");
-        Client panJan = new Client("Pan Jan", "Jowisz", 5, "nr5");
+        Client panJan = new Client("Pan Jan", "Jowisz", 5, "nr6");
 
         fakeDatabase.put(paniEla.getName(), paniEla);
         fakeDatabase.put(paniAniela.getName(), paniAniela);
