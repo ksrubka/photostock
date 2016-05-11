@@ -19,7 +19,7 @@ public abstract class AbstractProduct implements Product {
     protected Money price;
     protected boolean active;
     protected ArrayList<Client> reservedPer = new ArrayList<>();
-    protected ArrayList<Client> soldPer = new ArrayList<>();;
+    protected ArrayList<Client> soldPer = new ArrayList<>();
     protected boolean shared;
 
     public AbstractProduct(String name, String number, double price, String[] tags, boolean active) {
@@ -30,11 +30,11 @@ public abstract class AbstractProduct implements Product {
         this.active = active;
     }
 
-    public  AbstractProduct(String name, String number, double price, String[] tags){
+    public AbstractProduct(String name, String number, double price, String[] tags) {
         this(name, number, price, tags, true);
     }
 
-    public boolean isAvailable(){
+    public boolean isAvailable() {
         if (!active)
             throw new ProductNotAvailableException("Produkt " + number + " jest niedostępny ", number);
         return active;
@@ -53,7 +53,7 @@ public abstract class AbstractProduct implements Product {
         return price;
     }
 
-    public String getNumber(){
+    public String getNumber() {
         return number;
     }
 
@@ -75,7 +75,7 @@ public abstract class AbstractProduct implements Product {
             throw new IllegalArgumentException("Klient " + client.getName() +" nie rezerwował tego produktu");
     }
 
-    public boolean canBeReservedBy(Client client){
+    public boolean canBeReservedBy(Client client) {
         return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedByVip());
         //todo w przypadku rozbudowy o różne modele rezerwacji w zależności od statusu klienta zastosować
         //dodatkowo client.canReserve(picture), i w tej metodzie w klasie Client odwołać się do metody
@@ -90,7 +90,7 @@ public abstract class AbstractProduct implements Product {
             return false;
     }
 
-    private boolean canBeBoughtByMany(){
+    private boolean canBeBoughtByMany() {
         return shared;
     }
 
@@ -99,7 +99,7 @@ public abstract class AbstractProduct implements Product {
     }
 
     private boolean isReservedByVip() throws ProductNotAvailableException {
-        for (Client client : reservedPer){
+        for (Client client : reservedPer) {
             if (client.isVip())
                 throw new ProductNotAvailableException("Produkt " + number +
                         " jest zarezerwowany przez klienta o statusie VIP.", this.number);
