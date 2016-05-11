@@ -11,6 +11,7 @@ import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableExcep
 public class PurchaseProcessTest {
 
     private static final String STANDARD_USER_NR = "nr1";
+    private static final String VIP_USER_NR = "nr2";
     private static final String AVAILABLE_PRODUCT_NR = "nr1";
     private static final String UNAVAILABLE_PRODUCT_NR = "nr2";
 
@@ -43,10 +44,16 @@ public class PurchaseProcessTest {
     }
 
     @Test
+    public void shouldNotAddNotExistingProduct(){
+
+    }
+
+    @Test
     public void shouldNotAddProductReservedByVip(){
     }
 
 
+    //while vip reserved product
     @Test
     public void shouldNotConfirmPurchase(){
 
