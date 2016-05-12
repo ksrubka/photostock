@@ -8,6 +8,6 @@ import pl.com.bottega.photostock.sales.model.Product;
  */
 public interface ClientRepository {
 
-    Client load(String name);
+    Client load(String number);
     void save(Client client);
 }
