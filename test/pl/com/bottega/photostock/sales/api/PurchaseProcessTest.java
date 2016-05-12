@@ -82,7 +82,7 @@ public class PurchaseProcessTest {
 
     //when standard client was first to reserve the product
     @Test
-    public void shouldAddProductToVipReservation(){
+    public void shouldAddProductToVipReservation() {
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
     }
@@ -91,7 +91,6 @@ public class PurchaseProcessTest {
     public void canNotAddAlreadyAddedProduct() {
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
-
     }
 
     //while vip meanwhile reserved the product
@@ -106,14 +105,21 @@ public class PurchaseProcessTest {
         purchaseProcess.confirm(standardReservationNr);
     }
 
-    //while standard client meanwhile reserved the product
-    @Test(expected = ProductNotAvailableException.class)
+
+    @Test//(expected = ProductNotAvailableException.class)
     public void shouldConfirmVipClientPurchase() {
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
         Client vipClient = getClient(VIP_USER_NR);
         Reservation vipReservation = purchaseProcess.reservationRepository.load(vipClient);
         String vipReservationNr = vipReservation.getNumber();
         purchaseProcess.calculateOffer(vipReservationNr);
+        purchaseProcess.confirm(vipReservationNr);
+    }
+
+    @Test
+    public void shouldNotDisturbVipConfirmation(){
+        shouldGenerateOffer(VIP_USER_NR);
+        purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         purchaseProcess.confirm(vipReservationNr);
     }
 
