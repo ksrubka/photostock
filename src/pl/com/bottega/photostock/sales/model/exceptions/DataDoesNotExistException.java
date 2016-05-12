@@ -14,6 +14,11 @@ public class DataDoesNotExistException extends RuntimeException {
         this.clazz = clazz;
     }
 
+    public DataDoesNotExistException(String message, String number) {
+        super(message);
+        this.number = number;
+    }
+
     public Class getClazz(){
         return clazz;
     }
