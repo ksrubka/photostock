@@ -20,18 +20,14 @@ public class Reservation {
         this.closed = false;
     }
 
-    public void add(Product... products) throws ProductNotAvailableException {
-        for (Product product : products) {
-            if (!product.canBeReservedBy(owner)) {
-                throw new ProductNotAvailableException("Produkt " + product.getNumber() +
-                        " jest niedostępny dla danego klienta.", product.getNumber());
-            }
-            if (items.contains(product)) {
-                throw new ProductNotAvailableException("Produkt " + product.getNumber() +
-                        " jest już zarezerwowany.", product.getNumber());
-            }
-            items.add(product);
-        }
+    public void add(Product product) throws ProductNotAvailableException {
+        if (!product.canBeReservedBy(owner))
+            throw new ProductNotAvailableException("Produkt " + product.getNumber() +
+                    " jest niedostępny dla klienta " + owner.getNumber(), product.getNumber());
+        if (items.contains(product))
+            throw new ProductNotAvailableException("Produkt " + product.getNumber() +
+                    " jest już zarezerwowany przez klienta " + owner.getName(), product.getNumber());
+        items.add(product);
     }
 
     public void remove(Product product) throws DataDoesNotExistException{
