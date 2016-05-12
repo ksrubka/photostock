@@ -75,6 +75,10 @@ public abstract class AbstractProduct implements Product {
             throw new IllegalArgumentException("Klient " + client.getName() +" nie rezerwował tego produktu");
     }
 
+    public void unreserve(){
+        reservedPer = new ArrayList<>();
+    }
+
     public boolean canBeReservedBy(Client client) {
         return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedByVip());
         //todo w przypadku rozbudowy o różne modele rezerwacji w zależności od statusu klienta zastosować
