@@ -16,4 +16,6 @@ public interface ReservationRepository {
     void save(Reservation reservation);
 
     Collection<Reservation> getReservations();
+
+    Reservation getReservationByOwner(Client client);
 }

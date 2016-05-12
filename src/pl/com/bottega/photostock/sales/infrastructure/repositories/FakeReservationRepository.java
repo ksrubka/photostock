@@ -44,4 +44,13 @@ public class FakeReservationRepository implements ReservationRepository {
     public Collection<Reservation> getReservations() {
         return fakeDatabase.values();
     }
+
+    @Override
+    public Reservation getReservationByOwner(Client client){
+        for(Reservation reservation : getReservations()){
+            if (reservation.getOwner().equals(client))
+                return reservation;
+        }
+        throw new IllegalStateException("Klient " + client.getName() + " nie posiada obecnie żadnych rezerwacji");
+    }
 }
