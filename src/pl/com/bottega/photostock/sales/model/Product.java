@@ -22,7 +22,7 @@ public interface Product {
 
     void unreservePer(Client client);
 
-    public void unreserve();
+    void unreserve();
 
     boolean canBeReservedBy(Client client);
 
