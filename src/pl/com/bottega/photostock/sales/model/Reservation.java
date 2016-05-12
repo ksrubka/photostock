@@ -74,4 +74,12 @@ public class Reservation {
     public void close() {
         this.closed = true;
     }
+
+    public boolean checkWhetherReservationContainsProduct(Product productToCheck){
+        for (Product product : items){
+            if (product.equals(productToCheck))
+                return true;
+        }
+        return false;
+    }
 }
