@@ -27,8 +27,6 @@ public class FakeReservationRepository implements ReservationRepository {
     public Reservation load(Client client) {
         for (Reservation reservation : fakeDatabase.values()){
             if (reservation.getOwner().equals(client))
-                if (reservation.isClosed())
-                    return new Reservation(client);
                 return reservation;
         }
         return new Reservation(client);
@@ -53,5 +51,9 @@ public class FakeReservationRepository implements ReservationRepository {
                 return reservation;
         }
         throw new IllegalStateException("Klient " + client.getName() + " nie posiada obecnie żadnych rezerwacji");
+    }
+
+    public void destroyReservations(){
+        fakeDatabase.clear();
     }
 }

@@ -18,4 +18,6 @@ public interface ReservationRepository {
     Collection<Reservation> getReservations();
 
     Reservation getReservationByOwner(Client client);
+
+    void destroyReservations();
 }
