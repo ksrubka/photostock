@@ -19,7 +19,7 @@ public class FakeReservationRepository implements ReservationRepository {
         Reservation reservation = fakeDatabase.get(number);
         if  (reservation == null)
             throw new DataDoesNotExistException("Reservation " + number +
-                    " does not exist", number, reservation.getClass());
+                    " does not exist", number);
         return reservation;
     }
 
@@ -27,10 +27,11 @@ public class FakeReservationRepository implements ReservationRepository {
     public Reservation load(Client client) {
         for (Reservation reservation : fakeDatabase.values()){
             if (reservation.getOwner().equals(client))
+                if (reservation.isClosed())
+                    return new Reservation(client);
                 return reservation;
         }
-        Reservation reservation = new Reservation(client);
-        return reservation;
+        return new Reservation(client);
     }
 
     @Override
