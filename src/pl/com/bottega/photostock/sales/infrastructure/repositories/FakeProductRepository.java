@@ -35,7 +35,7 @@ public class FakeProductRepository implements ProductRepository {
     public Product load(String number) {
         Product product = fakeDatabase.get(number);
         if  (product == null){
-            throw new ProductNotAvailableException("Product " + number + " does not exist", number);
+            throw new ProductNotAvailableException("Produkt " + number + " nie istnieje", number);
         }
         return product;
     }
