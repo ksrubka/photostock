@@ -40,14 +40,16 @@ public class PurchaseProcess {
         return reservation.generateOffer();
     }
 
+    //Jeśli dany klient jest płatnikiem
     public void confirm(String reservationNr) {
         Reservation reservation = reservationRepository.load(reservationNr);
         Client client = reservation.getOwner();
         confirm(client, reservation);
     }
 
+    //Jeśli ktoś inny jest płatnikiem
     public void confirm(String reservationNr, String payerNr) {
-        Reservation reservation = reservationRepository.load(payerNr);
+        Reservation reservation = reservationRepository.load(reservationNr);
         Client client = clientRepository.load(payerNr);
         confirm(client, reservation);
     }
@@ -57,7 +59,8 @@ public class PurchaseProcess {
         client.charge(offer.calculateTotalCost(), "");
         Purchase purchase = new Purchase(client, offer.getItems());
         clientRepository.save(client);
-        reservationRepository.save(reservation);
         purchaseRepository.save(purchase);
+        reservation.close();
+        reservationRepository.save(reservation);
     }
 }
