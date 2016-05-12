@@ -13,6 +13,7 @@ public class Reservation {
     private Client owner;
     private List<Product> items = new LinkedList<>();
     private String number;
+
     private boolean closed;
 
     public Reservation(Client owner) {
@@ -69,5 +70,9 @@ public class Reservation {
 
     public boolean isClosed() {
         return closed;
+    }
+
+    public void close() {
+        this.closed = true;
     }
 }
