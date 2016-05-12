@@ -9,10 +9,10 @@ import pl.com.bottega.photostock.sales.model.exceptions.DataDoesNotExistExceptio
  */
 public class PurchaseProcess {
 
-    private ClientRepository clientRepository = new FakeClientRepository();
-    private ReservationRepository reservationRepository = new FakeReservationRepository();
-    private ProductRepository productRepository = new FakeProductRepository();
-    private PurchaseRepository purchaseRepository = new FakePurchaseRepository();
+    public ClientRepository clientRepository = new FakeClientRepository();
+    public ReservationRepository reservationRepository = new FakeReservationRepository();
+    public ProductRepository productRepository = new FakeProductRepository();
+    public PurchaseRepository purchaseRepository = new FakePurchaseRepository();
 
     //add product to the reservation
     public void add(String clientNr, String productNr) {
@@ -23,8 +23,8 @@ public class PurchaseProcess {
             String reservationNr = createReservation(clientNr);
             reservation = reservationRepository.load(reservationNr);
         }
-        product.reservePer(client);
         reservation.add(product);
+        product.reservePer(client);
         reservationRepository.save(reservation);
         productRepository.save(product);
     }
