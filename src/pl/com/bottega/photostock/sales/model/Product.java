@@ -22,6 +22,8 @@ public interface Product {
 
     void unreservePer(Client client);
 
+    public void unreserve();
+
     boolean canBeReservedBy(Client client);
 
     void setShared(boolean bool);
