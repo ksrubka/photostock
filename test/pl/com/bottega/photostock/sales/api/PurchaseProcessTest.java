@@ -1,9 +1,14 @@
 package pl.com.bottega.photostock.sales.api;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.*;
+import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.Purchase;
+import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
 
 /**
@@ -16,13 +21,26 @@ public class PurchaseProcessTest {
     private static final String AVAILABLE_PRODUCT_NR = "nr1";
     private static final String UNAVAILABLE_PRODUCT_NR = "nr2";
     private static final String NOT_EXISTING_PRODUCT_NR = "nr7";
-    //PurchaseProcess purchaseProcess = new PurchaseProcess();
 
-    /*@Before
-    public void createNewPurchaseProcess(){
-    }*/
+    private PurchaseProcess purchaseProcess;
+    private ProductRepository productRepository;
+    private ClientRepository clientRepository;
+    private ReservationRepository reservationRepository;
 
-    @Test
+    @Before
+    public void initPurchaseProcess(){
+        purchaseProcess = new PurchaseProcess();
+        productRepository = new FakeProductRepository();
+        clientRepository = new FakeClientRepository();
+        reservationRepository = new FakeReservationRepository();
+    }
+
+    @After
+    public void cleanUp(){
+        unreserve(AVAILABLE_PRODUCT_NR);
+    }
+
+   /* @Test
     public void shouldCreateEmptyReservationForStandardClient(){
         //given
         PurchaseProcess purchaseProcess = new PurchaseProcess();
@@ -31,41 +49,31 @@ public class PurchaseProcessTest {
         String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
         //then
         Assert.assertNotEquals(reservationNr, "");
-    }
+    }*/
 
     @Test
     public void shouldAddAvailableProduct(){
-        //given
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
-        String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
-        //when
-        purchaseProcess.add(reservationNr, AVAILABLE_PRODUCT_NR);
-        //then
+        purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
+        Reservation reservation = getReservationBy(STANDARD_USER_NR);
+        boolean productIsReserved = checkIfProductIsInsideReservation(reservation, AVAILABLE_PRODUCT_NR);
+        Assert.assertTrue(productIsReserved);
     }
 
     @Test(expected = ProductNotAvailableException.class)
     public void shouldNotAddUnavailableProduct(){
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
-        String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
-        purchaseProcess.add(reservationNr, UNAVAILABLE_PRODUCT_NR);
+        purchaseProcess.add(STANDARD_USER_NR, UNAVAILABLE_PRODUCT_NR);
     }
 
     @Test(expected = ProductNotAvailableException.class)
     public void shouldNotAddNotExistingProduct(){
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
-        String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
-        purchaseProcess.add(reservationNr, NOT_EXISTING_PRODUCT_NR);
+        purchaseProcess.add(STANDARD_USER_NR, NOT_EXISTING_PRODUCT_NR);
     }
 
-    @Test
+    @Test(expected = ProductNotAvailableException.class)
     public void shouldNotAddProductReservedByVip(){
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
-        String standardReservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
-        String vipReservationNr = purchaseProcess.createReservation(VIP_USER_NR);
-        purchaseProcess.add(vipReservationNr, AVAILABLE_PRODUCT_NR);
-        purchaseProcess.add(standardReservationNr, AVAILABLE_PRODUCT_NR);
+        purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
+        purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
     }
-
 
     //while vip reserved product
     @Test
@@ -75,18 +83,39 @@ public class PurchaseProcessTest {
 
     @Test(expected = ProductNotAvailableException.class)
     public void canNotAddAlreadyAddedProduct(){
-        //given
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
-        String reservationNr = purchaseProcess.createReservation(STANDARD_USER_NR);
-        purchaseProcess.add(reservationNr, AVAILABLE_PRODUCT_NR);
-        //when
+        purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         try {
-            purchaseProcess.add(reservationNr, AVAILABLE_PRODUCT_NR);
+            purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
             Assert.fail();
         }
-        catch(IllegalArgumentException ex){
-            //expected
+        catch(ProductNotAvailableException ex){
+            ex.getMessage();
         }
     }
 
+    private Product getProduct(String productNr){
+        return productRepository.load(productNr);
+    }
+
+    private Client getClient(String clientNr){
+        return clientRepository.load(clientNr);
+    }
+
+    private Reservation getReservationBy(String clientNr){
+        Client client = getClient(clientNr);
+        return reservationRepository.getReservationByOwner(client);
+    }
+
+    private void unreserve(String productNr){
+        getProduct(productNr).unreserve();
+    }
+
+    private void close(Reservation reservation){
+        reservation.close();
+    }
+
+    private boolean checkIfProductIsInsideReservation(Reservation reservation, String productNr){
+        Product product = getProduct(productNr);
+        return reservation.checkWhetherReservationContainsProduct(product);
+    }
 }
