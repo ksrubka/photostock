@@ -72,13 +72,18 @@ public class PurchaseProcessTest {
     @Test(expected = ProductNotAvailableException.class)
     public void shouldNotAddProductReservedByVip(){
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
-        purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
+        try {
+            purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
+            Assert.fail();
+        }
+        catch(ProductNotAvailableException ex){
+            ex.getMessage();
+        }
     }
 
     //while vip reserved product
     @Test
     public void shouldNotConfirmPurchase(){
-
     }
 
     @Test(expected = ProductNotAvailableException.class)
