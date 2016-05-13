@@ -78,7 +78,7 @@ public class PurchaseProcessTest {
     }
 
     @Test
-    public void shouldAddProductReservedByStandardClientToVipClientReservation(){
+    public void shouldAddProductReservedByStandardClientToVipClientReservation() {
         successAddProductForTwoClients(STANDARD_USER_NR, VIP_USER_NR);
     }
 
@@ -138,7 +138,7 @@ public class PurchaseProcessTest {
     }
 
     @Test
-    public void shouldNotDisturbVipConfirmation(){
+    public void shouldNotDisturbVipConfirmation() {
         generateOfferFor(VIP_USER_NR);
         try {
             purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
@@ -155,10 +155,6 @@ public class PurchaseProcessTest {
         purchaseProcess.add(userNr, AVAILABLE_PRODUCT_NR);
         String reservationNr = getReservationNrBy(userNr);
         purchaseProcess.calculateOffer(reservationNr);
-    }
-
-    @Test
-    public void shouldBeNoReservationsAtStart() {
     }
 
     //test using this needs expected
@@ -195,7 +191,7 @@ public class PurchaseProcessTest {
         return purchaseProcess.reservationRepository.getReservationByOwner(client);
     }
 
-    private String getReservationNrBy(String userNr){
+    private String getReservationNrBy(String userNr) {
         Reservation reservation = getReservationBy(userNr);
         return reservation.getNumber();
     }
@@ -204,11 +200,11 @@ public class PurchaseProcessTest {
         getProduct(productNr).unreserve();
     }
 
-    private void cancelPurchase(String productNr){
+    private void cancelPurchase(String productNr) {
         getProduct(productNr).undoPurchase();
     }
 
-    private boolean checkIfProductIsInsideReservation(Reservation reservation, String productNr){
+    private boolean checkIfProductIsInsideReservation(Reservation reservation, String productNr) {
         Product product = getProduct(productNr);
         return reservation.checkWhetherReservationContainsProduct(product);
     }
