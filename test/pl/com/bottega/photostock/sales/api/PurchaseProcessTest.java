@@ -20,6 +20,10 @@ public class PurchaseProcessTest {
 
     private static final String STANDARD_USER_NR = "nr1";
     private static final String VIP_USER_NR = "nr2";
+    private static final String GOLD_USER_NR = "nr3";
+    private static final String POOR_USER_NR = "nr4";
+    private static final String SECOND_VIP_USER_NR = "nr5";
+
     private static final String AVAILABLE_PRODUCT_NR = "nr1";
     private static final String SECOND_AVAILABLE_PRODUCT_NR = "nr3";
     private static final String UNAVAILABLE_PRODUCT_NR = "nr2";
@@ -57,19 +61,18 @@ public class PurchaseProcessTest {
         Assert.assertTrue(productIsReserved);
     }
 
-
     @Test(expected = ProductNotAvailableException.class)
-    public void shouldNotAddUnavailableProduct(){
+    public void shouldNotAddUnavailableProduct() {
         purchaseProcess.add(STANDARD_USER_NR, UNAVAILABLE_PRODUCT_NR);
     }
 
     @Test(expected = ProductNotAvailableException.class)
-    public void shouldNotAddNotExistingProduct(){
+    public void shouldNotAddNotExistingProduct() {
         purchaseProcess.add(STANDARD_USER_NR, NOT_EXISTING_PRODUCT_NR);
     }
 
     @Test//(expected = ProductNotAvailableException.class)
-    public void shouldNotAddProductReservedByVip(){
+    public void shouldNotAddProductReservedByVip() {
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
         try {
             purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
@@ -85,6 +88,8 @@ public class PurchaseProcessTest {
     public void shouldAddProductToVipReservation() {
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
+        Reservation vipReservation = getReservationBy(VIP_USER_NR);
+        Assert.assertTrue(checkIfProductIsInsideReservation(vipReservation, AVAILABLE_PRODUCT_NR));
     }
 
     @Test(expected = ProductNotAvailableException.class)
@@ -94,7 +99,7 @@ public class PurchaseProcessTest {
     }
 
     //while vip meanwhile reserved the product
-    @Test(expected = ProductNotAvailableException.class)
+    @Test//(expected = ProductNotAvailableException.class)
     public void shouldNotConfirmStandardClientPurchase() {
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         Client standardClient = getClient(STANDARD_USER_NR);
@@ -102,11 +107,16 @@ public class PurchaseProcessTest {
         String standardReservationNr = standardReservation.getNumber();
         purchaseProcess.calculateOffer(standardReservationNr);
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
-        purchaseProcess.confirm(standardReservationNr);
+        try {
+            purchaseProcess.confirm(standardReservationNr);
+            Assert.fail();
+        }
+        catch (ProductNotAvailableException ex) {
+            ex.getMessage();
+        }
     }
 
-
-    @Test//(expected = ProductNotAvailableException.class)
+    @Test
     public void shouldConfirmVipClientPurchase() {
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
         Client vipClient = getClient(VIP_USER_NR);
@@ -116,15 +126,19 @@ public class PurchaseProcessTest {
         purchaseProcess.confirm(vipReservationNr);
     }
 
-    @Test
+    /*@Test
     public void shouldNotDisturbVipConfirmation(){
         shouldGenerateOffer(VIP_USER_NR);
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         purchaseProcess.confirm(vipReservationNr);
-    }
+    }*/
 
     @Test
     public void shouldBeNoReservationsAtStart() {
+    }
+
+    private boolean hasConfirmedPurchase(String userNr){
+        return false;
     }
 
     private Product getProduct(String productNr) {
@@ -138,6 +152,11 @@ public class PurchaseProcessTest {
     private Reservation getReservationBy(String clientNr) {
         Client client = getClient(clientNr);
         return purchaseProcess.reservationRepository.getReservationByOwner(client);
+    }
+
+    private String getReservationNrBy(String userNr){
+        Reservation reservation = getReservationBy(userNr);
+        return reservation.getNumber();
     }
 
     private void unreserve(String productNr) {
