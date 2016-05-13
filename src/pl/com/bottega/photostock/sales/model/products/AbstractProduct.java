@@ -80,16 +80,16 @@ public abstract class AbstractProduct implements Product {
     }
 
     public boolean canBeReservedBy(Client client) {
-        return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedByVip());
+        return client.canAfford(price) && isAvailable() && (!isSoldOut()) && (!isReservedByVip(client));
         //todo w przypadku rozbudowy o różne modele rezerwacji w zależności od statusu klienta zastosować
         //dodatkowo client.canReserve(picture), i w tej metodzie w klasie Client odwołać się do metody
         //w klasie typu ApprovingStrategy i tam będą implementacje dla każdego z poszczególnych statusów
         //np.GoldApprovingStrategy klient gold nie może zarezerwować jeśli zarezerwował klient platinum
     }
 
-    public boolean isSoldOut() throws IllegalStateException {
+    public boolean isSoldOut() throws ProductNotAvailableException {
         if (!canBeBoughtByMany() && isSold())
-            throw new IllegalStateException("Produkt został już sprzedany.");
+            throw new ProductNotAvailableException("Produkt " + this.number + " został już sprzedany.", this.number, this.getClass());
         else
             return false;
     }
@@ -102,10 +102,10 @@ public abstract class AbstractProduct implements Product {
         return !soldPer.isEmpty();
     }
 
-    private boolean isReservedByVip() throws ProductNotAvailableException {
+    private boolean isReservedByVip(Client currentClient) throws ProductNotAvailableException {
         for (Client client : reservedPer) {
-            if (client.isVip())
-                throw new ProductNotAvailableException("Produkt " + number +
+            if (client.isVip() && !(currentClient.equals(client)))
+                throw new ProductNotAvailableException("Produkt " + this.number +
                         " jest zarezerwowany przez klienta o statusie VIP.", this.number);
         }
         return false;
