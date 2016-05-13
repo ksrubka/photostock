@@ -119,9 +119,7 @@ public class PurchaseProcessTest {
     @Test
     public void shouldConfirmVipClientPurchase() {
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
-        Client vipClient = getClient(VIP_USER_NR);
-        Reservation vipReservation = purchaseProcess.reservationRepository.load(vipClient);
-        String vipReservationNr = vipReservation.getNumber();
+        String vipReservationNr = getReservationNrBy(VIP_USER_NR);
         purchaseProcess.calculateOffer(vipReservationNr);
         purchaseProcess.confirm(vipReservationNr);
     }
@@ -136,6 +134,11 @@ public class PurchaseProcessTest {
     @Test
     public void shouldBeNoReservationsAtStart() {
     }
+
+    /*private void addProductForTwoClients(String firstClientNr, String secondClientNr)  {
+        purchaseProcess.add(firstClientNr, AVAILABLE_PRODUCT_NR);
+        purchaseProcess.add(secondClientNr, AVAILABLE_PRODUCT_NR);
+    }*/
 
     private boolean hasConfirmedPurchase(String userNr){
         return false;
