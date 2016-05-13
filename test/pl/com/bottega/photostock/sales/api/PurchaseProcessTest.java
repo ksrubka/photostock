@@ -79,7 +79,7 @@ public class PurchaseProcessTest {
 
     @Test
     public void shouldAddProductReservedByStandardClientToVipClientReservation() {
-        successAddProductForTwoClients(STANDARD_USER_NR, VIP_USER_NR);
+        Assert.assertTrue(successAddProductForTwoClients(STANDARD_USER_NR, VIP_USER_NR));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class PurchaseProcessTest {
 
     @Test
     public void shouldAddProductForSecondClient() {
-        successAddProductForTwoClients(STANDARD_USER_NR, GOLD_USER_NR);
+        Assert.assertTrue(successAddProductForTwoClients(STANDARD_USER_NR, GOLD_USER_NR));
     }
 
     @Test(expected = ProductNotAvailableException.class)
@@ -158,9 +158,15 @@ public class PurchaseProcessTest {
     }
 
     //test using this needs expected
-    private void successAddProductForTwoClients(String firstClientNr, String secondClientNr)  {
+    private boolean successAddProductForTwoClients(String firstClientNr, String secondClientNr)  {
         purchaseProcess.add(firstClientNr, AVAILABLE_PRODUCT_NR);
-        purchaseProcess.add(secondClientNr, AVAILABLE_PRODUCT_NR);
+        return isProductAddedToReservation(secondClientNr);
+    }
+
+    private boolean isProductAddedToReservation(String clientNr){
+        purchaseProcess.add(clientNr, AVAILABLE_PRODUCT_NR);
+        Reservation reservation = getReservationBy(clientNr);
+        return checkIfProductIsInsideReservation(reservation, AVAILABLE_PRODUCT_NR);
     }
 
     private void failAddProductForTwoClients(String firstClientNr, String secondClientNr)  {
@@ -172,10 +178,6 @@ public class PurchaseProcessTest {
         catch (ProductNotAvailableException ex) {
             ex.getMessage();
         }
-    }
-
-    private boolean hasConfirmedPurchase(String userNr){
-        return false;
     }
 
     private Product getProduct(String productNr) {
