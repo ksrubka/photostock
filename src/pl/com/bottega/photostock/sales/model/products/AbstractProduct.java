@@ -7,6 +7,7 @@ import pl.com.bottega.photostock.sales.model.exceptions.InappropriateClientStatu
 import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Beata Iłowiecka on 06.04.16.
@@ -18,8 +19,8 @@ public abstract class AbstractProduct implements Product {
     protected String[] tags;
     protected Money price;
     protected boolean active;
-    protected ArrayList<Client> reservedPer = new ArrayList<>();
-    protected ArrayList<Client> soldPer = new ArrayList<>();
+    protected List<Client> reservedPer = new ArrayList<>();
+    protected List<Client> soldPer = new ArrayList<>();
     protected boolean shared;
 
     public AbstractProduct(String name, String number, double price, String[] tags, boolean active) {
@@ -77,6 +78,10 @@ public abstract class AbstractProduct implements Product {
 
     public void unreserve(){
         reservedPer = new ArrayList<>();
+    }
+
+    public void undoPurchase() {
+        soldPer = new ArrayList<>();
     }
 
     public boolean canBeReservedBy(Client client) {
