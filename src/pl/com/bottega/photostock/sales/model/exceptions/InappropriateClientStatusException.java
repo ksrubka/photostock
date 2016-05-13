@@ -3,7 +3,7 @@ package pl.com.bottega.photostock.sales.model.exceptions;
 /**
  * Created by Beata Iłowiecka on 06.05.16.
  */
-public class InappropriateClientStatusException extends Throwable {
+public class InappropriateClientStatusException extends RuntimeException {
 
     private String clientNumber;
 
