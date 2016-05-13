@@ -56,10 +56,7 @@ public class PurchaseProcessTest {
 
     @Test
     public void shouldAddAvailableProduct() {
-        purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
-        Reservation reservation = getReservationBy(STANDARD_USER_NR);
-        boolean productIsReserved = checkIfProductIsInsideReservation(reservation, AVAILABLE_PRODUCT_NR);
-        Assert.assertTrue(productIsReserved);
+        Assert.assertTrue(isProductAddedToReservation(STANDARD_USER_NR));
     }
 
     @Test(expected = ProductNotAvailableException.class)
@@ -106,9 +103,7 @@ public class PurchaseProcessTest {
     @Test
     public void shouldAddProductToVipReservation() {
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
-        purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
-        Reservation vipReservation = getReservationBy(VIP_USER_NR);
-        Assert.assertTrue(checkIfProductIsInsideReservation(vipReservation, AVAILABLE_PRODUCT_NR));
+        Assert.assertTrue(isProductAddedToReservation(VIP_USER_NR));
     }
 
     //while vip meanwhile reserved the product
