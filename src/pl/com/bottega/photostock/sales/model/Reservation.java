@@ -45,10 +45,9 @@ public class Reservation {
         }
         Comparator<Product> comparator = new PriceAndNameProductComparator();
         Collections.sort(result, comparator);
-        Offer offer = new Offer(owner, result);
-        for (Product product : offer.getItems())
-            System.out.println("Nr produktu: " + product.getNumber() + ", cena: " + product.getPrice());
-        return offer;
+        /*for (Product product : offer.getItems())
+            System.out.println("Nr produktu: " + product.getNumber() + ", cena: " + product.getPrice());*/
+        return new Offer(owner, result);
     }
 
     public int getItemsCount() {
