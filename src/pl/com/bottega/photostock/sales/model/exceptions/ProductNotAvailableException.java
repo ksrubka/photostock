@@ -12,20 +12,20 @@ public class ProductNotAvailableException extends RuntimeException {
     private String number;
     private Class clazz;
 
-    public ProductNotAvailableException(String message, String number, Class clazz){
+    public ProductNotAvailableException(String message, String number, Class clazz) {
         super(message);
         this.number = number;
         this.clazz = clazz;
     }
 
-    public ProductNotAvailableException(String message, String number){
+    public ProductNotAvailableException(String message, String number) {
         super(message);
         this.number = number;
     }
 
-    /*public Class getClazz(){
+    public Class getClazz() {
         return clazz;
-    }*/
+    }
 
     public String getNumber() {
         return number;
