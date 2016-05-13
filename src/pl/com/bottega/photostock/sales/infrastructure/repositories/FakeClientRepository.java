@@ -20,10 +20,10 @@ public class FakeClientRepository implements ClientRepository {
     static {
         Client paniEla = new Client("Pani Ela", "Saturn", ClientStatus.STANDARD, 15, true, "nr1");
         Client panLeszek = new Client("Pan Leszek", "Niebieski księżyc",ClientStatus.VIP, 500, true, "nr2");
-        Client paniAniela = new Client("Pani Aniela", "Merkury", 7, "nr3");
-        Client paniGosia = new Client("Pani Gosia", "Ziemia",ClientStatus.VIP, 56, true, "nr4");
-        Client panKuba = new Client("Pan Kuba", "Mars",ClientStatus.PLATINUM, 85, false, "nr5");
-        Client panJan = new Client("Pan Jan", "Jowisz", 5, "nr6");
+        Client paniAniela = new Client("Pani Aniela", "Merkury", ClientStatus.GOLD, 50, true, "nr3");
+        Client panJan = new Client("Pan Jan", "Jowisz", 0, "nr4");
+        Client paniGosia = new Client("Pani Gosia", "Ziemia", ClientStatus.VIP, 56, true, "nr5");
+        Client panKuba = new Client("Pan Kuba", "Mars",ClientStatus.PLATINUM, 85, false, "nr6");
 
         fakeDatabase.put(paniEla.getNumber(), paniEla);
         fakeDatabase.put(paniAniela.getNumber(), paniAniela);
