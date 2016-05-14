@@ -14,19 +14,14 @@ public class ProductsCatalog {
 
     private ProductRepository productRepository = new FakeProductRepository();
 
-    public List<Product> find(String nameFragment, String[] tags, double priceMin, double priceMax){
-        List<Product> products = new ArrayList<>(); //set?
-        for (Product product : productRepository.getProducts()){
-            if (hasRightPrice(product, priceMin, priceMax)
-                    || product.getName().contains(nameFragment)
-                    || containsTags(product, tags))
-                products.add(product);
-        }
-        return products;
+    public List<Product> find(String nameFragment, String[] tags, Money priceMin, Money priceMax, boolean isNotAvailable){
+        List<Product> products = new LinkedList<>();
+        return productRepository.find(nameFragment, tags, priceMin, priceMax, isNotAvailable);
     }
 
-    private boolean hasRightPrice(Product product, double priceMin, double priceMax) {
-        return product.getPrice().greaterOrEqual(new Money(priceMin)) && product.getPrice().lowerOrEqual(new Money(priceMax));
+    private boolean hasRightPrice(Product product, Money priceMin, Money priceMax) {
+        return product.getPrice().greaterOrEqual(priceMin)
+                && product.getPrice().lowerOrEqual(priceMax);
     }
 
     private boolean containsTags(Product product, String[] tags){
