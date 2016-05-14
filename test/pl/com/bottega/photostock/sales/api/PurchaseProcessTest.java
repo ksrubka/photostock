@@ -49,8 +49,8 @@ public class PurchaseProcessTest {
         Client vipClient = getClient(VIP_USER_NR);
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         purchaseProcess.add(VIP_USER_NR, SECOND_AVAILABLE_PRODUCT_NR);
-        Reservation standardReservation = purchaseProcess.reservationRepository.load(standardClient);
-        Reservation vipReservation = purchaseProcess.reservationRepository.load(vipClient);
+        Reservation standardReservation = purchaseProcess.reservationRepository.findOpenPer(standardClient);
+        Reservation vipReservation = purchaseProcess.reservationRepository.findOpenPer(vipClient);
         Assert.assertNotEquals(standardReservation, vipReservation);
     }
 
@@ -111,12 +111,11 @@ public class PurchaseProcessTest {
     public void shouldNotConfirmStandardClientPurchase() {
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         Client standardClient = getClient(STANDARD_USER_NR);
-        Reservation standardReservation = purchaseProcess.reservationRepository.load(standardClient);
-        String standardReservationNr = standardReservation.getNumber();
-        purchaseProcess.calculateOffer(standardReservationNr);
+        Reservation standardReservation = purchaseProcess.reservationRepository.findOpenPer(standardClient);
+        purchaseProcess.calculateOffer(STANDARD_USER_NR);
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
         try {
-            purchaseProcess.confirm(standardReservationNr);
+            purchaseProcess.confirm(STANDARD_USER_NR);
             Assert.fail();
         }
         catch (ProductNotAvailableException ex) {
@@ -127,9 +126,8 @@ public class PurchaseProcessTest {
     @Test
     public void shouldConfirmVipClientPurchase() {
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
-        String vipReservationNr = getReservationNrBy(VIP_USER_NR);
-        purchaseProcess.calculateOffer(vipReservationNr);
-        purchaseProcess.confirm(vipReservationNr);
+        purchaseProcess.calculateOffer(VIP_USER_NR);
+        purchaseProcess.confirm(VIP_USER_NR);
     }
 
     @Test
@@ -142,14 +140,12 @@ public class PurchaseProcessTest {
         catch (ProductNotAvailableException ex){
             ex.getMessage();
         }
-        String reservationNr = getReservationNrBy(VIP_USER_NR);
-        purchaseProcess.confirm(reservationNr);
+        purchaseProcess.confirm(VIP_USER_NR);
     }
 
     private void generateOfferFor(String userNr) {
         purchaseProcess.add(userNr, AVAILABLE_PRODUCT_NR);
-        String reservationNr = getReservationNrBy(userNr);
-        purchaseProcess.calculateOffer(reservationNr);
+        purchaseProcess.calculateOffer(userNr);
     }
 
     //test using this needs expected
@@ -185,7 +181,7 @@ public class PurchaseProcessTest {
 
     private Reservation getReservationBy(String clientNr) {
         Client client = getClient(clientNr);
-        return purchaseProcess.reservationRepository.getReservationByOwner(client);
+        return purchaseProcess.reservationRepository.findOpenPer(client);
     }
 
     private String getReservationNrBy(String userNr) {
