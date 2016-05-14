@@ -11,7 +11,7 @@ public interface Product {
 
     boolean isAvailable();
 
-    double calculatePrice();
+    Money calculatePrice();
 
     Money getPrice();
 
