@@ -24,12 +24,12 @@ public class FakeReservationRepository implements ReservationRepository {
     }
 
     @Override
-    public Reservation load(Client client) {
+    public Reservation findOpenPer(Client client) {
         for (Reservation reservation : fakeDatabase.values()){
-            if (reservation.getOwner().equals(client))
+            if (reservation.getOwner().equals(client) && !reservation.isClosed())
                 return reservation;
         }
-        return new Reservation(client);
+        return null;
     }
 
     @Override
@@ -44,16 +44,17 @@ public class FakeReservationRepository implements ReservationRepository {
         return fakeDatabase.values();
     }
 
-    @Override
-    public Reservation getReservationByOwner(Client client){
-        for(Reservation reservation : getReservations()){
-            if (reservation.getOwner().equals(client))
-                return reservation;
-        }
-        throw new IllegalStateException("Klient " + client.getName() + " nie posiada obecnie żadnych rezerwacji");
-    }
-
     public void destroyReservations(){
         fakeDatabase.clear();
+    }
+
+    @Override
+    public List<Reservation> find(String clientNr) {
+        List<Reservation> reservations = new ArrayList<>();
+        for (Reservation reservation : fakeDatabase.values()){
+            if (reservation.getOwner().getNumber().equals(clientNr))
+                reservations.add(reservation);
+        }
+        return reservations;
     }
 }
