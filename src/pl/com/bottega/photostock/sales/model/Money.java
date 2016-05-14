@@ -91,7 +91,7 @@ public class Money {
         return this.value.getNumerator() < val.value.getNumerator();
     }
 
-    public boolean GreaterThan(Money val) {
+    public boolean greaterThan(Money val) {
         return this.value.getNumerator() > val.value.getNumerator();
     }
 
