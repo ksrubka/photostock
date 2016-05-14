@@ -2,6 +2,7 @@ package pl.com.bottega.photostock.sales.api;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.*;
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.Reservation;
 
@@ -17,29 +18,23 @@ public class ClientManagement {
     private ReservationRepository reservationRepository = new FakeReservationRepository();
     private PurchaseRepository purchaseRepository = new FakePurchaseRepository();
 
-    public void register(String name, String surname, String address){
+    public String register(String name, String surname, String address, String nr){
         String fullName = name + " " + surname;
-        Client client = new Client(fullName, address, 0, null);
+        Client client = new Client(fullName, address, 0, "nr1");
         clientRepository.save(client);
+        return client.getNumber();
     }
 
     public List<Reservation> findReservations(String clientNr){
-        List<Reservation> reservations = new ArrayList<>();
-        Client client = clientRepository.load(clientNr);
-        for (Reservation reservation : reservationRepository.getReservations()){
-            if (reservation.getOwner().equals(client));
-                reservations.add(reservation);
-        }
-        return reservations;
+        return reservationRepository.find(clientNr);
     }
 
     public List<Purchase> findPurchases(String clientNr){
-        List<Purchase> purchases = new ArrayList<>();
+        return purchaseRepository.find(clientNr);
+    }
+
+    public void recharge(String clientNr, Money amount){
         Client client = clientRepository.load(clientNr);
-        for (Purchase purchase : purchaseRepository.getPurchases()){
-            if (purchase.getOwner().equals(client))
-                purchases.add(purchase);
-        }
-        return purchases;
+        client.recharge(amount);
     }
 }
