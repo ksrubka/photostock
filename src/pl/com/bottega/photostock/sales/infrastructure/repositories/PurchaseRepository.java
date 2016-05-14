@@ -1,6 +1,8 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
 import pl.com.bottega.photostock.sales.model.Purchase;
+
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,4 +14,6 @@ public interface PurchaseRepository {
     void save(Purchase purchase);
 
     Set<Purchase> getPurchases();
+
+    List<Purchase> find(String clientNr);
 }
