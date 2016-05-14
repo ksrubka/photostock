@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
+import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.Reservation;
 
@@ -35,6 +36,16 @@ public class FakePurchaseRepository implements PurchaseRepository {
         for(Map.Entry<String, Purchase> entry : fakeDatabase.entrySet()){
             Purchase purchase = entry.getValue();
             purchases.add(purchase);
+        }
+        return purchases;
+    }
+
+    @Override
+    public List<Purchase> find(String clientNr) {
+        List<Purchase> purchases = new ArrayList<>();
+        for (Purchase purchase : fakeDatabase.values()){
+            if (purchase.getOwner().equals(clientNr))
+                purchases.add(purchase);
         }
         return purchases;
     }
