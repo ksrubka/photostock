@@ -16,51 +16,53 @@ public class PurchaseProcess {
 
     //add product to the reservation
     public void add(String clientNr, String productNr) {
+        //if (security)
         Client client = clientRepository.load(clientNr);
-        Reservation reservation = reservationRepository.load(client);
+        Reservation reservation = reservationRepository.findOpenPer(client);
+        if (reservation == null)
+            reservation = createReservation(clientNr);
         Product product = productRepository.load(productNr);
-        if (reservation.isClosed()) {
-            String reservationNr = createReservation(clientNr);
-            reservation = reservationRepository.load(reservationNr);
-        }
         reservation.add(product);
         product.reservePer(client);
         reservationRepository.save(reservation);
         productRepository.save(product);
     }
-    private String createReservation(String clientNr){
+    private Reservation createReservation(String clientNr){
         Client client = clientRepository.load(clientNr);
         Reservation reservation = new Reservation(client);
         reservationRepository.save(reservation);
-        return  reservation.getNumber();
+        return  reservation;
     }
 
-    public Offer calculateOffer(String reservationNr) {
-        Reservation reservation = reservationRepository.load(reservationNr);
+    public Offer calculateOffer(String clientNr) {
+        Client client = clientRepository.load(clientNr);
+        Reservation reservation = reservationRepository.findOpenPer(client);
         return reservation.generateOffer();
     }
 
     //Jeśli dany klient jest płatnikiem
-    public void confirm(String reservationNr) {
-        Reservation reservation = reservationRepository.load(reservationNr);
-        Client client = reservation.getOwner();
+    public void confirm(String clientNr) {
+        Client client = clientRepository.load(clientNr);
+        Reservation reservation = reservationRepository.findOpenPer(client);
+        if (reservation == null)
+            throw new IllegalStateException("Klient nie posiada otwartej rezerwacji");
         confirm(client, reservation);
     }
 
     //Jeśli ktoś inny jest płatnikiem
-    public void confirm(String reservationNr, String payerNr) {
-        Reservation reservation = reservationRepository.load(reservationNr);
+    /*public void confirm(String clientNr, ) {
+        Reservation reservation = reservationRepository.findOpenPer(reservationNr);
         Client client = clientRepository.load(payerNr);
         confirm(client, reservation);
-    }
+    }*/
 
     private void confirm(Client client, Reservation reservation){
         Offer offer = reservation.generateOffer();
         client.charge(offer.calculateTotalCost(), "");
         Purchase purchase = new Purchase(client, offer.getItems());
         clientRepository.save(client);
-        purchaseRepository.save(purchase);
         reservation.close();
+        purchaseRepository.save(purchase);
         reservationRepository.save(reservation);
     }
 }
