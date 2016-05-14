@@ -4,6 +4,7 @@ import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Reservation;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Beata Iłowiecka on 21.04.16.
@@ -11,13 +12,13 @@ import java.util.Collection;
 public interface ReservationRepository {
 
     Reservation load(String number);
-    Reservation load(Client client);
+    Reservation findOpenPer(Client client);
 
     void save(Reservation reservation);
 
     Collection<Reservation> getReservations();
 
-    Reservation getReservationByOwner(Client client);
-
     void destroyReservations();
+
+    List<Reservation> find(String clientNr);
 }
