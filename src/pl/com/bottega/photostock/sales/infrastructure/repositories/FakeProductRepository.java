@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
+import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
 import pl.com.bottega.photostock.sales.model.products.*;
@@ -53,6 +54,23 @@ public class FakeProductRepository implements ProductRepository {
         for(Map.Entry<String, Product> entry : fakeDatabase.entrySet()){
             Product product = entry.getValue();
             products.add(product);
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> find(String nameFragment, String[] tags, Money priceMin, Money priceMax, boolean acceptNotAvailable) {
+        List<Product> products = new LinkedList<>();
+        if ((acceptNotAvailable && (tags == null || tags.length == 0) && priceMax == null && priceMin == null))
+            return new ArrayList<>(fakeDatabase.values());
+        for (Product product : fakeDatabase.values()){
+            if(!(acceptNotAvailable || product.isAvailable()))
+                continue;
+            if (priceMin != null && product.getPrice().greaterThan(priceMin))
+                products.add(product);
+            if (priceMax != null && product.getPrice().lowerThan(priceMax))
+                products.add(product);
+            //// TODO: 14.05.2016
         }
         return products;
     }
