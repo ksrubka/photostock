@@ -23,7 +23,7 @@ public abstract class AbstractProduct implements Product {
     protected List<Client> soldPer = new ArrayList<>();
     protected boolean shared;
 
-    public AbstractProduct(String name, String number, double price, String[] tags, boolean active) {
+    AbstractProduct(String name, String number, double price, String[] tags, boolean active) {
         this.name = name;
         this.number = number;
         this.price = new Money(price);
@@ -36,8 +36,6 @@ public abstract class AbstractProduct implements Product {
     }
 
     public boolean isAvailable() {
-        if (!active)
-            throw new ProductNotAvailableException("Produkt " + number + " jest niedostępny ", number);
         return active;
     }
 
@@ -45,8 +43,8 @@ public abstract class AbstractProduct implements Product {
         shared = bool;
     }
 
-    public double calculatePrice() {
-        return 0;
+    public Money calculatePrice() {
+        return new Money(0);
         //TODO do implementacji gdy będą dostępne rabaty i rozdzielczości i cena będzie zależeć od nich.
     }
 
