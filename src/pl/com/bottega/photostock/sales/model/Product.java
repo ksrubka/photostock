@@ -32,8 +32,6 @@ public interface Product {
 
     void setNumber(String nr);
 
-    String[] getTags();
-
     void sellPer(Client client);
 
     void undoPurchase();

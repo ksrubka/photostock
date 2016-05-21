@@ -5,8 +5,11 @@ package pl.com.bottega.photostock.sales.model.products;
  */
 public class Picture extends AbstractProduct {
 
+    private String[] tags;
+
     public Picture(String number, double price, String[] tags, boolean active) {
-        super(number, price, tags, active);
+        super(number, price, active);
+        this.tags = tags;
     }
 
     public Picture(String number, double price, String[] tags) {

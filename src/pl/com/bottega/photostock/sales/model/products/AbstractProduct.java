@@ -15,22 +15,20 @@ import java.util.List;
 public abstract class AbstractProduct implements Product {
 
     protected String number;
-    protected String[] tags;
     protected Money price;
     protected boolean active;
     protected List<Client> reservedPer = new ArrayList<>();
     protected List<Client> soldPer = new ArrayList<>();
     protected boolean shared;
 
-    AbstractProduct(String number, double price, String[] tags, boolean active) {
+    AbstractProduct(String number, double price, boolean active) {
         this.number = number;
         this.price = new Money(price);
-        this.tags = tags;
         this.active = active;
     }
 
-    public AbstractProduct(String name, String number, double price, String[] tags) {
-        this(number, price, tags, true);
+    public AbstractProduct(String number, double price) {
+        this(number, price, true);
     }
 
     public boolean isAvailable() {
@@ -118,11 +116,6 @@ public abstract class AbstractProduct implements Product {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    @Override
-    public String[] getTags() {
-        return tags;
     }
 
     @Override
