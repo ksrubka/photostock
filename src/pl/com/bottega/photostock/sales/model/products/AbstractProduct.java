@@ -131,4 +131,10 @@ public abstract class AbstractProduct implements Product {
     public int hashCode() {
         return number.hashCode();
     }
+
+
+    @Override
+    public String[] getTags(){
+        return null;
+    }
 }

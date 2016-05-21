@@ -35,4 +35,8 @@ public interface Product {
     void sellPer(Client client);
 
     void undoPurchase();
+
+    String[] export();
+
+    String[] getTags();
 }
