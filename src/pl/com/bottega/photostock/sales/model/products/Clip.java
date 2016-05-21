@@ -21,4 +21,9 @@ public class Clip extends AbstractProduct{
     public Clip(){
         this("nr5", 10, Duration.ofSeconds(224), true);
     }
+
+    @Override
+    public String[] export() {
+        return new String[0];
+    }
 }

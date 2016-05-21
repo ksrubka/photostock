@@ -27,4 +27,9 @@ public class Song extends AbstractProduct {
     public Song() {
         this("nr6", 12, "Black keys", "Gold on the ceiling", Duration.ofSeconds(225), Channel.STEREO);
     }
+
+    @Override
+    public String[] export() {
+        return new String[0];
+    }
 }
