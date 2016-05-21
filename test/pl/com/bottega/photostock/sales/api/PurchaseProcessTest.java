@@ -184,11 +184,6 @@ public class PurchaseProcessTest {
         return purchaseProcess.reservationRepository.findOpenPer(client);
     }
 
-    private String getReservationNrBy(String userNr) {
-        Reservation reservation = getReservationBy(userNr);
-        return reservation.getNumber();
-    }
-
     private void unreserve(String productNr) {
         getProduct(productNr).unreserve();
     }
