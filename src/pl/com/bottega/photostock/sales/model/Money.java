@@ -29,7 +29,7 @@ public class Money {
     }
 
     public int getNumerator(Double value){
-        return (int) ((Math.floor(value)) + (value - Math.floor(value)) * 100);
+        return (int) ((Math.floor(value) * 100) + (value - Math.floor(value)));
     }
     public int getNumerator(int value, int cents){
         return (value * 100) + cents;
@@ -111,4 +111,7 @@ public class Money {
         return value.getNumerator()/100;
     }
 
+    public int cents() {
+        return value.getNumerator();
+    }
 }
