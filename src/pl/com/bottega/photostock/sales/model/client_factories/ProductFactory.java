@@ -12,14 +12,14 @@ import static pl.com.bottega.photostock.sales.model.products.Channel.STEREO;
  */
 public class ProductFactory {
 
-    public static Product create(String name, String productNumber, double price, String[] tags, ProductType productType) {
+    public static Product create(String productNumber, double price, ProductType productType) {
         switch (productType){
             case PICTURE:
-                return new Picture(name, productNumber, price, tags);
+                return new Picture(productNumber, price, null);
             case CLIP:
-                return new Clip(name, productNumber, price, tags, Duration.ZERO);
+                return new Clip(productNumber, price, Duration.ZERO);
             case SONG:
-                return  new Song(name, productNumber, price, tags, "", "", Duration.ZERO, STEREO);
+                return  new Song(productNumber, price,"", "", Duration.ZERO, STEREO);
             default:
                 throw new IllegalArgumentException("Podany typ produktu nie istnieje");
         }
