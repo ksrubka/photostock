@@ -14,7 +14,6 @@ import java.util.List;
  */
 public abstract class AbstractProduct implements Product {
 
-    protected String name;
     protected String number;
     protected String[] tags;
     protected Money price;
@@ -23,8 +22,7 @@ public abstract class AbstractProduct implements Product {
     protected List<Client> soldPer = new ArrayList<>();
     protected boolean shared;
 
-    AbstractProduct(String name, String number, double price, String[] tags, boolean active) {
-        this.name = name;
+    AbstractProduct(String number, double price, String[] tags, boolean active) {
         this.number = number;
         this.price = new Money(price);
         this.tags = tags;
@@ -32,7 +30,7 @@ public abstract class AbstractProduct implements Product {
     }
 
     public AbstractProduct(String name, String number, double price, String[] tags) {
-        this(name, number, price, tags, true);
+        this(number, price, tags, true);
     }
 
     public boolean isAvailable() {
@@ -120,10 +118,6 @@ public abstract class AbstractProduct implements Product {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override
