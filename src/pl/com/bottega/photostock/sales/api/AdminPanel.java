@@ -12,6 +12,8 @@ import pl.com.bottega.photostock.sales.model.exceptions.ClientDoesNotExistExcept
 import pl.com.bottega.photostock.sales.model.exceptions.InappropriateClientStatusException;
 import pl.com.bottega.photostock.sales.model.products.ProductType;
 
+import java.io.IOException;
+
 /**
  * Created by Beata Iłowiecka on 02.05.16.
  */
@@ -20,8 +22,8 @@ public class AdminPanel {
     private ProductRepository productRepository = new FakeProductRepository();
     private ClientRepository clientRepository = new FakeClientRepository();
 
-    public void addProduct(String name, String nr, double price, String[] tags, ProductType productType){
-        Product product = ProductFactory.create(name, nr, price, tags, productType);
+    public void addProduct(String nr, double price, ProductType productType) throws IOException {
+        Product product = ProductFactory.create(nr, price, productType);
         productRepository.save(product);
     }
 

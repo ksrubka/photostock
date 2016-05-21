@@ -8,6 +8,8 @@ import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
+import java.io.IOException;
+
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -17,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class FileProductRepositoryTest {
 
     @Test
-    public void shouldLoadProduct() {
+    public void shouldLoadProduct() throws IOException {
         //given
         ProductRepository productRepository =
                 new FileProductRepository(getClass().getResource("/fixtures/products.csv").getPath());

@@ -1,15 +1,11 @@
-package pl.com.bottega.photostock.sales.infrastructure.repository;
+package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
-import pl.com.bottega.photostock.sales.infrastructure.repositories.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.Clip;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +15,6 @@ import java.util.Set;
  */
 public class FileProductRepository implements ProductRepository {
 
-
     private final String path;
 
     public FileProductRepository(String path) {
@@ -27,60 +22,65 @@ public class FileProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product load(String nr) {
-        InputStream is = null;
-        try {
-            is = new FileInputStream(path);
+    public Product load(String nr) throws RuntimeException {
+        try (InputStream is = new FileInputStream(path);) {
             readLine(is);
             String line;
-            while ((line = readLine(is)) != null){
-                String[] components = line.split(",");
+            while ((line = readLine(is)) != null) {
+                if (line.trim().length() == 0)
+                    return null;
                 Product product;
-                String number = components[0];
-                if (number != nr)
-                    continue;
-                int priceCents = Integer.parseInt(components[1]);
-                Money price = new Money(priceCents / 100, priceCents % 100, components[2]);
-                String[] tags = components[4].split(" ");
-                int duration = Integer.parseInt(components[3]);
-                boolean active = Boolean.parseBoolean(components[5]);
-                if (components[6] == "Picture")
-                    product = new Picture("", number, priceCents, tags, active);
-                else
-                    product = new Clip("", number, priceCents, tags, Duration.ofSeconds(duration));
+                product = parseProduct(line);
+                if (product.getNumber().equals(nr))
+                    return product;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                is.close();
-            }
-            catch (IOException ex) {
-                ex.printStackTrace();
-            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
 
-    private String readLine(InputStream is) {
+    // number,priceCents,priceCurrency,length,tags,available,type
+    private Product parseProduct(String line) {
+        Product product;
+        String[] components = line.split(",");
+        String number = components[0];
+        int priceCents = Integer.parseInt(components[1]);
+        //Money price = new Money(priceCents / 100, priceCents % 100, components[2]);
+        boolean active = Boolean.parseBoolean(components[3]);
+        if (components[6].startsWith("Picture")) {
+            String[] tags = components[5].split(" ");
+            product = new Picture(number, priceCents, tags, active);
+        }
+        else {
+            int duration = Integer.parseInt(components[3]);
+            product = new Clip(number, priceCents, Duration.ofSeconds(duration), active);
+        }
+        return product;
+    }
+
+    private String readLine(InputStream is) throws IOException {
         int ch;
         StringBuilder sb = new StringBuilder();
-        try {
-            while(((ch = is.read()) != '\n') && ch != -1) {
-                sb.append((char)ch);
-            }
-            return sb.toString();
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
+        while(((ch = is.read()) != '\n') && ch != -1)
+            sb.append((char)ch);
+        return sb.toString();
     }
 
     @Override
     public void save(Product product) {
-
+        File file = new File(this.path);
+        boolean newRepo = !file.exists();
+        try (OutputStream os = new FileOutputStream(this.path, true)) {
+            if (newRepo)
+                os.write("number,price,priceCurrency,available,length,tags,type\r\n".getBytes());
+            String[] productExported = product.export();
+            String csvLine = String.join(",", productExported) + "\r\n";
+            os.write(csvLine.getBytes());
+        }
+        catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override

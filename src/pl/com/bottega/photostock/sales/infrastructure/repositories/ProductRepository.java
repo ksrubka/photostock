@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -11,8 +12,8 @@ import java.util.Set;
  */
 public interface ProductRepository {
 
-    Product load(String number);
-    void save(Product product);
+    Product load(String number) throws IOException;
+    void save(Product product) throws IOException;
 
     Set<Product> getProducts();
 

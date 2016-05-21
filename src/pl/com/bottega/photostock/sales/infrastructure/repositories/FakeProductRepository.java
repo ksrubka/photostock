@@ -16,9 +16,9 @@ public class FakeProductRepository implements ProductRepository {
 
     // inicjalizator klasy ale nie dla obiektów tej klasy
     static {
-        Product mustang = new Picture("mustang", "nr1", 10, new String[] {"ford", "mustang"});
-        Product multipla = new Picture("multipla", "nr2", 10, new String[] {"fiat", "multipla"}, false);
-        Product mazda = new Picture("mazda", "nr3", 10, new String[] {"mazda", "multipla"});
+        Product mustang = new Picture("nr1", 10, new String[] {"ford", "mustang"});
+        Product multipla = new Picture("nr2", 10, new String[] {"fiat", "multipla"}, false);
+        Product mazda = new Picture("nr3", 10, new String[] {"mazda", "multipla"});
         Product programming = new Picture(); // nr4
         Product boy = new Clip(); // nr5
         Product ceiling = new Song(); //nr6

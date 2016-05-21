@@ -5,6 +5,7 @@ import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.ProductType;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,8 +24,8 @@ public class AcceptanceStory {
     private LightBoxManagement lightBoxManagement = new LightBoxManagement();
 
     @Test
-    public void story() {
-        adminPanel.addProduct("pro", "nr12", 10, new String[] {"tag1"}, ProductType.CLIP);
+    public void story() throws IOException {
+        adminPanel.addProduct("nr12", 10, ProductType.CLIP);
         String clientNr = clientManagement.register("Imię", "Nazwisko", "spoko", "nr1");
         clientManagement.recharge(clientNr, new Money(INITIAL_MONEY));
         List<Product> products = productsCatalog.find(null, null, null, null, true);

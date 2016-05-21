@@ -9,6 +9,7 @@ import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.exceptions.DataDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class LightBoxManagement {
         }
     }
 
-    public void add(String lightBoxNr, String productNr) throws IllegalArgumentException {
+    public void add(String lightBoxNr, String productNr) throws IllegalArgumentException, IOException {
         LightBox lightBox = lightBoxRepository.load(lightBoxNr);
         Product product = productRepository.load(productNr);
         if (product instanceof Picture) {
@@ -57,7 +58,7 @@ public class LightBoxManagement {
             throw new IllegalArgumentException("Klient z którym chcesz dzielić LightBox nie należy do tej samej firmy");
     }
 
-    public void reserve(String lbxNr, String reservationNr, List<String> pictureNrs){
+    public void reserve(String lbxNr, String reservationNr, List<String> pictureNrs) throws IOException {
         LightBox lbx = lightBoxRepository.load(lbxNr);
         Reservation reservation = reservationRepository.load(reservationNr);
         for (String pictureNr : pictureNrs) {
