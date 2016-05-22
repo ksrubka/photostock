@@ -37,7 +37,6 @@ public class Picture extends AbstractProduct {
         };
     }
 
-    @Override
     public String[] getTags() {
         return tags;
     }
