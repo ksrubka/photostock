@@ -24,7 +24,7 @@ public class AcceptanceStory {
     private LightBoxManagement lightBoxManagement = new LightBoxManagement();
 
     @Test
-    public void story() throws IOException {
+    public void story() {
         adminPanel.addProduct("nr12", 10, ProductType.CLIP);
         String clientNr = clientManagement.register("Imię", "Nazwisko", "spoko", "nr1");
         clientManagement.recharge(clientNr, new Money(INITIAL_MONEY));

@@ -17,7 +17,7 @@ public class PurchaseProcess {
     public PurchaseRepository purchaseRepository = new FakePurchaseRepository();
 
     //add product to the reservation
-    public void add(String clientNr, String productNr) throws IOException {
+    public void add(String clientNr, String productNr) {
         //if (security)
         Client client = clientRepository.load(clientNr);
         Reservation reservation = reservationRepository.findOpenPer(client);
