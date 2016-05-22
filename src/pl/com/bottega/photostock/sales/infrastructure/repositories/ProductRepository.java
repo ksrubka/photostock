@@ -12,8 +12,8 @@ import java.util.Set;
  */
 public interface ProductRepository {
 
-    Product load(String number) throws IOException;
-    void save(Product product) throws IOException;
+    Product load(String number);
+    void save(Product product);
 
     Set<Product> getProducts();
 
