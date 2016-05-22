@@ -21,13 +21,13 @@ public abstract class AbstractProduct implements Product {
     protected List<Client> soldPer = new ArrayList<>();
     protected boolean shared;
 
-    AbstractProduct(String number, double price, boolean active) {
+    AbstractProduct(String number, Money price, boolean active) {
         this.number = number;
-        this.price = new Money(price);
+        this.price = price;
         this.active = active;
     }
 
-    public AbstractProduct(String number, double price) {
+    public AbstractProduct(String number, Money price) {
         this(number, price, true);
     }
 
