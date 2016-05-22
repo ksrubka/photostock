@@ -22,4 +22,7 @@ public class Clip extends AbstractProduct{
         this("nr5", new Money(10.0), 224, true);
     }
 
+    public long getLength() {
+        return length;
+    }
 }
