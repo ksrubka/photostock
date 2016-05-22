@@ -37,6 +37,4 @@ public interface Product {
     void undoPurchase();
 
     String[] export();
-
-    String[] getTags();
 }
