@@ -1,5 +1,7 @@
 package pl.com.bottega.photostock.sales.model.products;
 
+import pl.com.bottega.photostock.sales.model.Money;
+
 import java.time.Duration;
 
 /**
@@ -12,7 +14,7 @@ public class Song extends AbstractProduct {
     private Duration duration;
     private Channel channel;
 
-    public Song(String number, double price, String performer, String title, Duration duration, Channel channel, boolean active) {
+    public Song(String number, Money price, String performer, String title, Duration duration, Channel channel, boolean active) {
         super(number, price, active);
         this.performer = performer;
         this.title = title;
@@ -20,12 +22,12 @@ public class Song extends AbstractProduct {
         this.channel = channel;
     }
 
-    public Song(String number, double price, String performer, String title, Duration duration, Channel channel) {
+    public Song(String number, Money price, String performer, String title, Duration duration, Channel channel) {
         this(number, price, performer, title, duration, channel, true);
     }
 
     public Song() {
-        this("nr6", 12, "Black keys", "Gold on the ceiling", Duration.ofSeconds(225), Channel.STEREO);
+        this("nr6", new Money(12), "Black keys", "Gold on the ceiling", Duration.ofSeconds(225), Channel.STEREO);
     }
 
     @Override

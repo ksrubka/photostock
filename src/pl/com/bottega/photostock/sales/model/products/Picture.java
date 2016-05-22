@@ -9,17 +9,17 @@ public class Picture extends AbstractProduct {
 
     private String[] tags;
 
-    public Picture(String number, double price, String[] tags, boolean active) {
+    public Picture(String number, Money price, String[] tags, boolean active) {
         super(number, price, active);
         this.tags = tags;
     }
 
-    public Picture(String number, double price, String[] tags) {
+    public Picture(String number, Money price, String[] tags) {
         this(number, price, tags, true);
     }
 
     public Picture() {
-        this("nr4", 13, new String[]{"mouse", "screen", "coffee", "crayons"}, true);
+        this("nr4", new Money(13.0), new String[]{"mouse", "screen", "coffee", "crayons"}, true);
     }
 
     @Override
