@@ -22,7 +22,7 @@ public class FileProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product load(String nr) throws RuntimeException {
+    public Product load(String nr) {
         try (InputStream is = new FileInputStream(path);) {
             readLine(is);
             String line;
@@ -35,7 +35,7 @@ public class FileProductRepository implements ProductRepository {
                     return product;
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e);
         }
         return null;
     }
@@ -59,7 +59,7 @@ public class FileProductRepository implements ProductRepository {
         return product;
     }
 
-    private String readLine(InputStream is) throws IOException {
+    private String readLine(InputStream is) throws IOException{
         int ch;
         StringBuilder sb = new StringBuilder();
         while(((ch = is.read()) != '\n') && ch != -1)
@@ -79,7 +79,7 @@ public class FileProductRepository implements ProductRepository {
             os.write(csvLine.getBytes());
         }
         catch (Exception ex) {
-            throw new RuntimeException(ex);
+            throw new DataAccessException(ex);
         }
     }
 
