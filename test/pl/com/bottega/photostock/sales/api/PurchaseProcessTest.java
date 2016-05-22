@@ -4,15 +4,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.*;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Product;
-import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Beata Iłowiecka on 08.05.16.
@@ -38,14 +33,14 @@ public class PurchaseProcessTest {
     }
 
     @After
-    public void cleanUp() throws IOException {
+    public void cleanUp() {
         unreserve(AVAILABLE_PRODUCT_NR);
         purchaseProcess.reservationRepository.destroyReservations();
         cancelPurchase(AVAILABLE_PRODUCT_NR);
     }
 
     @Test
-    public void reservationNumbersShouldBeDifferent() throws IOException {
+    public void reservationNumbersShouldBeDifferent() {
         Client standardClient = getClient(STANDARD_USER_NR);
         Client vipClient = getClient(VIP_USER_NR);
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
@@ -56,60 +51,60 @@ public class PurchaseProcessTest {
     }
 
     @Test
-    public void shouldAddAvailableProduct() throws IOException {
+    public void shouldAddAvailableProduct() {
         Assert.assertTrue(isProductAddedToReservation(STANDARD_USER_NR));
     }
 
     @Test(expected = ProductNotAvailableException.class)
-    public void shouldNotAddUnavailableProduct() throws IOException {
+    public void shouldNotAddUnavailableProduct() {
         purchaseProcess.add(STANDARD_USER_NR, UNAVAILABLE_PRODUCT_NR);
     }
 
     @Test(expected = ProductNotAvailableException.class)
-    public void shouldNotAddNotExistingProduct() throws IOException {
+    public void shouldNotAddNotExistingProduct() {
         purchaseProcess.add(STANDARD_USER_NR, NOT_EXISTING_PRODUCT_NR);
     }
 
     @Test
-    public void shouldNotAddProductReservedByVip() throws IOException {
+    public void shouldNotAddProductReservedByVip() {
         failAddProductForTwoClients(VIP_USER_NR, STANDARD_USER_NR);
     }
 
     @Test
-    public void shouldAddProductReservedByStandardClientToVipClientReservation() throws IOException {
+    public void shouldAddProductReservedByStandardClientToVipClientReservation() {
         Assert.assertTrue(successAddProductForTwoClients(STANDARD_USER_NR, VIP_USER_NR));
     }
 
     @Test
-    public void shouldNotAddProductReservedByVipForAnotherVip() throws IOException {
+    public void shouldNotAddProductReservedByVipForAnotherVip() {
         failAddProductForTwoClients(VIP_USER_NR, SECOND_VIP_USER_NR);
     }
 
     @Test
-    public void shouldNotAddAlreadyAddedProduct() throws IOException {
+    public void shouldNotAddAlreadyAddedProduct() {
         failAddProductForTwoClients(STANDARD_USER_NR, STANDARD_USER_NR);
     }
 
     @Test
-    public void shouldAddProductForSecondClient() throws IOException {
+    public void shouldAddProductForSecondClient() {
         Assert.assertTrue(successAddProductForTwoClients(STANDARD_USER_NR, GOLD_USER_NR));
     }
 
     @Test(expected = ProductNotAvailableException.class)
-    public void shouldNotReserveProductIfClientHasNoMoney() throws IOException {
+    public void shouldNotReserveProductIfClientHasNoMoney() {
         purchaseProcess.add(POOR_USER_NR, AVAILABLE_PRODUCT_NR);
     }
 
     //when standard client was first to reserve the product
     @Test
-    public void shouldAddProductToVipReservation() throws IOException {
+    public void shouldAddProductToVipReservation() {
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         Assert.assertTrue(isProductAddedToReservation(VIP_USER_NR));
     }
 
     //while vip meanwhile reserved the product
     @Test
-    public void shouldNotConfirmStandardClientPurchase() throws IOException {
+    public void shouldNotConfirmStandardClientPurchase() {
         purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
         Client standardClient = getClient(STANDARD_USER_NR);
         Reservation standardReservation = purchaseProcess.reservationRepository.findOpenPer(standardClient);
@@ -125,14 +120,14 @@ public class PurchaseProcessTest {
     }
 
     @Test
-    public void shouldConfirmVipClientPurchase() throws IOException {
+    public void shouldConfirmVipClientPurchase() {
         purchaseProcess.add(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
         purchaseProcess.calculateOffer(VIP_USER_NR);
         purchaseProcess.confirm(VIP_USER_NR);
     }
 
     @Test
-    public void shouldNotDisturbVipConfirmation() throws IOException {
+    public void shouldNotDisturbVipConfirmation() {
         generateOfferFor(VIP_USER_NR);
         try {
             purchaseProcess.add(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
@@ -140,30 +135,30 @@ public class PurchaseProcessTest {
         }
         catch (ProductNotAvailableException ex){
             ex.getMessage();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         purchaseProcess.confirm(VIP_USER_NR);
     }
 
-    private void generateOfferFor(String userNr) throws IOException {
+    private void generateOfferFor(String userNr) {
         purchaseProcess.add(userNr, AVAILABLE_PRODUCT_NR);
         purchaseProcess.calculateOffer(userNr);
     }
 
     //test using this needs expected
-    private boolean successAddProductForTwoClients(String firstClientNr, String secondClientNr) throws IOException {
+    private boolean successAddProductForTwoClients(String firstClientNr, String secondClientNr) {
         purchaseProcess.add(firstClientNr, AVAILABLE_PRODUCT_NR);
         return isProductAddedToReservation(secondClientNr);
     }
 
-    private boolean isProductAddedToReservation(String clientNr) throws IOException {
+    private boolean isProductAddedToReservation(String clientNr) {
         purchaseProcess.add(clientNr, AVAILABLE_PRODUCT_NR);
         Reservation reservation = getReservationBy(clientNr);
         return checkIfProductIsInsideReservation(reservation, AVAILABLE_PRODUCT_NR);
     }
 
-    private void failAddProductForTwoClients(String firstClientNr, String secondClientNr) throws IOException {
+    private void failAddProductForTwoClients(String firstClientNr, String secondClientNr) {
         purchaseProcess.add(firstClientNr, AVAILABLE_PRODUCT_NR);
         try {
             purchaseProcess.add(secondClientNr, AVAILABLE_PRODUCT_NR);
@@ -174,7 +169,7 @@ public class PurchaseProcessTest {
         }
     }
 
-    private Product getProduct(String productNr) throws IOException {
+    private Product getProduct(String productNr) {
         return purchaseProcess.productRepository.load(productNr);
     }
 
@@ -187,15 +182,15 @@ public class PurchaseProcessTest {
         return purchaseProcess.reservationRepository.findOpenPer(client);
     }
 
-    private void unreserve(String productNr) throws IOException {
+    private void unreserve(String productNr) {
         getProduct(productNr).unreserve();
     }
 
-    private void cancelPurchase(String productNr) throws IOException {
+    private void cancelPurchase(String productNr)  {
         getProduct(productNr).undoPurchase();
     }
 
-    private boolean checkIfProductIsInsideReservation(Reservation reservation, String productNr) throws IOException {
+    private boolean checkIfProductIsInsideReservation(Reservation reservation, String productNr) {
         Product product = getProduct(productNr);
         return reservation.checkWhetherReservationContainsProduct(product);
     }
