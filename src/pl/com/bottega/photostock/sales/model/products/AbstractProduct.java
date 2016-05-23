@@ -136,4 +136,9 @@ public abstract class AbstractProduct implements Product {
     public String[] export() {
         return new String[0];
     }
+
+    @Override
+    public String[] getTags(){
+        return null;
+    }
 }
