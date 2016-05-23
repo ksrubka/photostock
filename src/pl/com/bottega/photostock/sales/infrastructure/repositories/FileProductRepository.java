@@ -46,15 +46,15 @@ public class FileProductRepository implements ProductRepository {
         String[] components = line.split(",");
         String number = components[0];
         int priceCents = Integer.parseInt(components[1]);
-        //Money price = new Money(priceCents / 100, priceCents % 100, components[2]);
+        Money price = new Money(priceCents / 100, priceCents % 100, components[2]);
         boolean active = Boolean.parseBoolean(components[3]);
         if (components[6].startsWith("Picture")) {
             String[] tags = components[5].split(" ");
-            product = new Picture(number, priceCents, tags, active);
+            product = new Picture(number, price, tags, active);
         }
         else {
-            int duration = Integer.parseInt(components[3]);
-            product = new Clip(number, priceCents, Duration.ofSeconds(duration), active);
+            int length = Integer.parseInt(components[4]);
+            product = new Clip(number, price, length, active);
         }
         return product;
     }
