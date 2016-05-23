@@ -56,11 +56,9 @@ public class FileProductRepositoryTest {
         ProductRepository productRepository = new FileProductRepository("tmp/prducts.csv");
         Product clip = new Clip("nr1", new Money(500.0, "USD"), 200);
         Product picture = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, false);
-
         //when
         productRepository.save(clip);
         productRepository.save(picture);
-
         //then
         Product clipRead = productRepository.load("nr1");
         Product pictureRead = productRepository.load("nr2");
