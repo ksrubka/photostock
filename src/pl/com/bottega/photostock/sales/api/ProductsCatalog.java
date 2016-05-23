@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.api;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.*;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
+import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -19,14 +20,17 @@ public class ProductsCatalog {
         return productRepository.find(nameFragment, tags, priceMin, priceMax, isNotAvailable);
     }
 
-    private boolean hasRightPrice(Product product, Money priceMin, Money priceMax) {
+    /*private boolean hasRightPrice(Product product, Money priceMin, Money priceMax) {
         return product.getPrice().greaterOrEqual(priceMin)
                 && product.getPrice().lowerOrEqual(priceMax);
     }
 
     private boolean containsTags(Product product, String[] tags){
-        Set<String> productTags = new HashSet<>(Arrays.asList(product.getTags()));
-        Set<String> tagsToCompare = new HashSet<>(Arrays.asList(tags));
-        return productTags.containsAll(tagsToCompare);
-    }
+        if (product instanceof Picture){
+            Set<String> productTags = new HashSet<>(Arrays.asList((product).getTags()));
+            Set<String> tagsToCompare = new HashSet<>(Arrays.asList(tags));
+            return productTags.containsAll(tagsToCompare);
+        }
+        return
+    }*/
 }
