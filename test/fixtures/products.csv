@@ -1,4 +1,4 @@
 number,priceCents,priceCurrency,available,length,tags,type
-nr1,200,PLN,500,,true,Clip
-nr2,300,PLN,,tag1 tag2,true,Picture
-nr3,5000,PLN,400,,true,Song
+nr1,200,PLN,true,500,,Clip
+nr2,500,USD,true,,tag1 tag2,Picture
+nr3,5000,PLN,true,400,,Song
