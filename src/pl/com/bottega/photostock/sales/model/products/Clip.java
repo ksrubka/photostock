@@ -29,7 +29,6 @@ public class Clip extends AbstractProduct{
     @Override
     public String[] export() {
         Money price = getPrice();
-        String tagsJoined = String.join(" ", this.getTags());
         return new String[] {
                 getNumber(),
                 String.valueOf(price.cents()),
