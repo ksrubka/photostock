@@ -9,9 +9,6 @@ import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.Clip;
 import pl.com.bottega.photostock.sales.model.products.Picture;
-
-import java.io.IOException;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertArrayEquals;
@@ -34,7 +31,7 @@ public class FileProductRepositoryTest {
         assertEquals(Picture.class, product.getClass());
         assertEquals(new Money(5.0, "USD"), product.getPrice());
         assertTrue(product.isAvailable());
-        assertEquals(new String[] {"tag1", "tag2"}, ((Picture) product).getTags());
+        assertArrayEquals(new String[] {"t1", "t2"}, ((Picture)product).getTags());
     }
 
     @Test
@@ -70,7 +67,7 @@ public class FileProductRepositoryTest {
         Assert.assertEquals("nr1", clipRead.getNumber());
         Assert.assertEquals("nr2", pictureRead.getNumber());
         assertArrayEquals(new String[] {"t1", "t2"}, ((Picture) pictureRead).getTags());
-        junit.framework.Assert.assertEquals(200, ((Clip) clipRead).getLength());
-        junit.framework.Assert.assertEquals(false, pictureRead.isAvailable());
+        assertEquals(200, ((Clip) clipRead).getLength());
+        assertEquals(false, pictureRead.isAvailable());
     }
 }
