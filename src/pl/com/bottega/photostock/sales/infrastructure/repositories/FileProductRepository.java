@@ -68,14 +68,24 @@ public class FileProductRepository implements ProductRepository {
     }
 
     @Override
+    //save given object into the file (located on path specified in path field)
     public void save(Product product) {
+        //create new file in path
+        //but what if that file already exist? - problem
         File file = new File(this.path);
+        //see if file not exists
         boolean newRepo = !file.exists();
+        // create OutputStream to write into a file
         try (OutputStream os = new FileOutputStream(this.path, true)) {
+            // if file not exist
             if (newRepo)
+                //add first line - header
                 os.write("number,price,priceCurrency,available,length,tags,type\r\n".getBytes());
+            //then create array from product characteristics
             String[] productExported = product.export();
+            //use that array to create String separated by commas
             String csvLine = String.join(",", productExported) + "\r\n";
+            //write that String into the OutputStream
             os.write(csvLine.getBytes());
         }
         catch (Exception ex) {
