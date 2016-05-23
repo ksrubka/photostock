@@ -14,7 +14,7 @@ public class Money {
     private final Fraction value;
     private final Currency currency;
 
-    public Money(Double value, String currency) {
+    public Money(double value, String currency) {
         this.value = new Fraction(getNumerator(value), 100);
         this.currency = Currency.getInstance(currency);
     }
