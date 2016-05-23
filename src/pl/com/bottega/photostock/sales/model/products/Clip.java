@@ -25,4 +25,19 @@ public class Clip extends AbstractProduct{
     public long getLength() {
         return length;
     }
+
+    @Override
+    public String[] export() {
+        Money price = getPrice();
+        String tagsJoined = String.join(" ", this.getTags());
+        return new String[] {
+                getNumber(),
+                String.valueOf(price.cents()),
+                String.valueOf(price.getCurrency()),
+                String.valueOf(isAvailable()),
+                String.valueOf(length),
+                "",
+                "Clip"
+        };
+    }
 }
