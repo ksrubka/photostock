@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -50,5 +51,26 @@ public class FileProductRepositoryTest {
         }
         //then
         assertNotNull(ex);
+    }
+
+    @Test
+    public void shouldWriteProducts() {
+        //given
+        ProductRepository productRepository = new FileProductRepository("tmp/prducts.csv");
+        Product clip = new Clip("nr1", new Money(500.0, "USD"), 200);
+        Product picture = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, false);
+
+        //when
+        productRepository.save(clip);
+        productRepository.save(picture);
+
+        //then
+        Product clipRead = productRepository.load("nr1");
+        Product pictureRead = productRepository.load("nr2");
+        Assert.assertEquals("nr1", clipRead.getNumber());
+        Assert.assertEquals("nr2", pictureRead.getNumber());
+        assertArrayEquals(new String[] {"t1", "t2"}, ((Picture) pictureRead).getTags());
+        junit.framework.Assert.assertEquals(200, ((Clip) clipRead).getLength());
+        junit.framework.Assert.assertEquals(false, pictureRead.isAvailable());
     }
 }
