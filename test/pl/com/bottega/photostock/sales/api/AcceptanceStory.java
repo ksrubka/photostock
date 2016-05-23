@@ -25,7 +25,7 @@ public class AcceptanceStory {
 
     @Test
     public void story() {
-        adminPanel.addProduct("nr12", 10, ProductType.CLIP);
+        adminPanel.addProduct("nr12", new Money(10), ProductType.CLIP);
         String clientNr = clientManagement.register("Imię", "Nazwisko", "spoko", "nr1");
         clientManagement.recharge(clientNr, new Money(INITIAL_MONEY));
         List<Product> products = productsCatalog.find(null, null, null, null, true);

@@ -22,7 +22,7 @@ public class AdminPanel {
     private ProductRepository productRepository = new FakeProductRepository();
     private ClientRepository clientRepository = new FakeClientRepository();
 
-    public void addProduct(String nr, double price, ProductType productType) {
+    public void addProduct(String nr, Money price, ProductType productType) {
         Product product = ProductFactory.create(nr, price, productType);
         productRepository.save(product);
     }

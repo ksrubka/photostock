@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.model.client_factories;
 
+import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.*;
 
@@ -12,14 +13,14 @@ import static pl.com.bottega.photostock.sales.model.products.Channel.STEREO;
  */
 public class ProductFactory {
 
-    public static Product create(String productNumber, double price, ProductType productType) {
+    public static Product create(String productNumber, Money price, ProductType productType) {
         switch (productType){
             case PICTURE:
                 return new Picture(productNumber, price, null);
             case CLIP:
-                return new Clip(productNumber, price, Duration.ZERO);
+                return new Clip(productNumber, price, 0);
             case SONG:
-                return  new Song(productNumber, price,"", "", Duration.ZERO, STEREO);
+                return  new Song(productNumber, price,"", "", 0, STEREO);
             default:
                 throw new IllegalArgumentException("Podany typ produktu nie istnieje");
         }
