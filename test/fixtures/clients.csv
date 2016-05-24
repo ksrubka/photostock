@@ -1,6 +1,6 @@
 name,address,status,amount,debt,creditLimit,active,number
 Pani Ela,Saturn,standard,15,0,0,true,nr1
 Pan Leszek,blue moon,vip,500,0,20,true,nr2
-Pan Jan,Jowisz,standard,0,0,0,nr4
+Pan Jan,Jowisz,standard,0,0,0,true,nr4
 Pani Gosia,Ziemia,vip,56,12,13,true,nr5
-Pan Kuba,Mars,platinum,85,0,0,false,nr6
+Pan Kuba,Mars,platinum,85,0,0,true,nr6
