@@ -8,6 +8,12 @@ import pl.com.bottega.photostock.sales.model.Client;
  */
 public class FileClientRepository implements ClientRepository {
 
+    private final String path;
+
+    public FileClientRepository(String path) {
+        this.path = path;
+    }
+
     @Override
     public Client load(String number) {
         return null;
