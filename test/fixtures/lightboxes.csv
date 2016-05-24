@@ -1,0 +1,3 @@
+number,ownerName,ownerNumber,clientsSharingNumbers,active,productsNumbers
+nr1,Pani Gosia,nr5,,true,nr1|nr2
+nr2,Pan Kuba,nr6,nr1,true,nr3
