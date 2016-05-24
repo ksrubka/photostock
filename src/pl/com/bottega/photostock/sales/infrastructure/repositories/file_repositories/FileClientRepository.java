@@ -1,7 +1,9 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories.file_repositories;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
+import pl.com.bottega.photostock.sales.model.ClientStatus;
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.client_factories.StatusFactory;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -19,7 +21,6 @@ public class FileClientRepository implements ClientRepository {
         this.path = path;
     }
 
-    //name,address,status,amount,debt,creditLimit,active,number
     @Override
     public Client load(String nr){
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -41,8 +42,25 @@ public class FileClientRepository implements ClientRepository {
         return null;
     }
 
+    //[0]name,[1]address,[2]status,[3]amount,[4]debt,[5]creditLimit,[6]active,[7]number
     private Client parseClient(String line) {
-        return null;
+        Client client;
+        String[] components = line.split(",");
+        String name = components[0];
+        String address = components[1];
+        ClientStatus status = StatusFactory.create(components[2]);
+        double amount = Double.valueOf(components[3]);
+        boolean active = Boolean.parseBoolean(components[6]);
+        String number = components[7];
+        if (components[5].contentEquals("0")) {
+            client = new Client(name, address, status, amount, active, number);
+            return client;
+        }
+        else {
+            double creditLimit = Double.valueOf(components[5]);
+            client = new Client(name, address, amount, creditLimit, number);
+            return client;
+        }
     }
 
     @Override
