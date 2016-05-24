@@ -1,6 +1,6 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
-import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.CompanyRepository;
 import pl.com.bottega.photostock.sales.model.Company;
 
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Created by Beata Iłowiecka on 29.04.16.
  */
-public class FakeCompanyRepository implements CompanyRepository{
+public class FakeCompanyRepository implements CompanyRepository {
 
     private static Map<String, Company> fakeDatabase = new HashMap<>();
 

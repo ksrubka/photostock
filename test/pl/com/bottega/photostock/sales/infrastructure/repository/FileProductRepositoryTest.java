@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.DataAccessException;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FileProductRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.ProductRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.Clip;

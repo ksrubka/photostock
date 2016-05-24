@@ -1,8 +1,8 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.ClientStatus;
-import pl.com.bottega.photostock.sales.model.LightBox;
 import pl.com.bottega.photostock.sales.model.exceptions.ClientDoesNotExistException;
 ;
 

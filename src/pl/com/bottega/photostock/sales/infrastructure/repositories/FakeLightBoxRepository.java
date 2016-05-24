@@ -1,12 +1,7 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
-import pl.com.bottega.photostock.sales.model.Client;
-import pl.com.bottega.photostock.sales.model.ClientStatus;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.LightBoxRepository;
 import pl.com.bottega.photostock.sales.model.LightBox;
-import pl.com.bottega.photostock.sales.model.Product;
-import pl.com.bottega.photostock.sales.model.products.Clip;
-import pl.com.bottega.photostock.sales.model.products.Picture;
-import pl.com.bottega.photostock.sales.model.products.Song;
 
 import java.util.HashMap;
 import java.util.Map;

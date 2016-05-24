@@ -1,10 +1,11 @@
 package pl.com.bottega.photostock.sales.api;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.*;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.PurchaseRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ReservationRepository;
 import pl.com.bottega.photostock.sales.model.*;
-import pl.com.bottega.photostock.sales.model.exceptions.DataDoesNotExistException;
-
-import java.io.IOException;
 
 /**
  * Created by Beata Iłowiecka on 23.04.2016.

@@ -1,12 +1,15 @@
 package pl.com.bottega.photostock.sales.api;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.*;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.LightBoxRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ReservationRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.model.exceptions.ClientDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.LightBox;
 import pl.com.bottega.photostock.sales.model.Product;
-import pl.com.bottega.photostock.sales.model.exceptions.DataDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.io.IOException;

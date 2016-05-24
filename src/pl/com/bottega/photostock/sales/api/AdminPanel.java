@@ -1,9 +1,9 @@
 package pl.com.bottega.photostock.sales.api;
 
-import pl.com.bottega.photostock.sales.infrastructure.repositories.ClientRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeClientRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeProductRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.ProductRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
@@ -11,8 +11,6 @@ import pl.com.bottega.photostock.sales.model.client_factories.ProductFactory;
 import pl.com.bottega.photostock.sales.model.exceptions.ClientDoesNotExistException;
 import pl.com.bottega.photostock.sales.model.exceptions.InappropriateClientStatusException;
 import pl.com.bottega.photostock.sales.model.products.ProductType;
-
-import java.io.IOException;
 
 /**
  * Created by Beata Iłowiecka on 02.05.16.

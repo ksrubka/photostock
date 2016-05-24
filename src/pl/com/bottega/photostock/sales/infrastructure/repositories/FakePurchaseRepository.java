@@ -1,8 +1,7 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
-import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.PurchaseRepository;
 import pl.com.bottega.photostock.sales.model.Purchase;
-import pl.com.bottega.photostock.sales.model.Reservation;
 
 import java.util.*;
 
