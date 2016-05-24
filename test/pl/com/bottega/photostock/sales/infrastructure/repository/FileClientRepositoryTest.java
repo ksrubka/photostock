@@ -17,7 +17,7 @@ public class FileClientRepositoryTest {
     @Test
     public void shouldLoadClient() {
         //given
-        ClientRepository clientRepository = new FileClientRepository("/test/fixtures/clients.csv");
+        ClientRepository clientRepository = new FileClientRepository("test/fixtures/clients.csv");
         //when
         Client client = clientRepository.load("nr2");
         //then
