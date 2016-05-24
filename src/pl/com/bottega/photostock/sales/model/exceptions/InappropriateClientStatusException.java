@@ -12,6 +12,10 @@ public class InappropriateClientStatusException extends RuntimeException {
         this.clientNumber = number;
     }
 
+    public InappropriateClientStatusException(String message){
+        super(message);
+    }
+
     public String getNumber(){
         return clientNumber;
     }
