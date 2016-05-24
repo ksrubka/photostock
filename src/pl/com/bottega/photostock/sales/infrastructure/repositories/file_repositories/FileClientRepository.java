@@ -23,7 +23,7 @@ public class FileClientRepository implements ClientRepository {
 
     @Override
     public Client load(String nr){
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path), 1024)) {
             br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
@@ -48,7 +48,7 @@ public class FileClientRepository implements ClientRepository {
         String[] components = line.split(",");
         String name = components[0];
         String address = components[1];
-        ClientStatus status = StatusFactory.create(components[2]);
+        ClientStatus status = ClientStatus.valueOf(components[2].toUpperCase());
         double amount = Double.valueOf(components[3]);
         boolean active = Boolean.parseBoolean(components[6]);
         String number = components[7];
