@@ -9,6 +9,7 @@ import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.Clip;
 import pl.com.bottega.photostock.sales.model.products.Picture;
+import java.io.File;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertArrayEquals;
@@ -51,7 +52,7 @@ public class FileProductRepositoryTest {
     }
 
     @Test
-    public void shouldWriteProducts() {
+    public void shouldWriteProducts() throws InterruptedException {
         //given
         ProductRepository productRepository = new FileProductRepository("tmp/prducts.csv");
         Product clip = new Clip("nr1", new Money(500.0, "USD"), 200);
@@ -67,5 +68,11 @@ public class FileProductRepositoryTest {
         assertArrayEquals(new String[] {"t1", "t2"}, ((Picture) pictureRead).getTags());
         assertEquals(200, ((Clip) clipRead).getLength());
         assertEquals(false, pictureRead.isAvailable());
+        // dlaczego nie kasuje się to co jest w środku? czy ja nie nadpisuję pustym plikiem?
+        //(w przypadku gdy nie kasuję pliku)
+        //dlaczego nie pojawia się plik w tmp w trakcie stworzenia go przez metodę, tylko dopiero po całym wykonaniu?
+        File file = new File("tmp/prducts.csv");
+        //Thread.sleep(10000);
+        file.delete();
     }
 }
