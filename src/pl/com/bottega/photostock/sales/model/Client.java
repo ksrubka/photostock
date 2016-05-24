@@ -43,6 +43,10 @@ public class Client {
         this("Helena Ferenc", "Księżyc", ClientStatus.STANDARD, 500, true, nr);
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public class ChargingData implements Charging {
 
         public Money getAmount(){
