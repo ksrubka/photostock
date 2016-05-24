@@ -1,8 +1,8 @@
 package pl.com.bottega.photostock.sales.api;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeClientRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeProductRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.fake_repositories.FakeClientRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.fake_repositories.FakeProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;

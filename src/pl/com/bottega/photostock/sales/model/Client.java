@@ -1,9 +1,6 @@
 package pl.com.bottega.photostock.sales.model;
 
-import pl.com.bottega.photostock.sales.infrastructure.repositories.FakeCompanyRepository;
-import pl.com.bottega.photostock.sales.model.client_factories.ApprovingFactory;
 import pl.com.bottega.photostock.sales.model.client_factories.StrategyFactory;
-import pl.com.bottega.photostock.sales.model.client_strategies.approving.ApprovingStrategy;
 import pl.com.bottega.photostock.sales.model.client_strategies.charging.Charging;
 import pl.com.bottega.photostock.sales.model.client_strategies.charging.ChargingStrategy;
 import pl.com.bottega.photostock.sales.model.client_strategies.charging.VIPChargingStrategy;

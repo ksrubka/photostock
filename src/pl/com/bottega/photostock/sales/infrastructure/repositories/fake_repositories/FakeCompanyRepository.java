@@ -1,4 +1,4 @@
-package pl.com.bottega.photostock.sales.infrastructure.repositories;
+package pl.com.bottega.photostock.sales.infrastructure.repositories.fake_repositories;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.CompanyRepository;
 import pl.com.bottega.photostock.sales.model.Company;
