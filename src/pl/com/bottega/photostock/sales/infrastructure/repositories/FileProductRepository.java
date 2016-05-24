@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
+import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 import pl.com.bottega.photostock.sales.model.products.Clip;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 

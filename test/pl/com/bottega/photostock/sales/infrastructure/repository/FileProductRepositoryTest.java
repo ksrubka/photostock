@@ -2,7 +2,7 @@ package pl.com.bottega.photostock.sales.infrastructure.repository;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.DataAccessException;
+import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.FileProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Money;
