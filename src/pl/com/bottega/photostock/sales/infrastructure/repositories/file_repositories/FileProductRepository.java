@@ -1,4 +1,4 @@
-package pl.com.bottega.photostock.sales.infrastructure.repositories;
+package pl.com.bottega.photostock.sales.infrastructure.repositories.file_repositories;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Money;
