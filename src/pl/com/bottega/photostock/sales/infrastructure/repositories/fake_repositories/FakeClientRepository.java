@@ -4,8 +4,6 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.Cl
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.ClientStatus;
 import pl.com.bottega.photostock.sales.model.exceptions.ClientDoesNotExistException;
-;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
