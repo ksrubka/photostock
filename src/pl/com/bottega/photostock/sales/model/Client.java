@@ -39,6 +39,11 @@ public class Client {
         this(name, address, ClientStatus.STANDARD, amount, true, nr);
     }
 
+    public Client(String name, String address, double amount, double creditLimit, String nr) {
+        this(name, address, ClientStatus.VIP, amount, true, nr);
+        setLimit(creditLimit);
+    }
+
     public Client(String nr) {
         this("Helena Ferenc", "Księżyc", ClientStatus.STANDARD, 500, true, nr);
     }
