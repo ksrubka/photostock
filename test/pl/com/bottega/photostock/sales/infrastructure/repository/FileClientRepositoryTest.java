@@ -1,7 +1,7 @@
 package pl.com.bottega.photostock.sales.infrastructure.repository;
 
 import org.junit.Test;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.file_repositories.FileClientRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileClientRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;

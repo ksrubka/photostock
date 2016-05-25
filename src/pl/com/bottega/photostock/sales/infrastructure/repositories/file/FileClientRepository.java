@@ -1,13 +1,11 @@
-package pl.com.bottega.photostock.sales.infrastructure.repositories.file_repositories;
+package pl.com.bottega.photostock.sales.infrastructure.repositories.file;
 
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.model.ClientStatus;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 
 /**
  * Created by Beata Iłowiecka on 24.05.16.
