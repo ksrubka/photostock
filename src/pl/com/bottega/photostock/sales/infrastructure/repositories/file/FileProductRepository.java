@@ -91,11 +91,11 @@ public class FileProductRepository implements ProductRepository {
             // if file not exist
             if (newRepo)
                 //add first line - header
-                os.write("number,price,priceCurrency,available,length,tags,type\r\n".getBytes());
+                os.write("number,price,priceCurrency,available,length,tags,type\n".getBytes());
             //then create array from product characteristics
             String[] productExported = product.export();
             //use that array to create String separated by commas
-            String csvLine = String.join(",", productExported) + "\r\n";
+            String csvLine = String.join(",", productExported) + "\n";
             //write that String into the OutputStream
             os.write(csvLine.getBytes());
         }
