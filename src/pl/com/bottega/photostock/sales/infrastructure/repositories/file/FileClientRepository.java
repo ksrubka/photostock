@@ -4,8 +4,8 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.Cl
 import pl.com.bottega.photostock.sales.model.ClientStatus;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
+import java.io.*;
 
 /**
  * Created by Beata Iłowiecka on 24.05.16.
@@ -59,6 +59,16 @@ public class FileClientRepository implements ClientRepository {
 
     @Override
     public void save(Client client) {
-
+        File file = new File(this.path);
+        boolean newRepo = !file.exists();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file));) {
+            if (newRepo)
+                bw.write("name,address,status,amount,debt,creditLimit,active,number\n");
+            String[] clientExported = client.export();
+            String csvLine = String.join(",", clientExported) + "\n";
+            bw.write(csvLine);
+        } catch (Exception e) {
+            throw new DataAccessException(e);
+        }
     }
 }
