@@ -62,6 +62,11 @@ public class VIPChargingStrategy implements ChargingStrategy {
     }
 
     @Override
+    public double getCreditLimit() {
+        return creditLimit.getDoubleValue();
+    }
+
+    @Override
     public void setCreditLimit(double amount) {
         this.creditLimit = new Money(amount);
     }
