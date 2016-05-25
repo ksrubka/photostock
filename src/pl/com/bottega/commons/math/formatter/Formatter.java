@@ -137,62 +137,6 @@ public class Formatter {
         return DICTIONARY[langNr][digit];
     }
 
-    private String generteDigit(Byte digit, String lang){
-        switch(lang){
-            case "pl":
-                switch(digit){
-                    case 0:
-                        return "zero";
-                    case 1:
-                        return "jeden";
-                    case 2:
-                        return "dwa";
-                    case 3:
-                        return "trzy";
-                    case 4:
-                        return "cztery";
-                    case 5:
-                        return "pięć";
-                    case 6:
-                        return "sześć";
-                    case 7:
-                        return "siedem";
-                    case 8:
-                        return "osiem";
-                    case 9:
-                        return "dziewięć";
-                }
-                break;
-            case "eng":
-                switch (digit) {
-                    case 0:
-                        return "zero";
-                    case 1:
-                        return "one";
-                    case 2:
-                        return "two";
-                    case 3:
-                        return "three";
-                    case 4:
-                        return "four";
-                    case 5:
-                        return "five";
-                    case 6:
-                        return "six";
-                    case 7:
-                        return "seven";
-                    case 8:
-                        return "eight";
-                    case 9:
-                        return "nine";
-                }
-                break;
-            default:
-                throw new IllegalArgumentException(lang + " is not supported");
-        }
-        throw new RuntimeException("coś dziwnego z danymi " + lang + " " + digit);
-    }
-
     // Splits an array into equal 3-element arrays. If number of elements is not dividable by 3,
     // additional zero's are inserted into the first array to make it contain 3-elements.
     // in: {1}                      out: {{0,0,1}}
@@ -205,14 +149,11 @@ public class Formatter {
         int remainingDigits = digits.size() % chunkSize;
         int numOfChunks = (int) Math.ceil((double) digits.size() / chunkSize);
         List<List<Byte>> result = new ArrayList<>();
-
         result.add(getFirstHundred(remainingDigits, digits));
-
         int start = remainingDigits;
-        if (remainingDigits == 0){
+        if (remainingDigits == 0)
             start = 3;
-        }
-        for (int chunkNumber = 1; chunkNumber < numOfChunks; chunkNumber++){
+        for (int chunkNumber = 1; chunkNumber < numOfChunks; chunkNumber++) {
             List<Byte> tempArray1 = new ArrayList<>();
             for (int hundredNumber = 1; hundredNumber <= chunkSize; hundredNumber++) {
                 tempArray1.add(digits.get(start));
@@ -223,9 +164,8 @@ public class Formatter {
         return result;
     }
 
-    private static List<Byte> getFirstHundred(int remainingDigits, List<Byte> digits){
+    private static List<Byte> getFirstHundred(int remainingDigits, List<Byte> digits) {
         List<Byte> tempArray = new ArrayList<>();
-
         switch (remainingDigits){
             case 1:
                 tempArray.add((byte) 0);
