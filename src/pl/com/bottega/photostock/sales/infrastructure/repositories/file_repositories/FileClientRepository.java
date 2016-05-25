@@ -22,7 +22,7 @@ public class FileClientRepository implements ClientRepository {
 
     @Override
     public Client load(String nr){
-        try (BufferedReader br = new BufferedReader(new FileReader(path), 1024)) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path), 512)) {
             br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
@@ -32,10 +32,7 @@ public class FileClientRepository implements ClientRepository {
                 if (client.getNumber().equals(nr))
                     return client;
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + path);
-        } catch (IOException e) {
-            System.out.println("Unable to read file: " + path);
+        } catch (Exception e) {
             throw new DataAccessException(e);
         }
         return null;
