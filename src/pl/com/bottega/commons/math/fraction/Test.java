@@ -1,4 +1,4 @@
-package pl.com.bottega.commons.math;
+package pl.com.bottega.commons.math.fraction;
 
 /**
  * Created by Beata Iłowiecka on 21.03.16.
