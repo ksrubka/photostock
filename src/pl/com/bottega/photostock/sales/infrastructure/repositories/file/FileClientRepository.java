@@ -46,7 +46,7 @@ public class FileClientRepository implements ClientRepository {
         double amount = Double.valueOf(components[3]);
         boolean active = Boolean.parseBoolean(components[6]);
         String number = components[7];
-        if (components[5].contentEquals("0")) {
+        if (components[5].contentEquals("0.0")) {
             client = new Client(name, address, status, amount, active, number);
             return client;
         }
@@ -61,12 +61,12 @@ public class FileClientRepository implements ClientRepository {
     public void save(Client client) {
         File file = new File(this.path);
         boolean newRepo = !file.exists();
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file));) {
+        try (OutputStream os = new FileOutputStream(file, true)) {
             if (newRepo)
-                bw.write("name,address,status,amount,debt,creditLimit,active,number\n");
+                os.write("name,address,status,amount,debt,creditLimit,active,number\n".getBytes());
             String[] clientExported = client.export();
             String csvLine = String.join(",", clientExported) + "\n";
-            bw.write(csvLine);
+            os.write(csvLine.getBytes());
         } catch (Exception e) {
             throw new DataAccessException(e);
         }
