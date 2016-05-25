@@ -1,10 +1,8 @@
 package pl.com.bottega.photostock.sales.model;
 
-import pl.com.bottega.commons.math.Fraction;
+import pl.com.bottega.commons.math.fraction.Fraction;
 
 import java.util.Currency;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
