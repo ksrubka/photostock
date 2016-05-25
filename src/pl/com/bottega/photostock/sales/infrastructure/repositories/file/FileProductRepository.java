@@ -23,26 +23,15 @@ public class FileProductRepository implements ProductRepository {
 
     @Override
     public Product load(String nr) {
-        //create input stream from a given path
         try (InputStream is = new FileInputStream(path);) {
-            //read one line from input stream
             readLine(is);
-            //init a string
             String line;
-            //check if another line is not null - if there is anything returned by readLine()
             while ((line = readLine(is)) != null) {
-                //check for whitespaces, if there are any trim them and
-                // check if after trimming there's nothing left in that line
                 if (line.trim().length() == 0)
-                    // if there is nothing but whitespaces, return null
                     return null;
-                // else create a product
                 Product product;
-                // from parsing it from current line
                 product = parseProduct(line);
-                //but check if number of that product equals nr from argument
                 if (product.getNumber().equals(nr))
-                    // if so - return that product
                     return product;
             }
         } catch (Exception e) {
@@ -79,24 +68,14 @@ public class FileProductRepository implements ProductRepository {
     }
 
     @Override
-    //save given object into the file (located on path specified in path field)
     public void save(Product product) {
-        //create new file in path
-        //but what if that file already exist? - problem
         File file = new File(this.path);
-        //see if file not exists
         boolean newRepo = !file.exists();
-        // create OutputStream to write into a file
         try (OutputStream os = new FileOutputStream(this.path, true)) {
-            // if file not exist
             if (newRepo)
-                //add first line - header
                 os.write("number,price,priceCurrency,available,length,tags,type\n".getBytes());
-            //then create array from product characteristics
             String[] productExported = product.export();
-            //use that array to create String separated by commas
             String csvLine = String.join(",", productExported) + "\n";
-            //write that String into the OutputStream
             os.write(csvLine.getBytes());
         }
         catch (Exception ex) {
