@@ -1,7 +1,11 @@
-package pl.com.bottega.commons.math.Probability;
+package pl.com.bottega.commons.math.probability;
 
-import static pl.com.bottega.commons.math.Probability.Probability.fromFraction;
-import static pl.com.bottega.commons.math.Probability.Probability.fromPercentage;
+import pl.com.bottega.commons.math.probability.Probability;
+
+import static pl.com.bottega.commons.math.probability.Probability.fromFraction;
+import static pl.com.bottega.commons.math.probability.Probability.fromPercentage;
+/*import static pl.com.bottega.commons.math.probability.fromFraction;
+import static pl.com.bottega.commons.math.probability.fromPercentage;*/
 
 /**
  * Created by Beata Iłowiecka on 18.04.16.
@@ -31,7 +35,7 @@ public class ProbabilityTestConsoleApp {
 
     private static void canNotCreatePercentageRepresentation() {
         try {
-            Probability p = Probability.fromPercentage(190.5);
+            Probability p = fromPercentage(190.5);
             throw new RuntimeException("Powinien być wyjątek");
         } catch (IllegalArgumentException ex){
         }
@@ -39,7 +43,7 @@ public class ProbabilityTestConsoleApp {
 
     private static void shouldCreatePercentageRepresentation() {
         try {
-            Probability p = Probability.fromPercentage(190.5);
+            Probability p = fromPercentage(190.5);
             throw new RuntimeException("Powinien być wyjątek");
         } catch (IllegalArgumentException ex) {
 
@@ -48,13 +52,13 @@ public class ProbabilityTestConsoleApp {
 
     private static void canNotCreateFractionRepresentationIfValueGTOne() {
         try {
-            Probability p = Probability.fromFraction(1.5);
+            Probability p = fromFraction(1.5);
             throw new RuntimeException("Powinien być wyjątek");
         } catch (IllegalArgumentException ex) {
         }
     }
 
     private static void shouldCreateFractionRepresentation() {
-        Probability p = Probability.fromFraction(0.5);
+        Probability p = fromFraction(0.5);
     }
 }

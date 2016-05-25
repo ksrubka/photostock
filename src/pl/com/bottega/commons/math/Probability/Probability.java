@@ -1,13 +1,9 @@
-package pl.com.bottega.commons.math.Probability;
+package pl.com.bottega.commons.math.probability;
 
 /**
- * Created by Beata Iłowiecka on 18.04.16.
+ * Created by Beata Iłowiecka on 25.05.16.
  */
 public class Probability {
-
-      /*public enum EventType {
-        FRACTION, PERCENT;
-    }*/
 
     private double value; // wartość procentowa
     public static final double DELTA = 0.00001;
