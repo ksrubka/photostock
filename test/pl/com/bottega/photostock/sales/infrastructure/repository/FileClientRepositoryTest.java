@@ -7,6 +7,9 @@ import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.ClientStatus;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
+
+import java.io.File;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -77,5 +80,8 @@ public class FileClientRepositoryTest {
 
         assertEquals(paniKasiaRead.getNumber(), "nr1");
         assertEquals(paniAgataRead.getNumber(), "nr2");
+
+        File file = new File("tmp/clients.csv");
+        file.delete();
     }
 }
