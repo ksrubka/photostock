@@ -15,15 +15,12 @@ public class Formatter {
             recursiveCutter(number);
         else
             iterativeCutter(number);
-
         Collections.reverse(digits);
     }
 
     public Formatter(String number){
         this.number = Long.valueOf(number);
-
         char[] digits = number.toCharArray();
-
         for (char character : digits){
             byte digit = Byte.parseByte(Character.toString(character));
             this.digits.add(digit);
@@ -39,7 +36,7 @@ public class Formatter {
     }
 
     private void iterativeCutter(long number){
-        while (number != 0){
+        while (number != 0) {
             long digit = number % 10;
             digits.add((byte)digit);
             number = number / 10;//zmiana ALE kopii paramteru metody,
@@ -52,7 +49,6 @@ public class Formatter {
      * @return dla 123 zwraca sto dwadzieścia trzy
      */
     public String formatNumbers(FormattingLanguage lang) throws IllegalArgumentException {
-
         switch (lang){
             case PL:
                 List<List<Byte>> chunkedDigitsPL = chunkDigits(digits);
@@ -73,11 +69,9 @@ public class Formatter {
      */
     public String[] formatDigits(FormattingLanguage lang) {
         String[] result = new String[digits.size()];
-
         int nr = 0;
-        for (Byte digit : digits) {
-            result[nr++] = generteDigit2(digit, lang);
-        }
+        for (Byte digit : digits)
+            result[nr++] = generateDigit2(digit, lang);
         return result;
     }
 
@@ -87,7 +81,6 @@ public class Formatter {
      * @return for 123 return "trzy"
      */
     public String getLastDigit(FormattingLanguage lang) throws IllegalArgumentException {
-
         switch (lang){
             case PL:
                 byte lastDigitPL = digits.get(digits.size() - 1);
@@ -122,7 +115,7 @@ public class Formatter {
             {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", " nine"}
     };
 
-    private String generteDigit2(Byte digit, FormattingLanguage lang){
+    private String generateDigit2(Byte digit, FormattingLanguage lang) {
         byte langNr;
         switch(lang){
             case PL:
@@ -144,7 +137,7 @@ public class Formatter {
     // in: {1,2,3,4}                out: {{0,0,1},{2,3,4}}
     // in: {1,2,3,4,5},             out: {{0,1,2},{3,4,5}}
     // in: {9,8,7,6,5,4,3,2,1,0}    out: {{0,0,9},{8,7,6},{5,4,3},{2,1,0}}
-    public static List<List<Byte>> chunkDigits(List<Byte> digits){
+    public static List<List<Byte>> chunkDigits(List<Byte> digits) {
         byte chunkSize = 3;
         int remainingDigits = digits.size() % chunkSize;
         int numOfChunks = (int) Math.ceil((double) digits.size() / chunkSize);
