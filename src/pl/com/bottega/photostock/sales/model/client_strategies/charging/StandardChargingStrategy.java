@@ -34,6 +34,11 @@ public class StandardChargingStrategy implements ChargingStrategy {
         return charging.getAmount();
     }
 
+    @Override
+    public double getCreditLimit() {
+        return 0;
+    }
+
     //TODO to mi się BARDZO nie podoba:
     @Override
     public void setCreditLimit(double amount) { // bez sensu
