@@ -22,7 +22,6 @@ public class Client {
     private Money amount;
     private boolean active;
 
-
     public Client(String name, String address, ClientStatus status, double amount, boolean active, String nr) {
         this.name = name;
         this.address = address;
@@ -50,6 +49,34 @@ public class Client {
 
     public String getAddress() {
         return address;
+    }
+
+    //name,address,status,amount,debt,creditLimit,active,number
+    public String[] export() {
+        String debt = "0.0";
+        String creditLimit = "0.0";
+        if (getStatus().equals(ClientStatus.VIP)) {
+            creditLimit = String.valueOf(getCreditLimit());
+            debt = String.valueOf(getDebt());
+        }
+        return new String[]{
+                getName(),
+                getAddress(),
+                (String.valueOf(getStatus())).toLowerCase(),
+                String.valueOf(amount.getDoubleValue()),
+                String.valueOf(debt),
+                String.valueOf(creditLimit),
+                String.valueOf(isActive()),
+                getNumber()
+        };
+    }
+
+    public double getCreditLimit() {
+        return chargingStrategy.getCreditLimit();
+    }
+
+    public double getDebt() {
+        return chargingStrategy.getDebt();
     }
 
     public class ChargingData implements Charging {
