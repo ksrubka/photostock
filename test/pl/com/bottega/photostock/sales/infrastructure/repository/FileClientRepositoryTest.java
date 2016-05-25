@@ -2,14 +2,11 @@ package pl.com.bottega.photostock.sales.infrastructure.repository;
 
 import org.junit.Test;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.file_repositories.FileClientRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.file_repositories.FileProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.ClientStatus;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -52,6 +49,33 @@ public class FileClientRepositoryTest {
 
     @Test
     public void shouldWriteClients() {
+        //given
+        ClientRepository clientRepository = new FileClientRepository("tmp/clients.csv");
+        Client paniKasia = new Client("Pani Kasia", "Konwaliowa", ClientStatus.STANDARD, 20, true, "nr1");
+        Client paniAgata = new Client("Pani Agata", "Akacjowa", 15, 30, "nr2");
+        //when
+        clientRepository.save(paniKasia);
+        clientRepository.save(paniAgata);
+        //then
+        Client paniKasiaRead = clientRepository.load("nr1");
+        Client paniAgataRead = clientRepository.load("nr2");
 
+        assertEquals(paniKasiaRead.getName(), "Pani Kasia");
+        assertEquals(paniAgataRead.getName(), "Pani Agata");
+
+        assertEquals(paniKasiaRead.getAddress(), "Konwaliowa");
+        assertEquals(paniAgataRead.getAddress(), "Akacjowa");
+
+        assertEquals(paniKasiaRead.getStatus(), ClientStatus.STANDARD);
+        assertEquals(paniAgataRead.getStatus(), ClientStatus.VIP);
+
+        assertEquals(paniKasiaRead.getSaldo(), new Money(20));
+        assertEquals(paniAgataRead.getSaldo(), new Money(15));
+
+        assertTrue(paniKasiaRead.isActive());
+        assertTrue(paniAgataRead.isActive());
+
+        assertEquals(paniKasiaRead.getNumber(), "nr1");
+        assertEquals(paniAgataRead.getNumber(), "nr2");
     }
 }
