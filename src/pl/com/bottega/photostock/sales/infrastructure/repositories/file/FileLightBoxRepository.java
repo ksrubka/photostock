@@ -1,14 +1,14 @@
 package pl.com.bottega.photostock.sales.infrastructure.repositories.file;
 
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.LightBoxRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.LightBox;
+import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
-
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 
 /**
  * Created by Beata Iłowiecka on 24.05.16.
@@ -16,6 +16,8 @@ import java.io.IOException;
 public class FileLightBoxRepository implements LightBoxRepository {
 
     private final String path;
+    ClientRepository clientRepository = new FileClientRepository("test/fixtures/clients.csv");
+    ProductRepository productRepository = new FileProductRepository("test/fixtures/products.csv");
 
     public FileLightBoxRepository(String path) {
         this.path = path;
@@ -39,8 +41,29 @@ public class FileLightBoxRepository implements LightBoxRepository {
         return null;
     }
 
+    //[0]number,[1]ownerName,[2]ownerNumber,[3]active,[4]productsNumbers
     private LightBox parseLightBox(String line) {
-        return null;
+        String[] components = line.split(",");
+        String number = components[0];
+        String ownerNr = components[2];
+        boolean active = Boolean.valueOf(components[3]);
+        String[] productsNrs = components[4].split(" ");
+
+        LightBox lightBox = initLightBox(ownerNr);
+        lightBox.setNumber(number);
+        Product product;
+        for (String nr : productsNrs) {
+            product = productRepository.load(nr);
+            lightBox.add(product);
+        }
+        if (!active)
+            lightBox.close();
+        return lightBox;
+    }
+
+    private LightBox initLightBox(String ownerNr) {
+        Client owner = clientRepository.load(ownerNr);
+        return new LightBox(owner);
     }
 
     @Override
