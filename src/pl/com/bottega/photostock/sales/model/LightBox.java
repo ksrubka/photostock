@@ -93,4 +93,8 @@ public class LightBox {
     public Client getOwner() {
         return owner;
     }
+
+    public boolean isActive() {
+        return !closed;
+    }
 }
