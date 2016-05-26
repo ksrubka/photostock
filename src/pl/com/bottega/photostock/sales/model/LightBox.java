@@ -19,7 +19,6 @@ public class LightBox {
 
     public LightBox(Client owner) {
         this.owner = owner;
-        addOwner(owner);
     }
 
     public void addOwner(Client owner){
