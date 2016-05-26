@@ -8,6 +8,12 @@ import pl.com.bottega.photostock.sales.model.LightBox;
  */
 public class FileLightBoxRepository implements LightBoxRepository {
 
+    private final String path;
+
+    public FileLightBoxRepository(String path) {
+        this.path = path;
+    }
+
     @Override
     public LightBox load(String number) {
         return null;
