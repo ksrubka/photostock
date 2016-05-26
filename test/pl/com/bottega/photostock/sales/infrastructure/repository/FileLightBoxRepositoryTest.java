@@ -31,18 +31,15 @@ public class FileLightBoxRepositoryTest {
         LightBox lightBox = lightBoxRepository.load("nr1");
         Product product1 = productRepository.load("nr1");
         Product product2 = productRepository.load("nr2");
-        Client client = clientRepository.load("nr5");
-        List<Client> sharingClients = new ArrayList<>();
-        //sharingClients.add(client)
+        //Client client = clientRepository.load("nr5");
         List<Product> products = new ArrayList<>();
         products.add(product1);
         products.add(product2);
         //then
         assertEquals("nr1", lightBox.getNumber());
         assertEquals("Pani Gosia", lightBox.getOwner().getName());
-        assertEquals(client, lightBox.getOwner());
-        assertEquals("nr5", lightBox.getNumber());
-        assertEquals(sharingClients, lightBox.getOwners());
+        //assertEquals(client, lightBox.getOwner());
+        assertEquals("nr5", lightBox.getOwner().getNumber());
         assertEquals(products, lightBox.getItems());
         assertEquals(true, lightBox.isActive());
     }
