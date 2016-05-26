@@ -20,7 +20,7 @@ import static junit.framework.TestCase.assertEquals;
  */
 public class FileLightBoxRepositoryTest {
 
-    //[0]number,[1]ownerName,[2]ownerNumber,[3]clientsSharingNumbers,[4]active,[5]productsNumbers
+    //[0]number,[1]ownerName,[2]ownerNumber,[3]active,[4]productsNumbers
     @Test
     public void shouldLoadLightBox() {
         //given
