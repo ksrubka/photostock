@@ -97,4 +97,14 @@ public class Reservation {
     public boolean isActive() {
         return !closed;
     }
+
+    public String[] export() {
+        return new String[]{
+                getNumber(),
+                owner.getName(),
+                owner.getNumber(),
+                String.valueOf(!closed),
+                getProductsNumbers()
+        };
+    }
 }
