@@ -12,6 +12,8 @@ import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import static junit.framework.TestCase.assertEquals;
@@ -72,4 +74,62 @@ public class FileReservationRepositoryTest {
         //then
         assertNotNull(ex);
     }
+
+    @Test
+    public void shouldWriteReservations() {
+        //given
+        String path = "tmp/reservations.csv";
+        ReservationRepository reservationRepository =
+                new FileReservationRepository(path,  clientRepository, productRepository);
+        Reservation reservation1 = init1stReservation();
+        Reservation reservation2 = init2ndReservation();
+        //when
+        reservationRepository.save(reservation1);
+        reservationRepository.save(reservation2);
+        //then
+        Reservation reservation1Read = reservationRepository.load("nr1");
+        Reservation reservation2Read = reservationRepository.load("nr2");
+        //assertions
+        assertEquals("nr1", reservation1Read.getNumber());
+        assertEquals("nr2", reservation2Read.getNumber());
+        assertEquals("Pani Ela", reservation1Read.getOwner().getName());
+        assertEquals("Pan Leszek", reservation2Read.getOwner().getName());
+        assertEquals("nr1", reservation1Read.getOwner().getNumber());
+        assertEquals("nr2", reservation2Read.getOwner().getNumber());
+        assertEquals(true, reservation1Read.isActive());
+        assertEquals(true, reservation2Read.isActive());
+        assertEquals("nr3 nr4 ", reservation1Read.getProductsNumbers());
+        assertEquals("nr5 nr6 ", reservation2Read.getProductsNumbers());
+        File file = new File("tmp/reservations.csv");
+        file.delete();
+    }
+
+    private Reservation init1stReservation() {
+        return null;
+    }
+
+    private Reservation init2ndReservation() {
+        return null;
+    }
+
+   /*
+    private LightBox create1stLightBox() {
+        Client client = clientRepository.load("nr1");
+        Product product1 = productRepository.load("nr3");
+        Product product2 = productRepository.load("nr4");
+        LightBox lightBox = new LightBox(client);
+        lightBox.setNumber("nr11");
+        lightBox.add(product1, product2);
+        return lightBox;
+    }
+
+    private LightBox create2ndLightBox() {
+        Client client = clientRepository.load("nr2");
+        Product product1 = productRepository.load("nr5");
+        Product product2 = productRepository.load("nr6");
+        LightBox lightBox = new LightBox(client);
+        lightBox.setNumber("nr7");
+        lightBox.add(product1, product2);
+        return lightBox;
+    }*/
 }
