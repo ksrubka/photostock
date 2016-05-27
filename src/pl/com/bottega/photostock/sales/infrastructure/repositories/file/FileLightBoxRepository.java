@@ -7,8 +7,8 @@ import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.LightBox;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
+import java.io.*;
 
 /**
  * Created by Beata Iłowiecka on 24.05.16.
@@ -70,6 +70,16 @@ public class FileLightBoxRepository implements LightBoxRepository {
 
     @Override
     public void save(LightBox lightBox) {
-
+        File file = new File(this.path);
+        boolean newRepo = !file.exists();
+        try (OutputStream os = new FileOutputStream(this.path, true)) {
+            if (newRepo)
+                os.write("number,ownerName,ownerNumber,active,productsNumbers\n".getBytes());
+            String[] lightBoxExported = lightBox.export();
+            String csvLine = String.join(",", lightBoxExported) + "\n";
+            os.write(csvLine.getBytes());
+        } catch (Exception ex) {
+            throw new DataAccessException(ex);
+        }
     }
 }
