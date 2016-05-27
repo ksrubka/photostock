@@ -16,11 +16,13 @@ import java.io.FileReader;
 public class FileLightBoxRepository implements LightBoxRepository {
 
     private final String path;
-    ClientRepository clientRepository = new FileClientRepository("test/fixtures/clients.csv");
-    ProductRepository productRepository = new FileProductRepository("test/fixtures/products.csv");
+    ClientRepository clientRepository;
+    ProductRepository productRepository;
 
-    public FileLightBoxRepository(String path) {
+    public FileLightBoxRepository(String path, ClientRepository clientRepository, ProductRepository productRepository) {
         this.path = path;
+        this.clientRepository = clientRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
