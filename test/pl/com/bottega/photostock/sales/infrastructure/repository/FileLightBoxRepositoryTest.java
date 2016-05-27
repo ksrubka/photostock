@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 
-
 /**
  * Created by Beata Iłowiecka on 24.05.16.
  */
@@ -24,14 +23,15 @@ public class FileLightBoxRepositoryTest {
     @Test
     public void shouldLoadLightBox() {
         //given
+        String path = "test/fixtures/lightboxes.csv";
         ClientRepository clientRepository = new FileClientRepository("test/fixtures/clients.csv");
         ProductRepository productRepository = new FileProductRepository("test/fixtures/products.csv");
-        LightBoxRepository lightBoxRepository = new FileLightBoxRepository("test/fixtures/lightboxes.csv");
+        LightBoxRepository lightBoxRepository = new FileLightBoxRepository(path, clientRepository, productRepository);
         //when
         LightBox lightBox = lightBoxRepository.load("nr1");
         Product product1 = productRepository.load("nr1");
         Product product2 = productRepository.load("nr2");
-        //Client client = clientRepository.load("nr5");
+        Client client = clientRepository.load("nr5");
         List<Product> products = new ArrayList<>();
         products.add(product1);
         products.add(product2);
