@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.infrastructure.repository;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileClientRepository;
@@ -10,13 +11,18 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.Li
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.LightBox;
+import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
+import pl.com.bottega.photostock.sales.model.products.Clip;
+import pl.com.bottega.photostock.sales.model.products.Picture;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Created by Beata Iłowiecka on 24.05.16.
@@ -72,5 +78,51 @@ public class FileLightBoxRepositoryTest {
         assertNotNull(ex);
     }
 
+    @Test
+    public void shouldWriteLightBoxes() {
+        //given
+        String path = "tmp/lightboxes.csv";
+        LightBoxRepository lightBoxRepository = new FileLightBoxRepository(path, clientRepository, productRepository);
+        LightBox lightBox1 = create1stLightBox();
+        LightBox lightBox2 = create2ndLightBox();
+        //when
+        lightBoxRepository.save(lightBox1);
+        lightBoxRepository.save(lightBox2);
+        //then
+        LightBox lightBox1Read = lightBoxRepository.load("nr11");
+        LightBox lightBox2Read = lightBoxRepository.load("nr7");
+        //assertions
+        assertEquals("nr11", lightBox1Read.getNumber());
+        assertEquals("nr7", lightBox2Read.getNumber());
+        assertEquals("Pani Ela", lightBox1Read.getOwner().getName());
+        assertEquals("Pan Leszek", lightBox2Read.getOwner().getName());
+        assertEquals("nr1", lightBox1Read.getOwner().getNumber());
+        assertEquals("nr2", lightBox2Read.getOwner().getNumber());
+        assertEquals("true", lightBox1Read.isActive());
+        assertEquals("true", lightBox2Read.isActive());
+        assertEquals("nr3 nr4", lightBox1Read.getProductsNumbers());
+        assertEquals("nr5 nr6", lightBox2Read.getProductsNumbers());
+        File file = new File("tmp/prducts.csv");
+        file.delete();
+    }
 
+    private LightBox create1stLightBox() {
+        Client client = clientRepository.load("nr1");
+        Product product1 = productRepository.load("nr3");
+        Product product2 = productRepository.load("nr4");
+        LightBox lightBox = new LightBox(client);
+        lightBox.setNumber("nr11");
+        lightBox.add(product1, product2);
+        return lightBox;
+    }
+
+    private LightBox create2ndLightBox() {
+        Client client = clientRepository.load("nr2");
+        Product product1 = productRepository.load("nr5");
+        Product product2 = productRepository.load("nr6");
+        LightBox lightBox = new LightBox(client);
+        lightBox.setNumber("nr7");
+        lightBox.add(product1, product2);
+        return lightBox;
+    }
 }
