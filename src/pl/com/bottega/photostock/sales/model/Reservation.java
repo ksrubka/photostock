@@ -81,4 +81,8 @@ public class Reservation {
         }
         return false;
     }
+
+    public String getProductsNumbers() {
+        return "";
+    }
 }
