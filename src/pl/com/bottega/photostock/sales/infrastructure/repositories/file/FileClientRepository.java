@@ -61,12 +61,12 @@ public class FileClientRepository implements ClientRepository {
     public void save(Client client) {
         File file = new File(this.path);
         boolean newRepo = !file.exists();
-        try (OutputStream os = new FileOutputStream(file, true)) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(path, true))) {
             if (newRepo)
-                os.write("name,address,status,amount,debt,creditLimit,active,number\n".getBytes());
+                pw.write("name,address,status,amount,debt,creditLimit,active,number\n");
             String[] clientExported = client.export();
             String csvLine = String.join(",", clientExported) + "\n";
-            os.write(csvLine.getBytes());
+            pw.write(csvLine);
         } catch (Exception e) {
             throw new DataAccessException(e);
         }

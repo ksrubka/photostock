@@ -78,14 +78,14 @@ public class FilePurchaseRepository implements PurchaseRepository {
 
     @Override
     public void save(Purchase purchase) {
-        File file = new File(this.path);
+        File file = new File(path);
         boolean newRepo = !file.exists();
-        try (OutputStream os = new FileOutputStream(this.path, true)) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(path, true))) {
             if (newRepo)
-                os.write("number,ownerName,ownerNumber,date,productsNumbers\n".getBytes());
+                pw.write("number,ownerName,ownerNumber,date,productsNumbers\n");
             String[] purchaseExported = purchase.export();
             String csvLine = String.join(",", purchaseExported) + "\n";
-            os.write(csvLine.getBytes());
+            pw.write(csvLine);
         }
         catch (Exception ex) {
             throw new DataAccessException(ex);

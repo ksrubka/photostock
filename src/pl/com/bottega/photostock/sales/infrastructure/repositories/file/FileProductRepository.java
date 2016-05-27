@@ -71,12 +71,12 @@ public class FileProductRepository implements ProductRepository {
     public void save(Product product) {
         File file = new File(this.path);
         boolean newRepo = !file.exists();
-        try (OutputStream os = new FileOutputStream(this.path, true)) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(path, true))) {
             if (newRepo)
-                os.write("number,price,priceCurrency,available,length,tags,type\n".getBytes());
+                pw.write("number,price,priceCurrency,available,length,tags,type\n");
             String[] productExported = product.export();
             String csvLine = String.join(",", productExported) + "\n";
-            os.write(csvLine.getBytes());
+            pw.write(csvLine);
         }
         catch (Exception ex) {
             throw new DataAccessException(ex);

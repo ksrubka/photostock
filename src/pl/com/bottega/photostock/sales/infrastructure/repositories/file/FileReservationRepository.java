@@ -75,12 +75,12 @@ public class FileReservationRepository implements ReservationRepository {
     public void save(Reservation reservation) {
         File file = new File(this.path);
         boolean newRepo = !file.exists();
-        try (OutputStream os = new FileOutputStream(this.path, true)) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(path, true))) {
             if (newRepo)
-                os.write("number,ownerName,ownerNumber,active,productsNumbers\n".getBytes());
+                pw.write("number,ownerName,ownerNumber,active,productsNumbers\n");
             String[] reservationExported = reservation.export();
             String csvLine = String.join(",", reservationExported) + "\n";
-            os.write(csvLine.getBytes());
+            pw.write(csvLine);
         } catch (Exception ex) {
             throw new DataAccessException(ex);
         }
