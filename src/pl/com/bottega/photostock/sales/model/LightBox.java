@@ -108,7 +108,7 @@ public class LightBox {
         };
     }
 
-    public String getProductsNumbers() {
+    protected String getProductsNumbers() {
         StringBuilder productsNumbers = new StringBuilder();
         for (Product item : items)
             productsNumbers.append(item.getNumber() + " ");
