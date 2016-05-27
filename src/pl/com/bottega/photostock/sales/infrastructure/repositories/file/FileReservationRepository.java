@@ -4,6 +4,7 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.Cl
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ReservationRepository;
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.Reservation;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 
@@ -35,7 +36,7 @@ public class FileReservationRepository implements ReservationRepository {
             while ((line = br.readLine()) != null) {
                 if (line.trim().length() == 0)
                     return null;
-                Reservation reservation = parseReservation();
+                Reservation reservation = parseReservation(line);
                 if (reservation.getNumber().equals(number))
                     return reservation;
             }
@@ -46,8 +47,29 @@ public class FileReservationRepository implements ReservationRepository {
         return null;
     }
 
-    private Reservation parseReservation() {
+    //[0]number,[1]ownerName,[2]ownerNumber,[3]active,[4]productsNumbers
+    private Reservation parseReservation(String line) {
+        String[] components = line.split(",");
+        String number = components[0];
+        String ownerNr = components[2];
+        boolean active = Boolean.valueOf(components[3]);
+        String[] productsNrs = components[4].split(" ");
 
+        Reservation reservation = initReservation(ownerNr);
+        reservation.setNumber(number);
+        Product product;
+        for (String nr : productsNrs) {
+            product = productRepository.load(nr);
+            reservation.add(product);
+        }
+        if (!active)
+            reservation.close();
+        return reservation;
+    }
+
+    private Reservation initReservation(String ownerNr) {
+        Client client = clientRepository.load(ownerNr);
+        return  new Reservation(client);
     }
 
     @Override
