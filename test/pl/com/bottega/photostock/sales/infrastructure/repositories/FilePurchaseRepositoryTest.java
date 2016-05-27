@@ -3,18 +3,22 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileClientRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileLightBoxRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FilePurchaseRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
+import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.LightBoxRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.PurchaseRepository;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.Purchase;
+import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 
 /**
  * Created by Beata Iłowiecka on 24.05.16.
@@ -51,5 +55,22 @@ public class FilePurchaseRepositoryTest {
         //todo data?
         assertEquals("nr5", purchase.getOwner().getNumber());
         assertEquals(products, purchase.getItems());
+    }
+
+    @Test
+    public void shouldThrowDataAccessExceptionWhenFileNotFound() {
+        //given
+        PurchaseRepository purchaseRepository =
+                new FilePurchaseRepository("Fake path", clientRepository, productRepository);
+        //when
+        DataAccessException ex = null;
+        try {
+            purchaseRepository.load("nr2");
+        }
+        catch (DataAccessException dae) {
+            ex = dae;
+        }
+        //then
+        assertNotNull(ex);
     }
 }
