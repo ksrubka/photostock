@@ -16,9 +16,10 @@ import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static junit.framework.Assert.assertNull;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Created by Beata Iłowiecka on 24.05.16.
@@ -56,6 +57,16 @@ public class FileLightBoxRepositoryTest {
         assertEquals("nr5", lightBox.getOwner().getNumber());
         assertEquals(products, lightBox.getItems());
         assertEquals(true, lightBox.isActive());
+    }
+
+    @Test
+    public void shouldLoadNullLightBox() {
+        //given
+        LightBoxRepository lightBoxRepository = new FileLightBoxRepository(path, clientRepository, productRepository);
+        //when
+        LightBox lightBox = lightBoxRepository.load("nr00");
+        //then
+        assertNull(lightBox);
     }
 
     @Test
