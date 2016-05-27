@@ -4,7 +4,6 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.Cl
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.PurchaseRepository;
 import pl.com.bottega.photostock.sales.model.Client;
-import pl.com.bottega.photostock.sales.model.LightBox;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
@@ -17,7 +16,7 @@ import java.util.Set;
 /**
  * Created by Beata Iłowiecka on 24.05.16.
  */
-public class FilePurchaseRepository implements PurchaseRepository{
+public class FilePurchaseRepository implements PurchaseRepository {
 
     private final String path;
     ClientRepository clientRepository;
@@ -87,7 +86,8 @@ public class FilePurchaseRepository implements PurchaseRepository{
             String[] purchaseExported = purchase.export();
             String csvLine = String.join(",", purchaseExported) + "\n";
             os.write(csvLine.getBytes());
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new DataAccessException(ex);
         }
     }
