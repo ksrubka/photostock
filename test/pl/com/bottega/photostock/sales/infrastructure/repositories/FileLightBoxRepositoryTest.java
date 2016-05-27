@@ -107,8 +107,8 @@ public class FileLightBoxRepositoryTest {
         assertEquals("nr2", lightBox2Read.getOwner().getNumber());
         assertEquals(true, lightBox1Read.isActive());
         assertEquals(true, lightBox2Read.isActive());
-        assertEquals("nr3 nr4 ", lightBox1Read.getProductsNumbers());
-        assertEquals("nr5 nr6 ", lightBox2Read.getProductsNumbers());
+        assertEquals("nr3 nr4", lightBox1Read.getProductsNumbers());
+        assertEquals("nr5 nr6", lightBox2Read.getProductsNumbers());
         File file = new File("tmp/lightBoxes.csv");
         file.delete();
     }
