@@ -15,6 +15,7 @@ public class Purchase {
     private Date createDate;
     private List<Product> items;
     private String number;
+    private Date date;
 
     public Purchase(Client owner, List<Product> items) {
         this.owner = owner;
@@ -38,5 +39,9 @@ public class Purchase {
 
     public List<Product> getItems() {
         return items;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
