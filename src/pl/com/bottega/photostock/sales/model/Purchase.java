@@ -36,4 +36,7 @@ public class Purchase {
         return owner;
     }
 
+    public List<Product> getItems() {
+        return items;
+    }
 }
