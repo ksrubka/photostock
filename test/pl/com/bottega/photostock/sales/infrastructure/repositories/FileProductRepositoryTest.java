@@ -71,7 +71,7 @@ public class FileProductRepositoryTest {
         // dlaczego nie kasuje się to co jest w środku? czy ja nie nadpisuję pustym plikiem?
         //(w przypadku gdy nie kasuję pliku)
         //dlaczego nie pojawia się plik w tmp w trakcie stworzenia go przez metodę, tylko dopiero po całym wykonaniu?
-        File file = new File("tmp/prducts.csv");
+        File file = new File("tmp/products.csv");
         //Thread.sleep(10000);
         file.delete();
     }
