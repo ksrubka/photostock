@@ -1,6 +1,5 @@
-package pl.com.bottega.photostock.sales.infrastructure.repository;
+package pl.com.bottega.photostock.sales.infrastructure.repositories;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileClientRepository;
@@ -11,11 +10,8 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.Li
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.LightBox;
-import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
-import pl.com.bottega.photostock.sales.model.products.Clip;
-import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.io.File;
 import java.util.ArrayList;
