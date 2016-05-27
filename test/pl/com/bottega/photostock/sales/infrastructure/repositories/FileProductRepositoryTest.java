@@ -54,7 +54,7 @@ public class FileProductRepositoryTest {
     @Test
     public void shouldWriteProducts() throws InterruptedException {
         //given
-        ProductRepository productRepository = new FileProductRepository("tmp/prducts.csv");
+        ProductRepository productRepository = new FileProductRepository("tmp/products.csv");
         Product clip = new Clip("nr1", new Money(500.0, "USD"), 200);
         Product picture = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, false);
         //when
