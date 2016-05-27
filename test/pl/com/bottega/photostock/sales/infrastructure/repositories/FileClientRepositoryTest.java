@@ -26,12 +26,12 @@ public class FileClientRepositoryTest {
         //when
         Client client = clientRepository.load("nr2");
         //then
-        assertEquals("Pan Leszek", client.getName());
-        assertEquals("blue moon", client.getAddress());
-        assertEquals(ClientStatus.VIP, client.getStatus());
-        assertEquals(new Money(500.0), client.getSaldo());
+        assertEquals(client.getName(), "Pan Leszek");
+        assertEquals(client.getAddress(), "blue moon");
+        assertEquals(client.getStatus(), ClientStatus.VIP);
+        assertEquals(client.getSaldo(), new Money(500.0));
         assertTrue(client.isActive());
-        assertEquals("nr2", client.getNumber());
+        assertEquals(client.getNumber(), "nr2");
     }
 
     @Test

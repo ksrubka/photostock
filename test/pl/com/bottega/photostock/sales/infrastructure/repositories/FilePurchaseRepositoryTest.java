@@ -90,14 +90,14 @@ public class FilePurchaseRepositoryTest {
         Purchase purchase1Read = purchaseRepository.load("nr1");
         Purchase purchase2Read = purchaseRepository.load("nr2");
         //assertions
-        assertEquals("nr1", purchase1Read.getNumber());
-        assertEquals("nr2", purchase2Read.getNumber());
-        assertEquals("Pani Gosia", purchase1Read.getOwner().getName());
-        assertEquals("Pan Kuba", purchase2Read.getOwner().getName());
-        assertEquals("nr5", purchase1Read.getOwner().getNumber());
-        assertEquals("nr6", purchase2Read.getOwner().getNumber());
-        assertEquals("nr1 nr2", purchase1Read.getProductsNumbers());
-        assertEquals("nr3", purchase2Read.getProductsNumbers());
+        assertEquals(purchase1Read.getNumber(), "nr1");
+        assertEquals(purchase2Read.getNumber(), "nr2");
+        assertEquals(purchase1Read.getOwner().getName(), "Pani Gosia");
+        assertEquals(purchase2Read.getOwner().getName(), "Pan Kuba");
+        assertEquals(purchase1Read.getOwner().getNumber(), "nr5");
+        assertEquals(purchase2Read.getOwner().getNumber(), "nr6");
+        assertEquals(purchase1Read.getProductsNumbers(), "nr1 nr2");
+        assertEquals(purchase2Read.getProductsNumbers(), "nr3");
         File file = new File("tmp/purchases.csv");
         file.delete();
     }

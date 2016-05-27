@@ -51,12 +51,12 @@ public class FileLightBoxRepositoryTest {
         products.add(product1);
         products.add(product2);
         //then
-        assertEquals("nr1", lightBox.getNumber());
-        assertEquals("Pani Gosia", lightBox.getOwner().getName());
+        assertEquals(lightBox.getNumber(), "nr1");
+        assertEquals(lightBox.getOwner().getName(), "Pani Gosia");
         //assertEquals(client, lightBox.getOwner());
-        assertEquals("nr5", lightBox.getOwner().getNumber());
-        assertEquals(products, lightBox.getItems());
-        assertEquals(true, lightBox.isActive());
+        assertEquals(lightBox.getOwner().getNumber(), "nr5");
+        assertEquals(lightBox.getItems(), products);
+        assertEquals(lightBox.isActive(), true);
     }
 
     @Test
@@ -99,16 +99,16 @@ public class FileLightBoxRepositoryTest {
         LightBox lightBox1Read = lightBoxRepository.load("nr11");
         LightBox lightBox2Read = lightBoxRepository.load("nr7");
         //assertions
-        assertEquals("nr11", lightBox1Read.getNumber());
-        assertEquals("nr7", lightBox2Read.getNumber());
-        assertEquals("Pani Ela", lightBox1Read.getOwner().getName());
-        assertEquals("Pan Leszek", lightBox2Read.getOwner().getName());
-        assertEquals("nr1", lightBox1Read.getOwner().getNumber());
-        assertEquals("nr2", lightBox2Read.getOwner().getNumber());
-        assertEquals(true, lightBox1Read.isActive());
-        assertEquals(true, lightBox2Read.isActive());
-        assertEquals("nr3 nr4", lightBox1Read.getProductsNumbers());
-        assertEquals("nr5 nr6", lightBox2Read.getProductsNumbers());
+        assertEquals(lightBox1Read.getNumber(), "nr11");
+        assertEquals(lightBox2Read.getNumber(), "nr7");
+        assertEquals(lightBox1Read.getOwner().getName(), "Pani Ela");
+        assertEquals(lightBox2Read.getOwner().getName(), "Pan Leszek");
+        assertEquals(lightBox1Read.getOwner().getNumber(), "nr1");
+        assertEquals(lightBox2Read.getOwner().getNumber(), "nr2");
+        assertEquals(lightBox1Read.isActive(), true);
+        assertEquals(lightBox2Read.isActive(), true);
+        assertEquals(lightBox1Read.getProductsNumbers(), "nr3 nr4");
+        assertEquals(lightBox2Read.getProductsNumbers(), "nr5 nr6");
         File file = new File("tmp/lightboxes.csv");
         file.delete();
     }

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Beata Iłowiecka on 24.05.16.
@@ -50,12 +51,12 @@ public class FileReservationRepositoryTest {
         products.add(product1);
         products.add(product2);
         //then
-        assertEquals("nr2", reservation.getNumber());
-        assertEquals("Pan Kuba", reservation.getOwner().getName());
-        assertEquals("nr6", reservation.getOwner().getNumber());
+        assertEquals(reservation.getNumber(), "nr2");
+        assertEquals(reservation.getOwner().getName(), "Pan Kuba");
+        assertEquals(reservation.getOwner().getNumber(), "nr6");
         //assertEquals(client, reservation.getOwner());
-        assertEquals(true, !reservation.isClosed());
-        assertEquals("nr2 nr3", reservation.getProductsNumbers());
+        assertTrue(!reservation.isClosed());
+        assertEquals(reservation.getProductsNumbers(), "nr2 nr3");
     }
 
     @Test
@@ -90,16 +91,16 @@ public class FileReservationRepositoryTest {
         Reservation reservation1Read = reservationRepository.load("nr7");
         Reservation reservation2Read = reservationRepository.load("nr8");
         //assertions
-        assertEquals("nr7", reservation1Read.getNumber());
-        assertEquals("nr8", reservation2Read.getNumber());
-        assertEquals("Pani Ela", reservation1Read.getOwner().getName());
-        assertEquals("Pan Leszek", reservation2Read.getOwner().getName());
-        assertEquals("nr1", reservation1Read.getOwner().getNumber());
-        assertEquals("nr2", reservation2Read.getOwner().getNumber());
-        assertEquals(true, reservation1Read.isActive());
+        assertEquals(reservation1Read.getNumber(), "nr7");
+        assertEquals(reservation2Read.getNumber(), "nr8");
+        assertEquals(reservation1Read.getOwner().getName(), "Pani Ela");
+        assertEquals(reservation2Read.getOwner().getName(), "Pan Leszek");
+        assertEquals(reservation1Read.getOwner().getNumber(), "nr1");
+        assertEquals(reservation2Read.getOwner().getNumber(), "nr2");
+        assertTrue(reservation1Read.isActive());
         assertEquals(false, reservation2Read.isActive());
-        assertEquals("nr3 nr4", reservation1Read.getProductsNumbers());
-        assertEquals("nr5 nr6", reservation2Read.getProductsNumbers());
+        assertEquals(reservation1Read.getProductsNumbers(), "nr3 nr4");
+        assertEquals(reservation2Read.getProductsNumbers(), "nr5 nr6");
         File file = new File("tmp/reservations.csv");
         file.delete();
     }

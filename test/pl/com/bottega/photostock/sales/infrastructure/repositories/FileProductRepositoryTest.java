@@ -28,11 +28,11 @@ public class FileProductRepositoryTest {
         //when
         Product product = productRepository.load("nr2");
         //then
-        assertEquals("nr2", product.getNumber());
-        assertEquals(Picture.class, product.getClass());
-        assertEquals(new Money(5.0, "USD"), product.getPrice());
+        assertEquals(product.getNumber(), "nr2");
+        assertEquals(product.getClass(), Picture.class);
+        assertEquals(product.getPrice(), new Money(5.0, "USD"));
         assertTrue(product.isAvailable());
-        assertArrayEquals(new String[] {"t1", "t2"}, ((Picture)product).getTags());
+        assertArrayEquals(product.getTags(), new String[] {"t1", "t2"});
     }
 
     @Test
@@ -63,11 +63,12 @@ public class FileProductRepositoryTest {
         //then
         Product clipRead = productRepository.load("nr1");
         Product pictureRead = productRepository.load("nr2");
-        Assert.assertEquals("nr1", clipRead.getNumber());
-        Assert.assertEquals("nr2", pictureRead.getNumber());
-        assertArrayEquals(new String[] {"t1", "t2"}, ((Picture) pictureRead).getTags());
-        assertEquals(200, ((Clip) clipRead).getLength());
-        assertEquals(false, pictureRead.isAvailable());
+        //assertions
+        Assert.assertEquals(clipRead.getNumber(), "nr1");
+        Assert.assertEquals(pictureRead.getNumber(), "nr2");
+        assertArrayEquals(pictureRead.getTags(), new String[] {"t1", "t2"});
+        assertEquals(((Clip) clipRead).getLength(), 200);
+        assertEquals(pictureRead.isAvailable(), false);
         // dlaczego nie kasuje się to co jest w środku? czy ja nie nadpisuję pustym plikiem?
         //(w przypadku gdy nie kasuję pliku)
         //dlaczego nie pojawia się plik w tmp w trakcie stworzenia go przez metodę, tylko dopiero po całym wykonaniu?
