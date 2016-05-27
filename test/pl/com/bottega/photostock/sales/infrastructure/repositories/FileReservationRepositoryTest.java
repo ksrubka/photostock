@@ -87,8 +87,8 @@ public class FileReservationRepositoryTest {
         reservationRepository.save(reservation1);
         reservationRepository.save(reservation2);
         //then
-        Reservation reservation1Read = reservationRepository.load("nr1");
-        Reservation reservation2Read = reservationRepository.load("nr2");
+        Reservation reservation1Read = reservationRepository.load("nr7");
+        Reservation reservation2Read = reservationRepository.load("nr8");
         //assertions
         assertEquals("nr7", reservation1Read.getNumber());
         assertEquals("nr8", reservation2Read.getNumber());
