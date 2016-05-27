@@ -110,8 +110,13 @@ public class LightBox {
 
     public String getProductsNumbers() {
         StringBuilder productsNumbers = new StringBuilder();
-        for (Product item : items)
-            productsNumbers.append(item.getNumber() + " ");
+        int count = 0;
+        for (Product item : items) {
+            productsNumbers.append(item.getNumber());
+            if (count < items.size()-1)
+                productsNumbers.append(" ");
+            count++;
+        }
         return productsNumbers.toString();
     }
 }

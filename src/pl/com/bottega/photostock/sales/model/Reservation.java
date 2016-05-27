@@ -83,6 +83,14 @@ public class Reservation {
     }
 
     public String getProductsNumbers() {
-        return "";
+        StringBuilder productsNumbers = new StringBuilder();
+        int count = 0;
+        for (Product item : items) {
+            productsNumbers.append(item.getNumber());
+            if (count < items.size()-1)
+                productsNumbers.append(" ");
+            count++;
+        }
+        return productsNumbers.toString();
     }
 }
