@@ -96,4 +96,22 @@ public class LightBox {
     public boolean isActive() {
         return !closed;
     }
+
+    //[0]number,[1]ownerName,[2]ownerNumber,[3]active,[4]productsNumbers
+    public String[] export() {
+        return new String[]{
+                getNumber(),
+                owner.getName(),
+                owner.getNumber(),
+                String.valueOf(!closed),
+                getProductsNumbers()
+        };
+    }
+
+    public String getProductsNumbers() {
+        StringBuilder productsNumbers = new StringBuilder();
+        for (Product item : items)
+            productsNumbers.append(item.getNumber() + " ");
+        return productsNumbers.toString();
+    }
 }
