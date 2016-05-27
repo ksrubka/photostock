@@ -90,46 +90,40 @@ public class FileReservationRepositoryTest {
         Reservation reservation1Read = reservationRepository.load("nr1");
         Reservation reservation2Read = reservationRepository.load("nr2");
         //assertions
-        assertEquals("nr1", reservation1Read.getNumber());
-        assertEquals("nr2", reservation2Read.getNumber());
+        assertEquals("nr7", reservation1Read.getNumber());
+        assertEquals("nr8", reservation2Read.getNumber());
         assertEquals("Pani Ela", reservation1Read.getOwner().getName());
         assertEquals("Pan Leszek", reservation2Read.getOwner().getName());
         assertEquals("nr1", reservation1Read.getOwner().getNumber());
         assertEquals("nr2", reservation2Read.getOwner().getNumber());
         assertEquals(true, reservation1Read.isActive());
-        assertEquals(true, reservation2Read.isActive());
-        assertEquals("nr3 nr4 ", reservation1Read.getProductsNumbers());
-        assertEquals("nr5 nr6 ", reservation2Read.getProductsNumbers());
+        assertEquals(false, reservation2Read.isActive());
+        assertEquals("nr3 nr4", reservation1Read.getProductsNumbers());
+        assertEquals("nr5 nr6", reservation2Read.getProductsNumbers());
         File file = new File("tmp/reservations.csv");
         file.delete();
     }
 
     private Reservation init1stReservation() {
-        return null;
-    }
-
-    private Reservation init2ndReservation() {
-        return null;
-    }
-
-   /*
-    private LightBox create1stLightBox() {
         Client client = clientRepository.load("nr1");
         Product product1 = productRepository.load("nr3");
         Product product2 = productRepository.load("nr4");
-        LightBox lightBox = new LightBox(client);
-        lightBox.setNumber("nr11");
-        lightBox.add(product1, product2);
-        return lightBox;
+        Reservation reservation = new Reservation(client);
+        reservation.setNumber("nr7");
+        reservation.add(product1);
+        reservation.add(product2);
+        return reservation;
     }
 
-    private LightBox create2ndLightBox() {
+    private Reservation init2ndReservation() {
         Client client = clientRepository.load("nr2");
         Product product1 = productRepository.load("nr5");
         Product product2 = productRepository.load("nr6");
-        LightBox lightBox = new LightBox(client);
-        lightBox.setNumber("nr7");
-        lightBox.add(product1, product2);
-        return lightBox;
-    }*/
+        Reservation reservation = new Reservation(client);
+        reservation.setNumber("nr8");
+        reservation.add(product1);
+        reservation.add(product2);
+        reservation.close();
+        return reservation;
+    }
 }
