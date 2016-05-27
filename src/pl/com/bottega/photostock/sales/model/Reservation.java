@@ -93,4 +93,8 @@ public class Reservation {
         }
         return productsNumbers.toString();
     }
+
+    public boolean isActive() {
+        return !closed;
+    }
 }
