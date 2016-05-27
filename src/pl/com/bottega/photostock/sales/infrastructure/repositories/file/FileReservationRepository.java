@@ -5,7 +5,10 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.Pr
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ReservationRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Reservation;
+import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,7 +29,25 @@ public class FileReservationRepository implements ReservationRepository {
 
     @Override
     public Reservation load(String number) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path), 512)) {
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().length() == 0)
+                    return null;
+                Reservation reservation = parseReservation();
+                if (reservation.getNumber().equals(number))
+                    return reservation;
+            }
+        }
+        catch (Exception e) {
+                throw new DataAccessException(e);
+        }
         return null;
+    }
+
+    private Reservation parseReservation() {
+
     }
 
     @Override
