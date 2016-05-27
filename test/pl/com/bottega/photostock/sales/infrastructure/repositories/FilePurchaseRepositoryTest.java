@@ -111,8 +111,8 @@ public class FilePurchaseRepositoryTest {
         items.add(product2);
         Purchase purchase = new Purchase(client, items);
         purchase.setNumber("nr1");
-        Date date = createDate();
-        purchase.setDate(date);
+        //Date date = createDate();
+        //purchase.setDate(date);
         return purchase;
     }
 
@@ -123,8 +123,8 @@ public class FilePurchaseRepositoryTest {
         items.add(product1);
         Purchase purchase = new Purchase(client, items);
         purchase.setNumber("nr2");
-        Date date = createDate();
-        purchase.setDate(date);
+        //Date date = createDate();
+        //purchase.setDate(date);
         return purchase;
     }
 }
