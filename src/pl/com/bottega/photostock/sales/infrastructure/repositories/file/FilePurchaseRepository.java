@@ -3,12 +3,15 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories.file;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.PurchaseRepository;
+import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.LightBox;
+import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -43,6 +46,36 @@ public class FilePurchaseRepository implements PurchaseRepository{
             throw new DataAccessException(e);
         }
         return null;
+    }
+
+    //[0]number,[1]ownerName,[2]ownerNumber,[3]date,[4]productsNumbers
+    private Purchase parsePurchase(String line) {
+        String[] components = line.split(",");
+        String number = components[0];
+        String ownerNr = components[2];
+        boolean active = Boolean.valueOf(components[3]);
+        String[] productsNrs = components[4].split(" ");
+
+        Purchase purchase = initPurchase(ownerNr, productsNrs);
+        purchase.setNumber(number);
+        //todo parse date
+        return purchase;
+        }
+
+    private Purchase initPurchase(String ownerNr, String[] productsNrs) {
+        Client client = clientRepository.load(ownerNr);
+        List<Product> items = initItems(productsNrs);
+        return new Purchase(client, items);
+    }
+
+    private List<Product> initItems(String[] productsNrs) {
+        List<Product> items = new ArrayList<>();
+        Product product;
+        for (String nr : productsNrs) {
+            product = productRepository.load(nr);
+            items.add(product);
+        }
+        return items;
     }
 
     @Override
