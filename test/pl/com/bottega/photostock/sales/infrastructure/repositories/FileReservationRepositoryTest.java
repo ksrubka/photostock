@@ -55,26 +55,4 @@ public class FileReservationRepositoryTest {
         assertEquals(true, !reservation.isClosed());
         assertEquals("nr2 nr3 ", reservation.getProductsNumbers());
     }
-
-    /*//[0]number,[1]ownerName,[2]ownerNumber,[3]active,[4]productsNumbers
-    @Test
-    public void shouldLoadLightBox() {
-        //given
-        LightBoxRepository lightBoxRepository = new FileLightBoxRepository(path, clientRepository, productRepository);
-        //when
-        LightBox lightBox = lightBoxRepository.load("nr1");
-        Product product1 = productRepository.load("nr1");
-        Product product2 = productRepository.load("nr2");
-        //Client client = clientRepository.load("nr5");
-        List<Product> products = new ArrayList<>();
-        products.add(product1);
-        products.add(product2);
-        //then
-        assertEquals("nr1", lightBox.getNumber());
-        assertEquals("Pani Gosia", lightBox.getOwner().getName());
-        //assertEquals(client, lightBox.getOwner());
-        assertEquals("nr5", lightBox.getOwner().getNumber());
-        assertEquals(products, lightBox.getItems());
-        assertEquals(true, lightBox.isActive());
-    }*/
 }
