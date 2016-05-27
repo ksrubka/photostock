@@ -94,10 +94,10 @@ public class FileLightBoxRepositoryTest {
         assertEquals("Pan Leszek", lightBox2Read.getOwner().getName());
         assertEquals("nr1", lightBox1Read.getOwner().getNumber());
         assertEquals("nr2", lightBox2Read.getOwner().getNumber());
-        assertEquals("true", lightBox1Read.isActive());
-        assertEquals("true", lightBox2Read.isActive());
-        assertEquals("nr3 nr4", lightBox1Read.getProductsNumbers());
-        assertEquals("nr5 nr6", lightBox2Read.getProductsNumbers());
+        assertEquals(true, lightBox1Read.isActive());
+        assertEquals(true, lightBox2Read.isActive());
+        assertEquals("nr3 nr4 ", lightBox1Read.getProductsNumbers());
+        assertEquals("nr5 nr6 ", lightBox2Read.getProductsNumbers());
         File file = new File("tmp/prducts.csv");
         file.delete();
     }
