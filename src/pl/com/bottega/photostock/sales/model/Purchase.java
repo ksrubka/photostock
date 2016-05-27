@@ -1,7 +1,5 @@
 package pl.com.bottega.photostock.sales.model;
 
-import pl.com.bottega.photostock.sales.model.exceptions.InappropriateClientStatusException;
-
 import java.util.Date;
 import java.util.List;
 
@@ -10,19 +8,17 @@ import java.util.List;
  */
 public class Purchase {
 
-    private Date PurchaseData;
+    private Date purchaseDate;
     private Client owner;
-    private Date createDate;
     private List<Product> items;
     private String number;
-    private Date date;
 
     public Purchase(Client owner, List<Product> items) {
         this.owner = owner;
         for (Product product : items)
             product.sellPer(owner);
         this.items = items;
-        this.createDate = new Date();
+        this.purchaseDate = new Date();
     }
 
     public String getNumber() {
@@ -42,6 +38,29 @@ public class Purchase {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.purchaseDate = date;
+    }
+
+    //[0]number,[1]ownerName,[2]ownerNumber,[3]date,[4]productsNumbers
+    public String[] export() {
+        return new String[]{
+                getNumber(),
+                owner.getName(),
+                owner.getNumber(),
+                //todo data!
+                getProductsNumbers()
+        };
+    }
+
+    public String getProductsNumbers() {
+        StringBuilder productsNumbers = new StringBuilder();
+        int count = 0;
+        for (Product item : items) {
+            productsNumbers.append(item.getNumber());
+            if (count < items.size()-1)
+                productsNumbers.append(" ");
+            count++;
+        }
+        return productsNumbers.toString();
     }
 }
