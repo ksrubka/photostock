@@ -9,8 +9,7 @@ import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.Purchase;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -80,7 +79,17 @@ public class FilePurchaseRepository implements PurchaseRepository{
 
     @Override
     public void save(Purchase purchase) {
-
+        File file = new File(this.path);
+        boolean newRepo = !file.exists();
+        try (OutputStream os = new FileOutputStream(this.path, true)) {
+            if (newRepo)
+                os.write("number,ownerName,ownerNumber,date,productsNumbers\n".getBytes());
+            String[] purchaseExported = purchase.export();
+            String csvLine = String.join(",", purchaseExported) + "\n";
+            os.write(csvLine.getBytes());
+        } catch (Exception ex) {
+            throw new DataAccessException(ex);
+        }
     }
 
     @Override
