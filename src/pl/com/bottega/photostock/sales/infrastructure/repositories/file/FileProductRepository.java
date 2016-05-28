@@ -23,10 +23,10 @@ public class FileProductRepository implements ProductRepository {
 
     @Override
     public Product load(String nr) {
-        try (InputStream is = new FileInputStream(path);) {
-            readLine(is);
+        try (BufferedReader br = new BufferedReader(new FileReader(path), 512)) {
+            br.readLine();
             String line;
-            while ((line = readLine(is)) != null) {
+            while ((line = br.readLine()) != null) {
                 if (line.trim().length() == 0)
                     return null;
                 Product product;
