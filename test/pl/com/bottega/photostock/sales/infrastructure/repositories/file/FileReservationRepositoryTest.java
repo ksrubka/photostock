@@ -1,4 +1,4 @@
-package pl.com.bottega.photostock.sales.infrastructure.repositories;
+package pl.com.bottega.photostock.sales.infrastructure.repositories.file;
 
 import org.junit.Before;
 import org.junit.Test;

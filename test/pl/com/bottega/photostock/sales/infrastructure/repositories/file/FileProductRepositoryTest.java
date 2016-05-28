@@ -1,4 +1,4 @@
-package pl.com.bottega.photostock.sales.infrastructure.repositories;
+package pl.com.bottega.photostock.sales.infrastructure.repositories.file;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -64,8 +64,8 @@ public class FileProductRepositoryTest {
         Product clipRead = productRepository.load("nr1");
         Product pictureRead = productRepository.load("nr2");
         //assertions
-        Assert.assertEquals(clipRead.getNumber(), "nr1");
-        Assert.assertEquals(pictureRead.getNumber(), "nr2");
+        assertEquals(clipRead.getNumber(), "nr1");
+        assertEquals(pictureRead.getNumber(), "nr2");
         assertArrayEquals(pictureRead.getTags(), new String[] {"t1", "t2"});
         assertEquals(((Clip) clipRead).getLength(), 200);
         assertEquals(pictureRead.isAvailable(), false);
