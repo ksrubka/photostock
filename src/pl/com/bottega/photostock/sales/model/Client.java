@@ -80,15 +80,14 @@ public class Client {
     }
 
     public class ChargingData implements Charging {
-
         public Money getAmount(){
             return amount;
         }
         public void setAmount(Money newAmount){
             amount = newAmount;
         }
-
     }
+
     public String getName() {
         return name;
     }
