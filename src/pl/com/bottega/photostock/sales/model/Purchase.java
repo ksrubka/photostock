@@ -8,10 +8,10 @@ import java.util.List;
  */
 public class Purchase {
 
-    private Date purchaseDate;
-    private Client owner;
-    private List<Product> items;
     private String number;
+    private Client owner;
+    private Date purchaseDate;
+    private List<Product> items;
 
     public Purchase(Client owner, List<Product> items) {
         this.owner = owner;
