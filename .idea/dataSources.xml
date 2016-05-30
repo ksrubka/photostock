@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="4076931215">
+    <data-source source="LOCAL" name="HSQLDB (Remote) - stock@localhost" uuid="adbbf43a-33bc-4a2e-993d-d91c86eea13a">
+      <driver-ref>hsqldb.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.hsqldb.jdbcDriver</jdbc-driver>
+      <jdbc-url>jdbc:hsqldb:hsql://localhost:9001/stock</jdbc-url>
+    </data-source>
+  </component>
+</project>
