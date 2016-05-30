@@ -18,29 +18,23 @@ import static org.junit.Assert.assertNull;
 /**
  * Created by Beata Iłowiecka on 29.05.2016.
  */
-                                                                    //CZAISZ BAZĘ? BD
+
 public class JDBCProductRepositoryTest2 {
 
     ProductRepository productRepo;
 
     @Before
     public void setUp() throws Exception {
-        Connection c = DriverManager.getConnection("jdbc:hsqldb:mem:stock", "SA", "");      // WOW!
+        //"jdbc:hsqldb:file:/opt/db/testdb" - taki adress jak chcesz na serio a nie w pamięci
+        Connection c = DriverManager.getConnection("jdbc:hsqldb:mem:stock", "SA", "");
         createProductsTable(c);
         insertTestProduct(c);
         productRepo = new JDBCProductRepository("jdbc:hsqldb:mem:stock", "SA", "");
         c.close();
     }
-                        // WRESZCIE DZIAŁA BAZA
-    @After
-    public void clean() {
-    }
-                                                    //   WOW!
+
     @Test
-                                                            // ALE SUPER!
     public void shouldLoadProduct() throws Exception {
-        //pierwsze połączenie z bazą danych nawiązane! :)))                                                 //   wow!
-        //"jdbc:hsqldb:file:/opt/db/testdb" - taki adress jak chcesz na serio a nie w pamięci
         //when - load product
         Product product = productRepo.load("nr1");
         //then - assertions
