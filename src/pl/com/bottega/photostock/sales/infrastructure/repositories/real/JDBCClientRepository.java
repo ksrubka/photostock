@@ -3,16 +3,12 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories.real;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.ClientStatus;
-import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
-import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Beata Iłowiecka on 02.06.16.
@@ -55,6 +51,21 @@ public class JDBCClientRepository implements ClientRepository {
 
     @Override
     public void save(Client client) {
-
+        try (Connection c = DriverManager.getConnection(url, login, pwd)) {
+            PreparedStatement statement = c.prepareStatement(
+                    "INSERT INTO Clients (number, name, address, active, amount, currency, status) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)");
+            statement.setString(1, client.getNumber());
+            statement.setString(2, client.getName());
+            statement.setString(3, client.getAddress());
+            statement.setBoolean(4, client.isActive());
+            statement.setInt(5, client.getSaldo().cents()/100);
+            statement.setString(6, String.valueOf(client.getSaldo().getCurrency()));
+            statement.setString(7,String.valueOf(client.getStatus()).toLowerCase());
+            statement.executeUpdate();
+        }
+        catch (Exception e) {
+            throw new DataAccessException(e);
+        }
     }
 }
