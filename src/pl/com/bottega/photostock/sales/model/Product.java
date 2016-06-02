@@ -39,4 +39,6 @@ public interface Product {
     String[] export();
 
     String[] getTags();
+
+    String getName();
 }

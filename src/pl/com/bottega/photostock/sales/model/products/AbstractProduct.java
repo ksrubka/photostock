@@ -143,4 +143,9 @@ public abstract class AbstractProduct implements Product {
     public String[] getTags(){
         return null;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }
