@@ -9,17 +9,17 @@ public class Clip extends AbstractProduct{
 
     private long length;
 
-    public Clip(String number, Money price, long duration, boolean active){
-        super(number, price, active);
+    public Clip(String number, String name, Money price, long duration, boolean active){
+        super(number, name, price, active);
         this.length = duration;
     }
 
-    public  Clip(String number, Money price, long duration){
-        this(number, price, duration, true);
+    public  Clip(String number, String name, Money price, long duration){
+        this(number, name, price, duration, true);
     }
 
     public Clip(){
-        this("nr5", new Money(10.0), 224, true);
+        this("nr5", "some clip", new Money(10.0), 224, true);
     }
 
     public long getLength() {
