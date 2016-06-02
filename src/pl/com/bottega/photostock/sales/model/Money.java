@@ -105,8 +105,12 @@ public class Money {
         return currency;
     }
 
-    public double getDoubleValue(){
+    public double getDoubleValue() {
         return value.getNumerator()/100;
+    }
+
+    public int getIntValue() {
+        return (int) Math.round(getDoubleValue());
     }
 
     public int cents() {
