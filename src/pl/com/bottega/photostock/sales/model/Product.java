@@ -40,5 +40,4 @@ public interface Product {
 
     String[] getTags();
 
-    String getName();
 }
