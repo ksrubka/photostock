@@ -33,15 +33,6 @@ public class JDBCProductRepositoryTest {
         c.close();
     }
 
-    @Test
-    public void shouldLoadProduct() throws Exception {
-        //when - load product
-        Product product = productRepo.load("nr1");
-        //then - assertions
-        assertEquals(product.getNumber(), "nr1");
-        assertEquals(product.getClass(), Picture.class);
-    }
-
     private void createProductsTable(Connection c) throws Exception {
         c.createStatement().executeUpdate("DROP TABLE Products IF EXISTS");
         Statement statement = c.createStatement();
@@ -62,6 +53,15 @@ public class JDBCProductRepositoryTest {
         statement.executeUpdate(
                 "INSERT INTO Products (number, name, available, priceCents, priceCurrency, length, type) " +
                         "VALUES ('nr1', 'Mazda 3', true, 200, 'USD', NULL, 'Picture');\n");
+    }
+
+    @Test
+    public void shouldLoadProduct() throws Exception {
+        //when - load product
+        Product product = productRepo.load("nr1");
+        //then - assertions
+        assertEquals(product.getNumber(), "nr1");
+        assertEquals(product.getClass(), Picture.class);
     }
 
     @Test
