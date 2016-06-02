@@ -52,9 +52,12 @@ public class JDBCClientRepository implements ClientRepository {
     @Override
     public void save(Client client) {
         try (Connection c = DriverManager.getConnection(url, login, pwd)) {
-            PreparedStatement statement = c.prepareStatement(
+            String query = load(client.getNumber()) == null ?
                     "INSERT INTO Clients (number, name, address, active, amount, currency, status) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)" :
+                    "UPDATE Clients SET number=?, name=?, address=?, active=?, amount=?, currency=?, status=?" +
+                            " WHERE number=" + client.getNumber();
+            PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, client.getNumber());
             statement.setString(2, client.getName());
             statement.setString(3, client.getAddress());
