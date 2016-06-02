@@ -30,7 +30,26 @@ public class JDBCClientRepository implements ClientRepository {
     }
 
     @Override
-    public Client load(String number) {
+    public Client load(String clientNumber) {
+        try (Connection c = DriverManager.getConnection(url, login, pwd)) {
+            PreparedStatement statement = c.prepareStatement(
+                    "SELECT number, name, address, active, amount, currency, status FROM Clients WHERE number = ?" );
+            statement.setString(1, clientNumber);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return new Client(
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        ClientStatus.valueOf(rs.getString("status").toUpperCase()),
+                        rs.getDouble("amount"),
+                        rs.getString("currency"),
+                        rs.getBoolean("active"),
+                        rs.getString("number"));
+            }
+        }
+        catch (Exception e) {
+            throw new DataAccessException(e);
+        }
         return null;
     }
 
