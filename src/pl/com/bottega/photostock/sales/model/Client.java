@@ -34,6 +34,16 @@ public class Client {
         this.number = nr;
     }
 
+    public Client(String name, String address, ClientStatus status, double amount, String currency, boolean active, String nr) {
+        this.name = name;
+        this.address = address;
+        this.status = status;
+        this.chargingStrategy = StrategyFactory.create(status);
+        this.amount = new Money(amount, currency);
+        this.active = active;
+        this.number = nr;
+    }
+
     public Client(String name, String address, double amount, String nr) {
         this(name, address, ClientStatus.STANDARD, amount, true, nr);
     }
