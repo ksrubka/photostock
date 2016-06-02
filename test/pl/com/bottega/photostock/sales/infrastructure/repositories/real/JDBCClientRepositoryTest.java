@@ -49,5 +49,19 @@ public class JDBCClientRepositoryTest {
                 "INSERT INTO Clients (number, name, address, active, amount, currency, status) " +
                         "VALUES ('nr1', 'Anna Makara', 'Księżycowa 2/13', true, 2000, 'USD', 'vip');\n");
     }
+
+    @Test
+    public void shouldLoadClient() throws Exception {
+        //when - load client
+        Client client = clientRepo.load("nr1");
+        //then - assertions
+        assertEquals(client.getNumber(), "nr1");
+        assertEquals(client.getName(), "Anna Makara");
+        assertEquals(client.getAddress(), "Księżycowa 2/13");
+        assertTrue(client.isActive());
+        assertEquals(client.getSaldo().cents()/100, 2000);
+        assertEquals(String.valueOf(client.getSaldo().getCurrency()), "USD");
+        assertEquals(String.valueOf(client.getStatus()), "VIP");
+    }
 }
 
