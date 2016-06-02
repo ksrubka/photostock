@@ -50,16 +50,14 @@ public class JDBCProductRepository implements ProductRepository {
     public void save(Product product) {
         try (Connection c = DriverManager.getConnection(url, login, pwd)) {
             PreparedStatement statement = c.prepareStatement(
-                    "INSERT INTO Products (number, available, priceCents, priceCurrency, type) " +
-                            "VALUES (?, ?, ?, ?, 'Picture')");
-
+                    "INSERT INTO Products (number, name, available, priceCents, priceCurrency, type) " +
+                            "VALUES (?, ?, ?, ?, ?, 'Picture')");
             statement.setString(1, product.getNumber());
-            statement.setBoolean(2, product.isAvailable());
-            statement.setDouble(3, product.getPrice().getDoubleValue());
-            statement.setString(4, String.valueOf(product.getPrice().getCurrency()));
-
-
-            ResultSet rs = statement.executeQuery();
+            statement.setString(2, "jakieś imię");
+            statement.setBoolean(3, product.isAvailable());
+            statement.setInt(4, product.getPrice().cents());
+            statement.setString(5, String.valueOf(product.getPrice().getCurrency()));
+            statement.executeUpdate();
         }
         catch (Exception e) {
             throw new DataAccessException(e);
@@ -76,3 +74,20 @@ public class JDBCProductRepository implements ProductRepository {
         return null;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
