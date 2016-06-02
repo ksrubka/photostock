@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.model.Client;
+import pl.com.bottega.photostock.sales.model.ClientStatus;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,7 +30,7 @@ public class JDBCClientRepositoryTest {
     }
 
     private void createClientsTable(Connection c) throws Exception {
-        c.createStatement().executeUpdate("DROP TABLE Products IF EXISTS");
+        c.createStatement().executeUpdate("DROP TABLE Clients IF EXISTS");
         Statement statement = c.createStatement();
         statement.executeUpdate("CREATE TABLE Clients (\n" +
                 "  id INTEGER IDENTITY PRIMARY KEY,\n" +
@@ -62,6 +63,23 @@ public class JDBCClientRepositoryTest {
         assertEquals(client.getSaldo().cents()/100, 2000);
         assertEquals(String.valueOf(client.getSaldo().getCurrency()), "USD");
         assertEquals(String.valueOf(client.getStatus()), "VIP");
+    }
+
+    @Test
+    public void shouldSaveClient() {
+        //given
+        Client client = new Client("Helena Szczęsna", "Akacjowa 2", ClientStatus.SILVER, 200, "EUR", true, "nr2");
+        //when
+        clientRepo.save(client);
+        //then
+        Client clientSaved = clientRepo.load("nr2");
+        assertEquals(clientSaved.getName(), "Helena Szczęsna");
+        assertEquals(clientSaved.getAddress(), "Akacjowa 2");
+        assertEquals(String.valueOf(clientSaved.getStatus()), "SILVER");
+        assertEquals(clientSaved.getSaldo().cents()/100, 200);
+        assertEquals(String.valueOf(clientSaved.getSaldo().getCurrency()), "EUR");
+        assertTrue(clientSaved.isActive());
+        assertEquals(clientSaved.getNumber(), "nr2");
     }
 }
 
