@@ -4,11 +4,7 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.Cl
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.ClientStatus;
 import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 /**
  * Created by Beata Iłowiecka on 02.06.16.
@@ -29,7 +25,7 @@ public class JDBCClientRepository implements ClientRepository {
     public Client load(String clientNumber) {
         try (Connection c = DriverManager.getConnection(url, login, pwd)) {
             PreparedStatement statement = c.prepareStatement(
-                    "SELECT number, name, address, active, amount, currency, status FROM Clients WHERE number = ?" );
+                    "SELECT number, name, address, active, amount, currency, status FROM Clients WHERE number = ?");
             statement.setString(1, clientNumber);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
@@ -52,23 +48,36 @@ public class JDBCClientRepository implements ClientRepository {
     @Override
     public void save(Client client) {
         try (Connection c = DriverManager.getConnection(url, login, pwd)) {
-            String query = load(client.getNumber()) == null ?
-                    "INSERT INTO Clients (number, name, address, active, amount, currency, status) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?)" :
-                    "UPDATE Clients SET number=?, name=?, address=?, active=?, amount=?, currency=?, status=?" +
-                            " WHERE number=" + client.getNumber();
-            PreparedStatement statement = c.prepareStatement(query);
-            statement.setString(1, client.getNumber());
-            statement.setString(2, client.getName());
-            statement.setString(3, client.getAddress());
-            statement.setBoolean(4, client.isActive());
-            statement.setInt(5, client.getSaldo().cents()/100);
-            statement.setString(6, String.valueOf(client.getSaldo().getCurrency()));
-            statement.setString(7,String.valueOf(client.getStatus()).toLowerCase());
-            statement.executeUpdate();
+            String insert = "INSERT INTO Clients (number, name, address, active, amount, currency, status) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String update = "UPDATE Clients SET number=?, name=?, address=?, active=?, amount=?, currency=?, status=?" +
+                    " WHERE number=?";
+            PreparedStatement insertStatement = c.prepareStatement(insert);
+            PreparedStatement updateStatement = c.prepareStatement(update);
+            PreparedStatement statement = load(client.getNumber()) == null ? insertStatement : updateStatement;
+            if (statement==insertStatement)
+                setValues1(insertStatement, client);
+            else
+                setValues2(updateStatement, client);
+            statement.execute();
         }
         catch (Exception e) {
             throw new DataAccessException(e);
         }
+    }
+
+    private void setValues1(PreparedStatement statement, Client client) throws SQLException {
+        statement.setString(1, client.getNumber());
+        statement.setString(2, client.getName());
+        statement.setString(3, client.getAddress());
+        statement.setBoolean(4, client.isActive());
+        statement.setInt(5, client.getSaldo().cents()/100);
+        statement.setString(6, String.valueOf(client.getSaldo().getCurrency()));
+        statement.setString(7,String.valueOf(client.getStatus()).toLowerCase());
+    }
+
+    private void setValues2(PreparedStatement statement, Client client) throws SQLException {
+        setValues1(statement, client);
+        statement.setString(8, client.getNumber());
     }
 }
