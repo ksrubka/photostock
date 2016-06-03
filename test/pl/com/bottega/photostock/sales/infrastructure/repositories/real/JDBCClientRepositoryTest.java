@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -63,6 +64,15 @@ public class JDBCClientRepositoryTest {
         assertEquals(client.getSaldo().cents()/100, 2000);
         assertEquals(String.valueOf(client.getSaldo().getCurrency()), "USD");
         assertEquals(String.valueOf(client.getStatus()), "VIP");
+    }
+
+    @Test
+    public void shouldReturnNullWhenClientDoesntExist() throws Exception {
+        //when - load client
+        ClientRepository clientRepo = new JDBCClientRepository("jdbc:hsqldb:mem:stock", "SA", "");
+        Client client = clientRepo.load("nr500");
+        //then
+        assertNull(client);
     }
 
     @Test
