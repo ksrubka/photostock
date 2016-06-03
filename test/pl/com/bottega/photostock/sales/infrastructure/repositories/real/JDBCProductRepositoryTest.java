@@ -60,8 +60,8 @@ public class JDBCProductRepositoryTest {
         //when - load product
         Product product = productRepo.load("nr1");
         //then - assertions
-        assertEquals(product.getNumber(), "nr1");
-        assertEquals(product.getClass(), Picture.class);
+        assertEquals("nr1", product.getNumber());
+        assertEquals(Picture.class, product.getClass());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class JDBCProductRepositoryTest {
         productRepo.save(picture);
         //then
         Product picSaved = productRepo.load("nr2");
-        assertEquals(picSaved.getNumber(), "nr2");
-        assertEquals(picSaved.getPrice().cents(), new Money(20).cents());
+        assertEquals("nr2", picSaved.getNumber());
+        assertEquals(new Money(20).cents(), picSaved.getPrice().cents());
     }
 }
