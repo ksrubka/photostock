@@ -91,4 +91,12 @@ public class JDBCClientRepositoryTest {
         assertTrue(clientSaved.isActive());
         assertEquals("nr2", clientSaved.getNumber());
     }
+
+    @Test
+    public void shouldInsertClient() {
+    }
+
+    @Test
+    public void shouldUpdateClient() {
+    }
 }
