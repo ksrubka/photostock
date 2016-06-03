@@ -57,13 +57,13 @@ public class JDBCClientRepositoryTest {
         //when - load client
         Client client = clientRepo.load("nr1");
         //then - assertions
-        assertEquals(client.getNumber(), "nr1");
-        assertEquals(client.getName(), "Anna Makara");
-        assertEquals(client.getAddress(), "Księżycowa 2/13");
+        assertEquals("nr1", client.getNumber());
+        assertEquals("Anna Makara", client.getName());
+        assertEquals("Księżycowa 2/13", client.getAddress());
         assertTrue(client.isActive());
-        assertEquals(client.getSaldo().cents()/100, 2000);
-        assertEquals(String.valueOf(client.getSaldo().getCurrency()), "USD");
-        assertEquals(String.valueOf(client.getStatus()), "VIP");
+        assertEquals(2000, client.getSaldo().cents()/100);
+        assertEquals("USD", String.valueOf(client.getSaldo().getCurrency()));
+        assertEquals(ClientStatus.VIP, client.getStatus());
     }
 
     @Test
@@ -83,13 +83,12 @@ public class JDBCClientRepositoryTest {
         clientRepo.save(client);
         //then
         Client clientSaved = clientRepo.load("nr2");
-        assertEquals(clientSaved.getName(), "Helena Szczęsna");
-        assertEquals(clientSaved.getAddress(), "Akacjowa 2");
-        assertEquals(String.valueOf(clientSaved.getStatus()), "SILVER");
-        assertEquals(clientSaved.getSaldo().cents()/100, 200);
-        assertEquals(String.valueOf(clientSaved.getSaldo().getCurrency()), "EUR");
+        assertEquals("Helena Szczęsna", clientSaved.getName());
+        assertEquals("Akacjowa 2", clientSaved.getAddress(), clientSaved.getAddress());
+        assertEquals(ClientStatus.SILVER, clientSaved.getStatus());
+        assertEquals(200, clientSaved.getSaldo().cents()/100);
+        assertEquals("EUR", String.valueOf(clientSaved.getSaldo().getCurrency()));
         assertTrue(clientSaved.isActive());
-        assertEquals(clientSaved.getNumber(), "nr2");
+        assertEquals("nr2", clientSaved.getNumber());
     }
 }
-
