@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.api;
 
+import com.google.common.base.Preconditions;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.fake.FakeClientRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.fake.FakeLightBoxRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.fake.FakeProductRepository;
@@ -17,6 +18,8 @@ import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.io.IOException;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by Beata Iłowiecka on 23.04.2016.
@@ -43,13 +46,10 @@ public class LightBoxManagement {
     public void add(String lightBoxNr, String productNr) throws IllegalArgumentException, IOException {
         LightBox lightBox = lightBoxRepository.load(lightBoxNr);
         Product product = productRepository.load(productNr);
-        if (product instanceof Picture) {
-            lightBox.add((Picture) product);
-            lightBoxRepository.save(lightBox);
-            productRepository.save(product);
-        }
-        else
-            throw new IllegalArgumentException("Produkt nie jest zdjęciem, nie można dodać do LightBoxa.");
+        Preconditions.checkState(product instanceof Picture, "%s nie jest zdjęciem, nie można dodać do LightBoxa.", productNr);
+        lightBox.add((Picture) product);
+        lightBoxRepository.save(lightBox);
+        productRepository.save(product);
     }
 
     public void share(String lightBoxNr, String clientNr) throws IllegalArgumentException {
@@ -64,7 +64,7 @@ public class LightBoxManagement {
             throw new IllegalArgumentException("Klient z którym chcesz dzielić LightBox nie należy do tej samej firmy");
     }
 
-    public void reserve(String lbxNr, String reservationNr, List<String> pictureNrs) throws IOException {
+    public void reserveAll(String lbxNr, String reservationNr, List<String> pictureNrs) throws IOException {
         LightBox lbx = lightBoxRepository.load(lbxNr);
         Reservation reservation = reservationRepository.load(reservationNr);
         for (String pictureNr : pictureNrs) {
@@ -73,6 +73,15 @@ public class LightBoxManagement {
                     reservation.add(productRepository.load(pictureNr));
             }
         } //TODO dodaj wyjątki
+    }
+
+    public void reserve(String lbxNr, String pictureNr) {
+        LightBox lbx = lightBoxRepository.load(lbxNr);
+        String clientNr = lbx.getOwner().getNumber();
+        //guava
+        Picture picture = (Picture) lbx.getItems().stream().filter(picture1 -> picture1.getNumber().equals(pictureNr)).findFirst().get();
+        checkNotNull(picture, "%s does not contain %s", lbxNr, pictureNr);
+        lightBoxRepository.save(lbx);
     }
 
     public String clone(String lbxNr){
