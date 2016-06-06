@@ -10,6 +10,8 @@ import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.Pu
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ReservationRepository;
 import pl.com.bottega.photostock.sales.model.*;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Created by Beata Iłowiecka on 23.04.2016.
  */
@@ -43,6 +45,7 @@ public class PurchaseProcess {
     public Offer calculateOffer(String clientNr) {
         Client client = clientRepository.load(clientNr);
         Reservation reservation = reservationRepository.findOpenPer(client);
+        checkNotNull(reservation, "%s client does not have opened reservation", clientNr);
         return reservation.generateOffer();
     }
 
@@ -50,8 +53,7 @@ public class PurchaseProcess {
     public void confirm(String clientNr) {
         Client client = clientRepository.load(clientNr);
         Reservation reservation = reservationRepository.findOpenPer(client);
-        if (reservation == null)
-            throw new IllegalStateException("Klient nie posiada otwartej rezerwacji");
+        checkNotNull(reservation, "%s client does not have opened reservation", clientNr);
         confirm(client, reservation);
     }
 
