@@ -39,9 +39,9 @@ public class Money {
         return new Money((double) value.getNumerator() + amount.value.getNumerator(), currency.getCurrencyCode());
     }
 
-    public Money substract(Money amount){
+    public Money subtract(Money amount){
         if (!currency.equals(amount.currency))
-            throw new IllegalArgumentException("Can not add if different currency");
+            throw new IllegalArgumentException("Can subtract add if different currency");
         return new Money((double) value.getNumerator() - amount.value.getNumerator(), currency.getCurrencyCode());
     }
 
