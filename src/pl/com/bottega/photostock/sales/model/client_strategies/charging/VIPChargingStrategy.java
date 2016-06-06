@@ -25,10 +25,10 @@ public class VIPChargingStrategy implements ChargingStrategy {
     public void charge(Charging charging, Money productCost, String cause){ //TODO what to do with 'cause'?
         if (canAfford(charging, productCost)){
             if (charging.getAmount().greaterOrEqual(productCost)){
-                charging.setAmount(charging.getAmount().substract(productCost));
+                charging.setAmount(charging.getAmount().subtract(productCost));
             } else {
-                if ((productCost.substract(charging.getAmount())).lowerOrEqual(creditLimit)){
-                    debt = productCost.substract(charging.getAmount());
+                if ((productCost.subtract(charging.getAmount())).lowerOrEqual(creditLimit)){
+                    debt = productCost.subtract(charging.getAmount());
                     charging.setAmount(charging.getAmount().getZero());
                 }
             }
@@ -43,9 +43,9 @@ public class VIPChargingStrategy implements ChargingStrategy {
         }
         else {
             if (debt.greaterOrEqual(newAmount)) {
-                debt = debt.substract(newAmount);
+                debt = debt.subtract(newAmount);
             } else {
-                charging.setAmount(charging.getAmount().add(newAmount.substract(debt)));
+                charging.setAmount(charging.getAmount().add(newAmount.subtract(debt)));
                 debt = debt.getZero();
             }
         }

@@ -15,7 +15,7 @@ public class StandardChargingStrategy implements ChargingStrategy {
     @Override
     public void charge(Charging charging, Money productCost, String cause) {
         if (canAfford(charging, productCost)){
-            Money newAmount = charging.getAmount().substract(productCost);
+            Money newAmount = charging.getAmount().subtract(productCost);
             charging.setAmount(newAmount);
         }
         else {
