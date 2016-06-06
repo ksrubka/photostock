@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -27,10 +28,18 @@ public class JDBCProductRepositoryTest {
     public void setUp() throws Exception {
         //"jdbc:hsqldb:file:/opt/db/testdb" - taki adress jak chcesz na serio a nie w pamięci
         Connection c = DriverManager.getConnection("jdbc:hsqldb:mem:stock", "SA", "");
+        dropTables(c);
         createProductsTable(c);
+        createTagsTable(c);
         insertTestProduct(c);
         productRepo = new JDBCProductRepository("jdbc:hsqldb:mem:stock", "SA", "");
         c.close();
+    }
+
+    private void dropTables(Connection c) throws Exception {
+        c.createStatement().executeUpdate("DROP TABLE ProductsTags IF EXISTS");
+        c.createStatement().executeUpdate("DROP TABLE Products IF EXISTS");
+        c.createStatement().executeUpdate("DROP TABLE Tags IF EXISTS");
     }
 
     private void createProductsTable(Connection c) throws Exception {
@@ -46,6 +55,15 @@ public class JDBCProductRepositoryTest {
                 "  priceCurrency CHAR(3) DEFAULT 'PLN' NOT NULL,\n" +
                 "  length BIGINT\n" +
                 ");");
+    }
+
+    private void createTagsTable(Connection c) throws Exception {
+        c.createStatement().executeUpdate(
+                "CREATE TABLE Tags ( id INTEGER IDENTITY PRIMARY KEY, name VARCHAR(255) NOT NULL);");
+        c.createStatement().executeUpdate("CREATE TABLE ProductsTags (" +
+                "productId INTEGER FOREIGN KEY REFERENCES Products(id), " +
+                "tagId INTEGER FOREIGN KEY REFERENCES Tags(id), " +
+                "PRIMARY KEY (productId, tagId));\n");
     }
 
     private void insertTestProduct(Connection c) throws Exception {
@@ -76,12 +94,30 @@ public class JDBCProductRepositoryTest {
     @Test
     public void shouldSaveProduct() {
         //given
-        Product picture = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, false);
+        Product picture = new Picture("nr3", new Money(20.0), new String[] {"t1", "t2"}, false);
         //when
         productRepo.save(picture);
         //then
-        Product picSaved = productRepo.load("nr2");
-        assertEquals("nr2", picSaved.getNumber());
+        Product picSaved = productRepo.load("nr3");
+        assertEquals("nr3", picSaved.getNumber());
         assertEquals(new Money(20).cents(), picSaved.getPrice().cents());
+    }
+
+    @Test
+    public void shouldSaveProductWithTags() {
+        Product picture = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, true);
+        productRepo.save(picture);
+        Product picSaved = (Picture) productRepo.load("nr2");
+        assertArrayEquals(new String[] {"t1", "t2"},picSaved.getTags());
+        //todo zmiany w JDBC Product repo
+    }
+
+    @Test
+    public void shouldUpdateProductWithTags() {
+        Product picture = new Picture("nr2", new Money(20), new String[] {"one", "two", "three"}, false);
+        Product pictureToUpdate = new Picture("nr2", new Money(20), new String[] {"one", "three"}, false);
+        productRepo.save(picture);
+        productRepo.save(pictureToUpdate);
+        //todo assertions
     }
 }
