@@ -91,10 +91,6 @@ public class JDBCClientRepositoryTest {
     }
 
     @Test
-    public void shouldInsertClient() {
-    }
-
-    @Test
     public void shouldUpdateClient() {
         Client client = new Client("Helena Szczęsna", "Akacjowa 2", ClientStatus.SILVER, 200, "EUR", true, "nr2");
         Client clientChanged = new Client("Helena Nieszczęsna", "Akacjowa 4", ClientStatus.VIP, 2000, "PLN", false, "nr2");
