@@ -54,12 +54,6 @@ public class MoneyTest {
     }
 
     @Test
-    public void shouldHave650CentsFromInt() {
-        Money testMoney = new Money(5, 150);
-        assertEquals(650, testMoney.cents());
-    }
-
-    @Test
     public void shouldHave650CentsFromDouble() {
         Money testMoney = new Money(6.50);
         assertEquals(650, testMoney.cents());
@@ -125,5 +119,21 @@ public class MoneyTest {
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotAddMoneyDifferentCurrency() {
         Money testMoney = money5.add(money20EUR);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotCreateMoneyWithMoreThan2Decimals() {
+        Money testMoney = new Money(0, 100);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotCreateMoneyWithMoreThan2DecimalsFromDouble() {
+        Money testMoney = new Money(6.765);
+    }
+
+    @Test
+    public void shouldAdd70Cents() {
+        Money testMoney = new Money(6.700);
+        assertEquals(670, testMoney.cents());
     }
 }
