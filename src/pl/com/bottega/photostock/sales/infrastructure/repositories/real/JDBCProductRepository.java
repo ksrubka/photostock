@@ -79,6 +79,66 @@ public class JDBCProductRepository implements ProductRepository {
         }
     }
 
+    private void insertTags(Connection c, Product product) throws Exception {
+        if (product instanceof Picture) {
+            Picture picture = (Picture) product;
+            String[] tags = picture.getTags();
+            if (tags.length==0)
+                return;
+            ResultSet rs = queryTags(c, tags);
+            Set<String> existingTags = new HashSet<>();
+            while(rs.next())
+                existingTags.add(rs.getString("name"));
+            for (String tag : tags) {
+                if (!existingTags.contains(tag))
+                    insertTag(c, tag);
+            }
+            linkTags(c, (Picture) product);
+        }
+    }
+
+    private ResultSet queryTags(Connection c, String[] tags) throws Exception {
+        String[] questionMarks = new String[tags.length];
+        for(int i = 0; i < questionMarks.length; i++)
+            questionMarks[i] = "?";
+        String questionMarksConcat = String.join(",", questionMarks);
+        PreparedStatement s = c.prepareStatement(
+                "SELECT id, name FROM Tags " +
+                        "WHERE name IN (" + questionMarksConcat +");");
+        for (int i = 1; i<=tags.length; i++)
+            s.setString(i, tags[i-1]);
+        return s.executeQuery();
+    }
+
+    private void insertTag(Connection c, String tag) throws Exception {
+        PreparedStatement s = c.prepareStatement("INSERT INTO Tags (name) VALUES (?)");
+        s.setString(1, tag);
+        s.executeUpdate();
+    }
+    private void linkTags(Connection c, Picture product) throws Exception {
+        //todo sprawdzić istniejące połączenia i dodać tylko nowe albo usunąć niepotrzebne stare połączenia
+        //todo select ktory wyciąga istniejące połączenia z productTags
+        //todo iterowanie po wyniku żeby stwierdzić co trzeba dodać a co usunąć
+        PreparedStatement s = c.prepareStatement("SELECT id FROM Products WHERE number=?");
+        s.setString(1, product.getNumber());
+        ResultSet rs = s.executeQuery();
+        rs.next();
+        int productId = rs.getInt("id");
+        rs = queryTags(c, product.getTags());
+        Set<Integer> tagIds = new HashSet<>();
+        while (rs.next())
+            tagIds.add(rs.getInt("id"));
+        for (Integer tagId : tagIds)
+            linkTag(c, productId, tagId);
+    }
+
+    private void linkTag(Connection c, int productId, Integer tagId) throws Exception {
+        PreparedStatement s = c.prepareStatement("INSERT INTO ProductsTags (productId, tagId) VALUES (?, ?)");
+        s.setInt(1, productId);
+        s.setInt(2, tagId);
+        s.executeUpdate();
+    }
+
     @Override
     public Set<Product> getProducts() {
         return null;
