@@ -13,12 +13,14 @@ public class Money {
     private final Currency currency;
 
     public Money(double value, String currency) {
-        this.value = new Fraction(getNumerator(value), 100);
+        int fractionNumerator = getNumerator(value);
+        this.value = new Fraction(fractionNumerator, 100);
         this.currency = Currency.getInstance(currency);
     }
 
-    public Money(int integerValue, int cents, String currency) {
-        this.value = new Fraction(getNumerator(integerValue, cents), 100);
+    public Money(int value, int cents, String currency) {
+        int fractionNumerator = getNumerator(value, cents);
+        this.value = new Fraction(fractionNumerator, 100);
         this.currency = Currency.getInstance(currency);
     }
 
@@ -26,10 +28,16 @@ public class Money {
         this(value, "PLN");
     }
 
-    public int getNumerator(Double value){
+    public Money(int value, int cents) {
+        this(value, cents, "PLN");
+    }
+
+    public int getNumerator(Double value) {
+
         return (int) ((Math.floor(value) * 100) + (value - Math.floor(value)));
     }
-    public int getNumerator(int value, int cents){
+
+    public int getNumerator(int value, int cents) {
         return (value * 100) + cents;
     }
 
@@ -95,10 +103,6 @@ public class Money {
 
     public Money getZero(){
         return new Money(0d, currency.getCurrencyCode());
-    }
-
-    public Fraction getValue() {
-        return value;
     }
 
     public Currency getCurrency() {
