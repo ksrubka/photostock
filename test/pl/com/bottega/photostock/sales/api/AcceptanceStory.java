@@ -5,7 +5,6 @@ import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
 import pl.com.bottega.photostock.sales.model.products.ProductType;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -32,7 +31,7 @@ public class AcceptanceStory {
 
         for (Product product : products) {
             if (product.isAvailable())
-                purchaseProcess.add(clientNr, product.getNumber());
+                purchaseProcess.addToReservation(clientNr, product.getNumber());
         }
         //dodanie do lightboxa i przeniesienie
         purchaseProcess.calculateOffer(clientNr);

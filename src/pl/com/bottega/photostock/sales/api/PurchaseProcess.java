@@ -22,8 +22,8 @@ public class PurchaseProcess {
     public ProductRepository productRepository = new FakeProductRepository();
     public PurchaseRepository purchaseRepository = new FakePurchaseRepository();
 
-    //add product to the reservation
-    public void add(String clientNr, String productNr) {
+    //addToReservation product to the reservation
+    public void addToReservation(String clientNr, String productNr) {
         //if (security)
         Client client = clientRepository.load(clientNr);
         Reservation reservation = reservationRepository.findOpenPer(client);
@@ -49,20 +49,12 @@ public class PurchaseProcess {
         return reservation.generateOffer();
     }
 
-    //Jeśli dany klient jest płatnikiem
     public void confirm(String clientNr) {
         Client client = clientRepository.load(clientNr);
         Reservation reservation = reservationRepository.findOpenPer(client);
         checkNotNull(reservation, "%s client does not have opened reservation", clientNr);
         confirm(client, reservation);
     }
-
-    //Jeśli ktoś inny jest płatnikiem
-    /*public void confirm(String clientNr, ) {
-        Reservation reservation = reservationRepository.findOpenPer(reservationNr);
-        Client client = clientRepository.load(payerNr);
-        confirm(client, reservation);
-    }*/
 
     private void confirm(Client client, Reservation reservation){
         Offer offer = reservation.generateOffer();
