@@ -57,7 +57,7 @@ public class Money {
     }
 
     public int getNumerator(int value, int cents) {
-        checkArgument(cents >= 0 || cents >= 100);
+        checkArgument(value >= 0 && cents >= 0 && cents < 100);
         return (value * 100) + cents;
     }
 
