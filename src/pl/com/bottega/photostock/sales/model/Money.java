@@ -125,8 +125,8 @@ public class Money {
         return new Money(0d, currency.getCurrencyCode());
     }
 
-    public Currency getCurrency() {
-        return currency;
+    public String getCurrency() {
+        return String.valueOf(currency);
     }
 
     public double getDoubleValue() {
