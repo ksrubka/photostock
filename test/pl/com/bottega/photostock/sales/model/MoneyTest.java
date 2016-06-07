@@ -11,29 +11,13 @@ import static org.junit.Assert.assertNotEquals;
  */
 public class MoneyTest {
 
-    private Money money5;
-    private Money money20;
-    private Money money50;
-    private Money money100;
+    private Money money5 = new Money(5);
+    private Money money20 = new Money(20);
+    private Money money50 = new Money(50);
+    private Money money100 = new Money(100);
 
-    private Money money5EUR;
-    private Money money20EUR;
-    private Money money50EUR;
-    private Money money100EUR;
-
-
-    @Before
-    public void initMoney() {
-        money5 = new Money(5);
-        money20 = new Money(20);
-        money50 = new Money(50);
-        money100 = new Money(100);
-
-        money5EUR = new Money(5, "EUR");
-        money20EUR = new Money(20, "EUR");
-        money50EUR = new Money(50, "EUR");
-        money100EUR = new Money(100, "EUR");
-    }
+    private Money money5EUR = new Money(5, "EUR");
+    private Money money20EUR = new Money(20, "EUR");
 
     @Test
     public void shouldNotBeEqual() {
@@ -52,6 +36,18 @@ public class MoneyTest {
     }
 
     @Test
+    public void shouldHave0CentsFromInt() {
+        Money testMoney = new Money(0, 0);
+        assertEquals(0, testMoney.cents());
+    }
+
+    @Test
+    public void shouldHave50CentsFromInt() {
+        Money testMoney = new Money(0, 50);
+        assertEquals(50, testMoney.cents());
+    }
+
+    @Test
     public void shouldHave500Cents() {
         int cents = money5.cents();
         assertEquals(500, cents);
@@ -64,7 +60,70 @@ public class MoneyTest {
     }
 
     @Test
-    public void shouldHaveSameNumerators() {
-        Money testMoney = new Money(5, 0);
+    public void shouldHave650CentsFromDouble() {
+        Money testMoney = new Money(6.50);
+        assertEquals(650, testMoney.cents());
+    }
+
+    @Test
+    public void shouldHave50CentsFromDouble() {
+        Money testMoney = new Money(0.50);
+        assertEquals(50, testMoney.cents());
+    }
+
+    @Test
+    public void shouldHave0CentsFromDouble() {
+        Money testMoney = new Money(0.0);
+        assertEquals(0, testMoney.cents());
+    }
+
+    @Test
+    public void shouldBeEqualWithDecimals() {
+        Money testMoney = new Money(5, 30);
+        Money testDoubleMoney = new Money(5.3);
+        assertEquals(testMoney, testDoubleMoney);
+    }
+
+    @Test
+    public void shouldBeEqualWithDecimalsWithoutInteger() {
+        Money testMoney = new Money(0, 60);
+        Money testDoubleMoney = new Money(0.60);
+        assertEquals(testMoney, testDoubleMoney);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDecimalsWithoutInteger() {
+        Money testMoney = new Money(0, 70);
+        Money testDoubleMoney = new Money(0.60);
+        assertNotEquals(testMoney, testDoubleMoney);
+    }
+
+    @Test
+    public void shouldAddMoney() {
+        Money testMoney = money5.add(money20);
+        assertEquals(new Money(25), testMoney);
+    }
+
+    @Test
+    public void shouldAddMoreMoney() {
+        Money testMoney = money5.add(money20).add(money50);
+        assertEquals(new Money(75), testMoney);
+    }
+
+    @Test
+    public void shouldSubtractMoney() {
+        Money testMoney = money100.subtract(money20);
+        assertEquals(new Money(80), testMoney);
+    }
+
+    @Test
+    public void shouldSubtractMoreMoney() {
+        Money testMoney = money100.subtract(money20).subtract(money5);
+        assertEquals(new Money(75), testMoney);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotAddMoneyDifferentCurrency() {
+        Money testMoney = money5.add(money20EUR);
     }
 }
