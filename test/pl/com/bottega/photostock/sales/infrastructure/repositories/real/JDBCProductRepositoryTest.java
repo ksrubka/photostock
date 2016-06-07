@@ -74,7 +74,7 @@ public class JDBCProductRepositoryTest {
     }
 
     @Test
-    public void shouldLoadProduct() throws Exception {
+    public void shouldLoadProductWithoutTags() throws Exception {
         //when - load product
         Product product = productRepo.load("nr1");
         //then - assertions
@@ -83,7 +83,7 @@ public class JDBCProductRepositoryTest {
     }
 
     @Test
-    public void shouldReturnNullWhenProductDoesntExist() throws Exception {
+    public void shouldReturnNullWhenProductDoesNotExist() throws Exception {
         //when - load product
         ProductRepository productRepo = new JDBCProductRepository("jdbc:hsqldb:mem:stock", "SA", "");
         Product product = productRepo.load("nr500");
@@ -92,15 +92,17 @@ public class JDBCProductRepositoryTest {
     }
 
     @Test
-    public void shouldSaveProduct() {
+    public void shouldSaveProductWithoutTags() {
         //given
-        Product picture = new Picture("nr3", new Money(20.0), new String[] {"t1", "t2"}, false);
+        Product picture = new Picture("nr3", new Money(20.0), new String[] {}, false);
         //when
         productRepo.save(picture);
         //then
         Product picSaved = productRepo.load("nr3");
         assertEquals("nr3", picSaved.getNumber());
-        assertEquals(new Money(20).cents(), picSaved.getPrice().cents());
+        assertEquals(new Money(20), picSaved.getPrice());
+        assertArrayEquals(new String[] {}, picSaved.getTags());
+        assertEquals(false, picSaved.isAvailable());
     }
 
     @Test
@@ -116,7 +118,7 @@ public class JDBCProductRepositoryTest {
     public void shouldUpdateProductWithTags() {
         //given
         Product picture = new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "two", "three"}, false);
-        Product pictureToUpdate = new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "three"}, false);
+        Product pictureToUpdate = new Picture("nr2", new Money(20.0, "PLN"), new String[] {"one", "three"}, false);
 
         //when
         productRepo.save(picture);
