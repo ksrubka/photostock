@@ -7,6 +7,7 @@ import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 import pl.com.bottega.photostock.sales.model.products.Picture;
 
 import java.sql.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,8 +36,8 @@ public class JDBCProductRepository implements ProductRepository {
             if (rs.next()) {
                 return new Picture(
                         rs.getString("number"),
-                        new Money(rs.getInt("priceCents") / 100),
-                        new String[]{},
+                        new Money((rs.getInt("priceCents") / 100), rs.getString("priceCurrency")),
+                        loadTags(c, nr),
                         rs.getBoolean("available"));
             }
         }
@@ -44,6 +45,20 @@ public class JDBCProductRepository implements ProductRepository {
             throw new DataAccessException(e);
         }
         return null;
+    }
+
+    private String[] loadTags(Connection c, String nr) throws Exception {
+        PreparedStatement s = c.prepareStatement(
+                "SELECT  Tags.name FROM Tags\n" +
+                        "JOIN ProductsTags ON Tags.id = ProductsTags.tagId\n" +
+                        "JOIN  Products ON ProductsTags.productId = Products.id\n" +
+                        "WHERE Products.number=?;");
+        s.setString(1, nr);
+        ResultSet rs = s.executeQuery();
+        Set<String> tags = new HashSet<>();
+        while (rs.next())
+            tags.add(rs.getString("name"));
+        return tags.toArray(new String[0]);
     }
 
     @Override
@@ -74,20 +89,3 @@ public class JDBCProductRepository implements ProductRepository {
         return null;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
