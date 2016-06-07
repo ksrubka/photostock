@@ -79,6 +79,8 @@ public class JDBCProductRepositoryTest {
         Product product = productRepo.load("nr1");
         //then - assertions
         assertEquals("nr1", product.getNumber());
+        assertEquals(new Money(2, "USD").cents(), product.getPrice().cents());
+        assertEquals("USD", product.getPrice().getCurrency());
         assertEquals(Picture.class, product.getClass());
     }
 
