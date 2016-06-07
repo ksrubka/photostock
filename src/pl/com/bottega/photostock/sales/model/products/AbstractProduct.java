@@ -76,6 +76,7 @@ public abstract class AbstractProduct implements Product {
 
     public void undoPurchase() {
         soldPer = new ArrayList<>();
+        reservedPer = new ArrayList<>();
     }
 
     public boolean canBeReservedBy(Client client) {
@@ -130,11 +131,6 @@ public abstract class AbstractProduct implements Product {
     @Override
     public int hashCode() {
         return number.hashCode();
-    }
-
-    @Override
-    public String[] export() {
-        return new String[0];
     }
 
     @Override
