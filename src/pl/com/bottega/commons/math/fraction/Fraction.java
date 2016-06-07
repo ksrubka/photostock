@@ -69,6 +69,19 @@ public class Fraction {
         }
     }
 
+    public Fraction subtract(Fraction subtrahend) {
+        if (denominator == subtrahend.denominator) {
+            int numeratorDifferential = numerator - subtrahend.numerator;
+            return new Fraction(numeratorDifferential, denominator);
+        } else {
+            int commonDenominator = denominator * subtrahend.denominator;
+            int thisNominator = numerator * subtrahend.denominator;
+            int subtrahendNominator = subtrahend.numerator * denominator;
+            int numeratorDifferential = thisNominator - subtrahendNominator;
+            return new Fraction(numeratorDifferential, commonDenominator);
+        }
+    }
+
     public String toString(){
         int newNumerator = numerator % denominator;
         int wholeNumber =  numerator / denominator;
