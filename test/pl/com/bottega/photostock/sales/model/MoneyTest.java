@@ -48,15 +48,15 @@ public class MoneyTest {
     }
 
     @Test
-    public void shouldHave500Cents() {
+    public void shouldHave500CentsFromInt() {
         int cents = money5.cents();
         assertEquals(500, cents);
     }
 
     @Test
-    public void shouldHave650CentsFromDouble() {
-        Money testMoney = new Money(6.50);
-        assertEquals(650, testMoney.cents());
+    public void shouldHave0CentsFromDouble() {
+        Money testMoney = new Money(0.0);
+        assertEquals(0, testMoney.cents());
     }
 
     @Test
@@ -66,9 +66,15 @@ public class MoneyTest {
     }
 
     @Test
-    public void shouldHave0CentsFromDouble() {
-        Money testMoney = new Money(0.0);
-        assertEquals(0, testMoney.cents());
+    public void shouldHave500CentsFromDouble() {
+        int cents = new Money(5.00).cents();
+        assertEquals(500, cents);
+    }
+
+    @Test
+    public void shouldHave650CentsFromDouble() {
+        Money testMoney = new Money(6.50);
+        assertEquals(650, testMoney.cents());
     }
 
     @Test
@@ -105,6 +111,14 @@ public class MoneyTest {
     }
 
     @Test
+    public void shouldAddDoubleMoney() {
+        Money doubleMoney5 = new Money(5.0);
+        Money doubleMoney10_55 = new Money(10.55);
+        Money testMoney = doubleMoney10_55.add(doubleMoney5);
+        assertEquals(new Money(15.55), testMoney);
+    }
+
+    @Test
     public void shouldSubtractMoney() {
         Money testMoney = money100.subtract(money20);
         assertEquals(new Money(80), testMoney);
@@ -114,6 +128,14 @@ public class MoneyTest {
     public void shouldSubtractMoreMoney() {
         Money testMoney = money100.subtract(money20).subtract(money5);
         assertEquals(new Money(75), testMoney);
+    }
+
+    @Test
+    public void shouldSubtractDoubleMoney() {
+        Money doubleMoney5 = new Money(5.0);
+        Money doubleMoney10_55 = new Money(10.55);
+        Money testMoney = doubleMoney10_55.subtract(doubleMoney5);
+        assertEquals(new Money(5.55), testMoney);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -132,7 +154,7 @@ public class MoneyTest {
     }
 
     @Test
-    public void shouldAdd70Cents() {
+    public void shouldHave670Cents() {
         Money testMoney = new Money(6.700);
         assertEquals(670, testMoney.cents());
     }
