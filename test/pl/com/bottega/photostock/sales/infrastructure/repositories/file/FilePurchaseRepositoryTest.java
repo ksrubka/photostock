@@ -2,9 +2,6 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories.file;
 
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileClientRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileProductRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FilePurchaseRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.PurchaseRepository;
@@ -15,7 +12,6 @@ import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;

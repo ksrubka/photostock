@@ -2,9 +2,6 @@ package pl.com.bottega.photostock.sales.infrastructure.repositories.file;
 
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileClientRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileLightBoxRepository;
-import pl.com.bottega.photostock.sales.infrastructure.repositories.file.FileProductRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ClientRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.LightBoxRepository;
 import pl.com.bottega.photostock.sales.infrastructure.repositories.interfaces.ProductRepository;
