@@ -58,6 +58,7 @@ public class JDBCClientRepository implements ClientRepository {
                     " WHERE number=?";
             PreparedStatement insertStatement = c.prepareStatement(insert);
             PreparedStatement updateStatement = c.prepareStatement(update);
+            //todo nie twórz prepStat jeśli go nie potrzebujesz- do poprawki
             PreparedStatement statement = load(client.getNumber()) == null ? insertStatement : updateStatement;
             if (statement==insertStatement)
                 setValues1(insertStatement, client);
