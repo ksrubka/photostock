@@ -4,6 +4,8 @@ import pl.com.bottega.commons.math.fraction.Fraction;
 
 import java.util.Currency;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 /**
  * Created by Beata Iłowiecka on 12.03.2016.
  */
@@ -11,6 +13,11 @@ public class Money {
 
     private final Fraction value;
     private final Currency currency;
+
+    public Money(Fraction value, String currency) {
+        this.value = value;
+        this.currency = Currency.getInstance(currency);
+    }
 
     public Money(double value, String currency) {
         int fractionNumerator = getNumerator(value);
@@ -32,25 +39,38 @@ public class Money {
         this(value, cents, "PLN");
     }
 
-    public int getNumerator(Double value) {
-
-        return (int) ((Math.floor(value) * 100) + (value - Math.floor(value)));
+    public int getNumerator(double value) {
+        checkArgument(value >= 0);
+        int intValue = (int) value;
+        int cents = 0;
+        if (value % 1 != 0) {
+            String stringValue = String.valueOf(value);
+            String stringCents = stringValue.substring(stringValue.indexOf(".") + 1);
+            if (stringCents.length() == 1)
+                cents = Integer.valueOf(stringCents) * 10;
+            else if (stringCents.length() == 2)
+                cents = Integer.valueOf(stringCents);
+            else
+                throw new IllegalArgumentException("Value can have just 2 decimals.");
+        }
+        return getNumerator(intValue, cents);
     }
 
     public int getNumerator(int value, int cents) {
+        checkArgument(cents >= 0 || cents >= 100);
         return (value * 100) + cents;
     }
 
     public Money add(Money amount){
         if (!(currency == amount.currency))
             throw new IllegalArgumentException("Can not add if different currency");
-        return new Money((double) value.getNumerator() + amount.value.getNumerator(), currency.getCurrencyCode());
+        return new Money(value.add(amount.value), currency.getCurrencyCode());
     }
 
     public Money subtract(Money amount){
         if (!currency.equals(amount.currency))
-            throw new IllegalArgumentException("Can subtract add if different currency");
-        return new Money((double) value.getNumerator() - amount.value.getNumerator(), currency.getCurrencyCode());
+            throw new IllegalArgumentException("Can subtract if different currency");
+        return new Money(value.subtract(amount.value), currency.getCurrencyCode());
     }
 
     public Money multiple(int ratio){
