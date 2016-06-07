@@ -114,10 +114,16 @@ public class JDBCProductRepositoryTest {
 
     @Test
     public void shouldUpdateProductWithTags() {
-        Product picture = new Picture("nr2", new Money(20), new String[] {"one", "two", "three"}, false);
-        Product pictureToUpdate = new Picture("nr2", new Money(20), new String[] {"one", "three"}, false);
+        //given
+        Product picture = new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "two", "three"}, false);
+        Product pictureToUpdate = new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "three"}, false);
+
+        //when
         productRepo.save(picture);
         productRepo.save(pictureToUpdate);
-        //todo assertions
+
+        //then
+        Picture updated = (Picture) productRepo.load("nr2");
+        assertArrayEquals(new String[]{"one", "three"}, updated.getTags());
     }
 }
