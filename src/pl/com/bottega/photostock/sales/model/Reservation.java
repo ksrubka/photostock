@@ -41,11 +41,13 @@ public class Reservation {
     }
 
     public Offer generateOffer() {
-        List<Product> result = Lists.newLinkedList(Iterables.filter(items, new Predicate<Product>() {
-            @Override
-            public boolean apply(Product product) {
-                return product.isAvailable();
-            }
+        List<Product> result = Lists.newLinkedList(
+                Iterables.filter(
+                        items, new Predicate<Product>() {
+                            @Override
+                            public boolean apply(Product product) {
+                                return product.canBeReservedBy(owner);
+                            }
         }));
         Comparator<Product> comparator = new PriceAndNameProductComparator();
         Collections.sort(result, comparator);
