@@ -116,6 +116,17 @@ public class JDBCProductRepositoryTest {
     }
 
     @Test
+    public void shouldSaveProductWithNewTags() {
+        Product picture1 = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, true);
+        Product picture2 = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2", "t3"}, true);
+        productRepo.save(picture1);
+        productRepo.save(picture2);
+
+        Product picSaved = (Picture) productRepo.load("nr2");
+        assertArrayEquals(new String[] {"t1", "t2", "t3"}, picSaved.getTags());
+    }
+
+    @Test
     public void shouldUpdateProductWithTags() {
         //given
         Product picture =
