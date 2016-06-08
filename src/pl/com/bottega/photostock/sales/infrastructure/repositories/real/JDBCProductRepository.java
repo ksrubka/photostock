@@ -64,20 +64,41 @@ public class JDBCProductRepository implements ProductRepository {
     @Override
     public void save(Product product) {
         try (Connection c = DriverManager.getConnection(url, login, pwd)) {
-            PreparedStatement statement = c.prepareStatement(
-                    "INSERT INTO Products (number, name, available, priceCents, priceCurrency, type) " +
-                            "VALUES (?, ?, ?, ?, ?, 'Picture');");
-            statement.setString(1, product.getNumber());
-            statement.setString(2, "jakieś imię");
-            statement.setBoolean(3, product.isAvailable());
-            statement.setInt(4, product.getPrice().cents());
-            statement.setString(5, String.valueOf(product.getPrice().getCurrency()));
-            statement.executeUpdate();
+            String insertQuery = "INSERT INTO Products (number, name, available, priceCents, priceCurrency, type) " +
+                            "VALUES (?, ?, ?, ?, ?, 'Picture');";
+            String updateQuery = "UPDATE Products SET number=?, name=?, available=?, priceCents=?, priceCurrency=?, type='Picture'" +
+                    "WHERE number=?;";
+            Boolean needToInsertNewProduct = shouldInsert(product);
+            String query = (needToInsertNewProduct) ? insertQuery : updateQuery;
+            PreparedStatement s = c.prepareStatement(query);
+            if (needToInsertNewProduct)
+                setValues1(s, product);
+            else
+                setValues2(s, product);
+            s.execute();
             insertTags(c, product);
         }
         catch (Exception e) {
             throw new DataAccessException(e);
         }
+    }
+
+    private Boolean shouldInsert(Product product) {
+        Product dbProduct = load(product.getNumber());
+        return  !(product.equals(dbProduct)) || dbProduct == null;
+    }
+
+    private void setValues1(PreparedStatement s, Product product) throws Exception {
+        s.setString(1, product.getNumber());
+        s.setString(2, "jakieś imię");
+        s.setBoolean(3, product.isAvailable());
+        s.setInt(4, product.getPrice().cents());
+        s.setString(5, String.valueOf(product.getPrice().getCurrency()));
+    }
+
+    private void setValues2(PreparedStatement s, Product product) throws Exception {
+        setValues1(s, product);
+        s.setString(6, product.getNumber());
     }
 
     //insert
@@ -113,18 +134,18 @@ public class JDBCProductRepository implements ProductRepository {
         return s.executeQuery();
     }
 
-    private String createQuestionMarksForQuery(int nrOfTags) {
-        String[] questionMarks =
-                new String[nrOfTags];
-        for(int i = 0; i < questionMarks.length; i++)
-            questionMarks[i] = "?";
-        return String.join(",", questionMarks);
-    }
+        private String createQuestionMarksForQuery(int nrOfTags) {
+            String[] questionMarks =
+                    new String[nrOfTags];
+            for(int i = 0; i < questionMarks.length; i++)
+                questionMarks[i] = "?";
+            return String.join(",", questionMarks);
+        }
 
-    private void setValuesForQuery(PreparedStatement s, String[] tags) throws Exception {
-        for (int i = 1; i<=tags.length; i++)
-            s.setString(i, tags[i-1]);
-    }
+        private void setValuesForQuery(PreparedStatement s, String[] tags) throws Exception {
+            for (int i = 1; i<=tags.length; i++)
+                s.setString(i, tags[i-1]);
+        }
 
     //wstaw nowy tag do tabeli Tags
     private void insertTag(Connection c, String tag) throws Exception {
@@ -158,35 +179,35 @@ public class JDBCProductRepository implements ProductRepository {
                 unlinkTag(c, pictureId,  oldTagId);
     }
 
-    private int getPictureId(Connection c, Picture picture) throws Exception {
-        PreparedStatement s = c.prepareStatement("SELECT id FROM Products WHERE number=?;");
-        s.setString(1, picture.getNumber());
-        ResultSet rs = s.executeQuery();
-        rs.next();
-        return rs.getInt("id");
-    }
+        private int getPictureId(Connection c, Picture picture) throws Exception {
+            PreparedStatement s = c.prepareStatement("SELECT id FROM Products WHERE number=?;");
+            s.setString(1, picture.getNumber());
+            ResultSet rs = s.executeQuery();
+            rs.next();
+            return rs.getInt("id");
+        }
 
-    private ResultSet queryProductsTags(Connection c, int productId) throws Exception {
-        PreparedStatement s = c.prepareStatement(
-                "SELECT tagId FROM ProductsTags " +
-                        "WHERE productId=?;");
-        s.setInt(1, productId);
-        return s.executeQuery();
-    }
+        private ResultSet queryProductsTags(Connection c, int productId) throws Exception {
+            PreparedStatement s = c.prepareStatement(
+                    "SELECT tagId FROM ProductsTags " +
+                            "WHERE productId=?;");
+            s.setInt(1, productId);
+            return s.executeQuery();
+        }
 
-    private void linkTag(Connection c, int productId, Integer tagId) throws Exception {
-        PreparedStatement s = c.prepareStatement("INSERT INTO ProductsTags (productId, tagId) VALUES (?, ?);");
-        s.setInt(1, productId);
-        s.setInt(2, tagId);
-        s.executeUpdate();
-    }
+        private void linkTag(Connection c, int productId, Integer tagId) throws Exception {
+            PreparedStatement s = c.prepareStatement("INSERT INTO ProductsTags (productId, tagId) VALUES (?, ?);");
+            s.setInt(1, productId);
+            s.setInt(2, tagId);
+            s.executeUpdate();
+        }
 
-    private void unlinkTag(Connection c, int productId, Integer oldTagId) throws Exception {
-        PreparedStatement s = c.prepareStatement("DELETE FROM ProductsTags WHERE productId=? AND tagId=?;");
-        s.setInt(1, productId);
-        s.setInt(2, oldTagId);
-        s.executeUpdate();
-    }
+        private void unlinkTag(Connection c, int productId, Integer oldTagId) throws Exception {
+            PreparedStatement s = c.prepareStatement("DELETE FROM ProductsTags WHERE productId=? AND tagId=?;");
+            s.setInt(1, productId);
+            s.setInt(2, oldTagId);
+            s.executeUpdate();
+        }
 
     @Override
     public Set<Product> getProducts() {
