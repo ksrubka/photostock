@@ -52,19 +52,17 @@ public class JDBCClientRepository implements ClientRepository {
     @Override
     public void save(Client client) {
         try (Connection c = getConnection()) {
-            String insert = "INSERT INTO Clients (number, name, address, active, amount, currency, status) " +
+            String insertQuery = "INSERT INTO Clients (number, name, address, active, amount, currency, status) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
-            String update = "UPDATE Clients SET number=?, name=?, address=?, active=?, amount=?, currency=?, status=?" +
+            String updateQuery = "UPDATE Clients SET number=?, name=?, address=?, active=?, amount=?, currency=?, status=?" +
                     " WHERE number=?";
-            PreparedStatement insertStatement = c.prepareStatement(insert);
-            PreparedStatement updateStatement = c.prepareStatement(update);
-            //todo nie twórz prepStat jeśli go nie potrzebujesz- do poprawki
-            PreparedStatement statement = load(client.getNumber()) == null ? insertStatement : updateStatement;
-            if (statement==insertStatement)
-                setValues1(insertStatement, client);
+            String  query = load(client.getNumber()) == null ? insertQuery : updateQuery;
+            PreparedStatement s = c.prepareStatement(query);
+            if (query.equals(insertQuery))
+                setValues1(s, client);
             else
-                setValues2(updateStatement, client);
-            statement.execute();
+                setValues2(s, client);
+            s.execute();
         }
         catch (Exception e) {
             throw new DataAccessException(e);
