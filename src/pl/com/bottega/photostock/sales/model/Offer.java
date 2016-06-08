@@ -18,9 +18,11 @@ public class Offer {
     }
 
     public Money calculateTotalCost() {
-        Money totalCost = new Money(0);
-        for (Product product : items)
-            totalCost = totalCost.add(product.getPrice());
+        Money totalCost = new Money(0, owner.getCurrency());
+        for (Product product : items) {
+            if (product.hasSameCurrencyAs(owner))
+                totalCost = totalCost.add(product.getPrice());
+        }
         return totalCost;
     }
 
