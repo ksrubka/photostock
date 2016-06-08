@@ -138,6 +138,10 @@ public class Client {
         return number;
     }
 
+    public String getCurrency() {
+        return amount.getCurrency();
+    }
+
     public void setNumber(String number) {
         this.number = number;
     }
