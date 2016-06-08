@@ -59,7 +59,7 @@ public class JDBCProductRepositoryTest {
 
     private void createTagsTable(Connection c) throws Exception {
         c.createStatement().executeUpdate(
-                "CREATE TABLE Tags ( id INTEGER IDENTITY PRIMARY KEY, name VARCHAR(255) NOT NULL);");
+                "CREATE TABLE Tags (id INTEGER IDENTITY PRIMARY KEY, name VARCHAR(255) NOT NULL);");
         c.createStatement().executeUpdate("CREATE TABLE ProductsTags (" +
                 "productId INTEGER FOREIGN KEY REFERENCES Products(id), " +
                 "tagId INTEGER FOREIGN KEY REFERENCES Tags(id), " +
@@ -113,7 +113,6 @@ public class JDBCProductRepositoryTest {
         productRepo.save(picture);
         Product picSaved = (Picture) productRepo.load("nr2");
         assertArrayEquals(new String[] {"t1", "t2"}, picSaved.getTags());
-        //todo zmiany w JDBC Product repo
     }
 
     @Test
