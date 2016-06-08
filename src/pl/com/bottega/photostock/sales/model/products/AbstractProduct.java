@@ -1,5 +1,6 @@
 package pl.com.bottega.photostock.sales.model.products;
 
+import com.google.common.base.Objects;
 import pl.com.bottega.photostock.sales.model.Client;
 import pl.com.bottega.photostock.sales.model.Money;
 import pl.com.bottega.photostock.sales.model.Product;
@@ -126,21 +127,23 @@ public abstract class AbstractProduct implements Product {
     }
 
     @Override
+    public String[] getTags(){
+        return null;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AbstractProduct))
-            return false;
+        if (o == null || getClass() != o.getClass()) return false;
         AbstractProduct product = (AbstractProduct) o;
-        return number.equals(product.number);
+        return active == product.active &&
+                shared == product.shared &&
+                Objects.equal(number, product.number) &&
+                Objects.equal(price, product.price);
     }
 
     @Override
     public int hashCode() {
-        return number.hashCode();
-    }
-
-    @Override
-    public String[] getTags(){
-        return null;
+        return Objects.hashCode(number, price, active, shared);
     }
 }
