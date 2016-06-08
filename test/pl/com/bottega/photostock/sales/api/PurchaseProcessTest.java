@@ -4,10 +4,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.bottega.photostock.sales.model.Client;
-import pl.com.bottega.photostock.sales.model.Product;
-import pl.com.bottega.photostock.sales.model.Reservation;
+import pl.com.bottega.photostock.sales.model.*;
 import pl.com.bottega.photostock.sales.model.exceptions.ProductNotAvailableException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Beata Iłowiecka on 08.05.16.
@@ -20,10 +20,11 @@ public class PurchaseProcessTest {
     private static final String POOR_USER_NR = "nr4";
     private static final String SECOND_VIP_USER_NR = "nr5";
 
-    private static final String AVAILABLE_PRODUCT_NR = "nr1";
-    private static final String SECOND_AVAILABLE_PRODUCT_NR = "nr3";
+    private static final String AVAILABLE_PRODUCT_NR = "nr1"; // 10 PLN
+    private static final String SECOND_AVAILABLE_PRODUCT_NR = "nr3"; // 10 PLN
     private static final String UNAVAILABLE_PRODUCT_NR = "nr2";
     private static final String NOT_EXISTING_PRODUCT_NR = "nr7";
+    private static final String BRITISH_PRODUCT_NR = "nr8";
 
     private PurchaseProcess purchaseProcess;
 
@@ -40,6 +41,7 @@ public class PurchaseProcessTest {
         purchaseProcess.reservationRepository.destroyReservations();
         cancelPurchase(AVAILABLE_PRODUCT_NR);
         cancelPurchase(SECOND_AVAILABLE_PRODUCT_NR);
+        cancelPurchase(BRITISH_PRODUCT_NR);
     }
 
     private void cancelPurchase(String productNr) {
@@ -128,13 +130,13 @@ public class PurchaseProcessTest {
 
     @Test
     public void shouldConfirmVipClientPurchase() {
-        generateOfferFor(VIP_USER_NR);
+        generateOfferFor(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
         purchaseProcess.confirm(VIP_USER_NR);
     }
 
     @Test
     public void shouldNotDisturbVipConfirmation() {
-        generateOfferFor(VIP_USER_NR);
+        generateOfferFor(VIP_USER_NR, AVAILABLE_PRODUCT_NR);
         try {
             purchaseProcess.addToReservation(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR);
             Assert.fail();
@@ -147,9 +149,39 @@ public class PurchaseProcessTest {
         purchaseProcess.confirm(VIP_USER_NR);
     }
 
-    private void generateOfferFor(String userNr) {
-        purchaseProcess.addToReservation(userNr, AVAILABLE_PRODUCT_NR);
-        purchaseProcess.calculateOffer(userNr);
+    @Test
+    public void shouldCalculateOfferForStandardClient() {
+        Offer offer = generateOfferFor(STANDARD_USER_NR, AVAILABLE_PRODUCT_NR, SECOND_AVAILABLE_PRODUCT_NR);
+        assertEquals(new Money(20).cents(), offer.calculateTotalCost().cents());
+    }
+
+    @Test
+    public void shouldCalculateOfferForVipClient() {
+        Offer offer = generateOfferFor(VIP_USER_NR, AVAILABLE_PRODUCT_NR, SECOND_AVAILABLE_PRODUCT_NR);
+        assertEquals(new Money(20).cents(), offer.calculateTotalCost().cents());
+    }
+
+    @Test
+    public void shouldNotCalculateProductInOfferIfDifferentCurrencyThanClient() {
+        Offer offer = generateOfferFor(STANDARD_USER_NR, BRITISH_PRODUCT_NR);
+        assertEquals(new Money(0), offer.calculateTotalCost());
+    }
+
+    @Test
+    public void shouldCalculateOnlyProductsWithSameCurrencyAsClient() {
+        Offer offer = generateOfferFor(STANDARD_USER_NR,
+                AVAILABLE_PRODUCT_NR, SECOND_AVAILABLE_PRODUCT_NR, BRITISH_PRODUCT_NR);
+        assertEquals(new Money(20), offer.calculateTotalCost());
+    }
+
+    private Offer generateOfferFor(String userNr, String productNr) {
+        purchaseProcess.addToReservation(userNr, productNr);
+        return purchaseProcess.calculateOffer(userNr);
+    }
+    private Offer generateOfferFor(String userNr, String... productsNr) {
+        for (String prodNr : productsNr)
+            purchaseProcess.addToReservation(userNr, prodNr);
+        return purchaseProcess.calculateOffer(userNr);
     }
 
     private Product getProduct(String productNr) {
