@@ -109,19 +109,24 @@ public class JDBCProductRepositoryTest {
 
     @Test
     public void shouldSaveProductWithTags() {
+        //given
         Product picture = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, true);
+        //when
         productRepo.save(picture);
+        //then
         Product picSaved = (Picture) productRepo.load("nr2");
         assertArrayEquals(new String[] {"t1", "t2"}, picSaved.getTags());
     }
 
     @Test
     public void shouldSaveProductWithNewTags() {
+        //given
         Product picture1 = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, true);
         Product picture2 = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2", "t3"}, true);
+        //when
         productRepo.save(picture1);
         productRepo.save(picture2);
-
+        //then
         Product picSaved = (Picture) productRepo.load("nr2");
         assertArrayEquals(new String[] {"t1", "t2", "t3"}, picSaved.getTags());
     }
