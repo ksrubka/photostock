@@ -54,10 +54,8 @@ public class FilePurchaseRepository implements PurchaseRepository {
         String ownerNr = components[2];
         long milisecSince1970 = Long.valueOf(components[3]);
         String[] productsNrs = components[4].split(" ");
-
         Purchase purchase = initPurchase(ownerNr, productsNrs);
         purchase.setNumber(number);
-
         purchase.setDate(new Date(milisecSince1970));
         return purchase;
         }
