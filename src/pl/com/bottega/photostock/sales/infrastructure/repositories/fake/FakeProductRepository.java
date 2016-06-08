@@ -19,7 +19,8 @@ public class FakeProductRepository implements ProductRepository {
     static {
         Product mustang = new Picture("nr1", new Money(10), new String[] {"ford", "mustang"});
         Product multipla = new Picture("nr2", new Money(10), new String[] {"fiat", "multipla"}, false);
-        Product mazda = new Picture("nr3", new Money(10), new String[] {"mazda", "multipla"});
+        Product mazda = new Picture("nr3", new Money(10), new String[] {"mazda", "trzy"});
+        Product englishTree = new Picture("nr8", new Money(5, "GBP"), new String[] {"green", "maple"});
         Product programming = new Picture(); // nr4
         Product boy = new Clip(); // nr5
         Product ceiling = new Song(); //nr6
