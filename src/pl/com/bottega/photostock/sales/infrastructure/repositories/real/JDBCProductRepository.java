@@ -47,13 +47,13 @@ public class JDBCProductRepository implements ProductRepository {
         return null;
     }
 
-    private String[] loadTags(Connection c, String nr) throws Exception {
+    private String[] loadTags(Connection c, String productNr) throws Exception {
         PreparedStatement s = c.prepareStatement(
                 "SELECT  Tags.name FROM Tags\n" +
                         "JOIN ProductsTags ON Tags.id = ProductsTags.tagId\n" +
                         "JOIN  Products ON ProductsTags.productId = Products.id\n" +
                         "WHERE Products.number=?;");
-        s.setString(1, nr);
+        s.setString(1, productNr);
         ResultSet rs = s.executeQuery();
         Set<String> tags = new HashSet<>();
         while (rs.next())
@@ -117,9 +117,6 @@ public class JDBCProductRepository implements ProductRepository {
         s.executeUpdate();
     }
     private void linkTags(Connection c, Picture product) throws Exception {
-        //todo sprawdzić istniejące połączenia i dodać tylko nowe albo usunąć niepotrzebne stare połączenia
-        //todo select ktory wyciąga istniejące połączenia z productTags
-        //todo iterowanie po wyniku żeby stwierdzić co trzeba dodać a co usunąć
         PreparedStatement s = c.prepareStatement("SELECT id FROM Products WHERE number=?");
         s.setString(1, product.getNumber());
         ResultSet rs = s.executeQuery();
@@ -127,9 +124,16 @@ public class JDBCProductRepository implements ProductRepository {
         int productId = rs.getInt("id");
         rs = queryTags(c, product.getTags());
         Set<Integer> tagIds = new HashSet<>();
-        while (rs.next())
+        while (rs.next()) {
             tagIds.add(rs.getInt("id"));
+        }
+        //todo sprawdzić istniejące połączenia i dodać tylko nowe albo usunąć niepotrzebne stare połączenia
+        //todo select ktory wyciąga istniejące połączenia z productTags
+        //todo iterowanie po wyniku żeby stwierdzić co trzeba dodać a co usunąć
+
+        //todo usunąć niepotrzebne połączenia
         for (Integer tagId : tagIds)
+        //if połącznie nie istnieje
             linkTag(c, productId, tagId);
     }
 
