@@ -80,17 +80,21 @@ public class JDBCProductRepository implements ProductRepository {
         }
     }
 
+    //insert
     private void insertTags(Connection c, Product product) throws Exception {
         if (product instanceof Picture) {
             Picture picture = (Picture) product;
-            String[] tags = picture.getTags();
-            if (tags.length==0)
+            String[] pictureTags = picture.getTags();
+            if (pictureTags.length==0)
                 return;
-            ResultSet rs = queryTags(c, tags);
+            //wszystkie tagi zdjęcia wyszukujemy w bazie danych i wrzucamy do tabeli rs
+            ResultSet rs = queryTags(c, pictureTags);
+            //??
             Set<String> existingTags = new HashSet<>();
+            //do existingTags dodajemy tagi z powyższej tabeli
             while(rs.next())
                 existingTags.add(rs.getString("name"));
-            for (String tag : tags) {
+            for (String tag : pictureTags) {
                 if (!existingTags.contains(tag))
                     insertTag(c, tag);
             }
@@ -99,16 +103,25 @@ public class JDBCProductRepository implements ProductRepository {
     }
 
     private ResultSet queryTags(Connection c, String[] tags) throws Exception {
-        String[] questionMarks = new String[tags.length];
-        for(int i = 0; i < questionMarks.length; i++)
-            questionMarks[i] = "?";
-        String questionMarksConcat = String.join(",", questionMarks);
+        String questionMarksConcat = createQuestionMarksForQuery(tags.length);
         PreparedStatement s = c.prepareStatement(
                 "SELECT id, name FROM Tags " +
                         "WHERE name IN (" + questionMarksConcat +");");
+        setValuesForQuery(s, tags);
+        return s.executeQuery();
+    }
+
+    private String createQuestionMarksForQuery(int nrOfTags) {
+        String[] questionMarks =
+                new String[nrOfTags];
+        for(int i = 0; i < questionMarks.length; i++)
+            questionMarks[i] = "?";
+        return String.join(",", questionMarks);
+    }
+
+    private void setValuesForQuery(PreparedStatement s, String[] tags) throws Exception {
         for (int i = 1; i<=tags.length; i++)
             s.setString(i, tags[i-1]);
-        return s.executeQuery();
     }
 
     private void insertTag(Connection c, String tag) throws Exception {
