@@ -73,6 +73,7 @@ public class JDBCProductRepository implements ProductRepository {
             statement.setInt(4, product.getPrice().cents());
             statement.setString(5, String.valueOf(product.getPrice().getCurrency()));
             statement.executeUpdate();
+            insertTags(c, product);
         }
         catch (Exception e) {
             throw new DataAccessException(e);
