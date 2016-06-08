@@ -49,8 +49,8 @@ public class FilePurchaseRepositoryTest {
         //then
         assertEquals("nr1", purchase.getNumber());
         assertEquals("Pani Gosia", purchase.getOwner().getName());
-        //todo data?
         assertEquals("nr5", purchase.getOwner().getNumber());
+        assertEquals(1454869989668L, purchase.getDate().getTime());
         assertEquals(products, purchase.getItems());
     }
 
@@ -94,7 +94,7 @@ public class FilePurchaseRepositoryTest {
         assertEquals(purchase2Read.getOwner().getNumber(), "nr6");
         assertEquals(purchase1Read.getProductsNumbers(), "nr1 nr2");
         assertEquals(purchase2Read.getProductsNumbers(), "nr3");
-        File file = new File("tmp/purchases.csv");
+        File file = new File(path);
         file.delete();
     }
 
