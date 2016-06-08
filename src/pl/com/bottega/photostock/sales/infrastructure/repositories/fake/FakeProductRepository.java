@@ -32,6 +32,7 @@ public class FakeProductRepository implements ProductRepository {
         fakeDatabase.put(programming.getNumber(), programming);
         fakeDatabase.put(boy.getNumber(), boy);
         fakeDatabase.put(ceiling.getNumber(), ceiling);
+        fakeDatabase.put(englishTree.getNumber(), englishTree);
     }
 
     @Override
