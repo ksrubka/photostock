@@ -112,20 +112,20 @@ public class JDBCProductRepositoryTest {
         Product picture = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, true);
         productRepo.save(picture);
         Product picSaved = (Picture) productRepo.load("nr2");
-        assertArrayEquals(new String[] {"t1", "t2"},picSaved.getTags());
+        assertArrayEquals(new String[] {"t1", "t2"}, picSaved.getTags());
         //todo zmiany w JDBC Product repo
     }
 
     @Test
     public void shouldUpdateProductWithTags() {
         //given
-        Product picture = new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "two", "three"}, false);
-        Product pictureToUpdate = new Picture("nr2", new Money(20.0, "PLN"), new String[] {"one", "three"}, false);
-
+        Product picture =
+                new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "two", "three"}, false);
+        Product pictureToUpdate =
+                new Picture("nr2", new Money(20.0, "PLN"), new String[] {"one", "three"}, false);
         //when
         productRepo.save(picture);
         productRepo.save(pictureToUpdate);
-
         //then
         Picture updated = (Picture) productRepo.load("nr2");
         assertArrayEquals(new String[]{"one", "three"}, updated.getTags());
