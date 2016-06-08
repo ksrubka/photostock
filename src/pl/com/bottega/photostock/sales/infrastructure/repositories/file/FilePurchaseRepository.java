@@ -10,6 +10,7 @@ import pl.com.bottega.photostock.sales.model.exceptions.DataAccessException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -51,12 +52,13 @@ public class FilePurchaseRepository implements PurchaseRepository {
         String[] components = line.split(",");
         String number = components[0];
         String ownerNr = components[2];
-        boolean active = Boolean.valueOf(components[3]);
+        long milisecSince1970 = Long.valueOf(components[3]);
         String[] productsNrs = components[4].split(" ");
 
         Purchase purchase = initPurchase(ownerNr, productsNrs);
         purchase.setNumber(number);
-        //todo parse date
+
+        purchase.setDate(new Date(milisecSince1970));
         return purchase;
         }
 
