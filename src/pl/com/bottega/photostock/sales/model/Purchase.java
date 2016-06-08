@@ -49,7 +49,7 @@ public class Purchase {
                 getNumber(),
                 owner.getName(),
                 owner.getNumber(),
-                //todo data!
+                String.valueOf(getDate().getTime()),
                 getProductsNumbers()
         };
     }
@@ -90,5 +90,9 @@ public class Purchase {
                 .add("purchaseDate", purchaseDate)
                 .add("items", items)
                 .toString();
+    }
+
+    public Date getDate() {
+        return purchaseDate;
     }
 }
