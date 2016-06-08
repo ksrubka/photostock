@@ -40,4 +40,5 @@ public interface Product {
 
     String[] getTags();
 
+    boolean hasSameCurrencyAs(Client client);
 }

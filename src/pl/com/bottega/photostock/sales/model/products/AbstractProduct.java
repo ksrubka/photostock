@@ -60,6 +60,8 @@ public abstract class AbstractProduct implements Product {
     public void reservePer(Client client) throws IllegalArgumentException {
         if (!canBeReservedBy(client))
             throw new IllegalArgumentException("Nie można zarezerwować.");
+        else if (!hasSameCurrencyAs(client))
+            return;
         else
             reservedPer.add(client);
     }
@@ -85,6 +87,10 @@ public abstract class AbstractProduct implements Product {
         //dodatkowo client.canReserve(picture), i w tej metodzie w klasie Client odwołać się do metody
         //w klasie typu ApprovingStrategy i tam będą implementacje dla każdego z poszczególnych statusów
         //np.GoldApprovingStrategy klient gold nie może zarezerwować jeśli zarezerwował klient platinum
+    }
+
+    public boolean hasSameCurrencyAs(Client client) {
+        return (price.getCurrency().equals(client.getCurrency()));
     }
 
     public boolean isSoldOut() throws ProductNotAvailableException {
