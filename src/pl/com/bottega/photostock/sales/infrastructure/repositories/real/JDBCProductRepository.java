@@ -30,7 +30,7 @@ public class JDBCProductRepository implements ProductRepository {
     public Product load(String nr) {
         try (Connection c = DriverManager.getConnection(url, login, pwd)) {
             PreparedStatement statement = c.prepareStatement(
-                    "SELECT number, priceCents, priceCurrency, available FROM Products WHERE number = ?" );
+                    "SELECT number, priceCents, priceCurrency, available FROM Products WHERE number = ?;" );
             statement.setString(1, nr);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
@@ -66,7 +66,7 @@ public class JDBCProductRepository implements ProductRepository {
         try (Connection c = DriverManager.getConnection(url, login, pwd)) {
             PreparedStatement statement = c.prepareStatement(
                     "INSERT INTO Products (number, name, available, priceCents, priceCurrency, type) " +
-                            "VALUES (?, ?, ?, ?, ?, 'Picture')");
+                            "VALUES (?, ?, ?, ?, ?, 'Picture');");
             statement.setString(1, product.getNumber());
             statement.setString(2, "jakieś imię");
             statement.setBoolean(3, product.isAvailable());
@@ -91,11 +91,13 @@ public class JDBCProductRepository implements ProductRepository {
             ResultSet rs = queryTags(c, pictureTags);
             //??
             Set<String> existingTags = new HashSet<>();
-            //do existingTags dodajemy tagi z powyższej tabeli
+            //do existingTags dodajemy tagi z powyższej tabeli (czyli wszystkie tagi zdjęcia które są już i w bazie i w zdjęciu)
             while(rs.next())
                 existingTags.add(rs.getString("name"));
             for (String tag : pictureTags) {
+                //jeśli któryś z tagów zdjęcia nie jest jeszcze w bazie
                 if (!existingTags.contains(tag))
+                    //dodaj go do bazy
                     insertTag(c, tag);
             }
             linkTags(c, (Picture) product);
@@ -124,36 +126,65 @@ public class JDBCProductRepository implements ProductRepository {
             s.setString(i, tags[i-1]);
     }
 
+    //wstaw nowy tag do tabeli Tags
     private void insertTag(Connection c, String tag) throws Exception {
-        PreparedStatement s = c.prepareStatement("INSERT INTO Tags (name) VALUES (?)");
+        PreparedStatement s = c.prepareStatement("INSERT INTO Tags (name) VALUES (?);");
         s.setString(1, tag);
         s.executeUpdate();
     }
-    private void linkTags(Connection c, Picture product) throws Exception {
-        PreparedStatement s = c.prepareStatement("SELECT id FROM Products WHERE number=?");
-        s.setString(1, product.getNumber());
+
+    private void linkTags(Connection c, Picture picture) throws Exception {
+        int pictureId = getPictureId(c, picture);
+        ResultSet rs = queryTags(c, picture.getTags());
+        Set<Integer> pictureTagIds = new HashSet<>();
+        while (rs.next())
+            pictureTagIds.add(rs.getInt("id"));
+
+        //select który wyciąga istniejące połączenia z productTags
+        rs = queryProductsTags(c, pictureId);
+        Set<Integer> currentTagIds = new HashSet<>();
+        while (rs.next())
+            currentTagIds.add(rs.getInt("tagId"));
+
+        //iterowanie po wyniku żeby stwierdzić...
+        for (Integer newTagId : pictureTagIds)
+            if (!currentTagIds.contains(newTagId))
+                //...co trzeba dodać
+                linkTag(c, pictureId,  newTagId);
+
+        for (Integer oldTagId : currentTagIds)
+            if (!pictureTagIds.contains(oldTagId))
+                //...a co usunąć
+                unlinkTag(c, pictureId,  oldTagId);
+    }
+
+    private int getPictureId(Connection c, Picture picture) throws Exception {
+        PreparedStatement s = c.prepareStatement("SELECT id FROM Products WHERE number=?;");
+        s.setString(1, picture.getNumber());
         ResultSet rs = s.executeQuery();
         rs.next();
-        int productId = rs.getInt("id");
-        rs = queryTags(c, product.getTags());
-        Set<Integer> tagIds = new HashSet<>();
-        while (rs.next()) {
-            tagIds.add(rs.getInt("id"));
-        }
-        //todo sprawdzić istniejące połączenia i dodać tylko nowe albo usunąć niepotrzebne stare połączenia
-        //todo select ktory wyciąga istniejące połączenia z productTags
-        //todo iterowanie po wyniku żeby stwierdzić co trzeba dodać a co usunąć
+        return rs.getInt("id");
+    }
 
-        //todo usunąć niepotrzebne połączenia
-        for (Integer tagId : tagIds)
-        //if połącznie nie istnieje
-            linkTag(c, productId, tagId);
+    private ResultSet queryProductsTags(Connection c, int productId) throws Exception {
+        PreparedStatement s = c.prepareStatement(
+                "SELECT tagId FROM ProductsTags " +
+                        "WHERE productId=?;");
+        s.setInt(1, productId);
+        return s.executeQuery();
     }
 
     private void linkTag(Connection c, int productId, Integer tagId) throws Exception {
-        PreparedStatement s = c.prepareStatement("INSERT INTO ProductsTags (productId, tagId) VALUES (?, ?)");
+        PreparedStatement s = c.prepareStatement("INSERT INTO ProductsTags (productId, tagId) VALUES (?, ?);");
         s.setInt(1, productId);
         s.setInt(2, tagId);
+        s.executeUpdate();
+    }
+
+    private void unlinkTag(Connection c, int productId, Integer oldTagId) throws Exception {
+        PreparedStatement s = c.prepareStatement("DELETE FROM ProductsTags WHERE productId=? AND tagId=?;");
+        s.setInt(1, productId);
+        s.setInt(2, oldTagId);
         s.executeUpdate();
     }
 
