@@ -101,7 +101,7 @@ public class JDBCProductRepository implements ProductRepository {
             s.setString(6, product.getNumber());
         }
 
-        //insert to Tags and ProductTags if needed
+        //insert to Tags and ProductsTags if needed
         private void insertTags(Connection c, Product product) throws Exception {
             if (product instanceof Picture) {
                 Picture picture = (Picture) product;
@@ -110,9 +110,10 @@ public class JDBCProductRepository implements ProductRepository {
                     return;
                 //wszystkie tagi zdjęcia wyszukujemy w bazie danych i wrzucamy do tabeli rs
                 ResultSet rs = queryTags(c, pictureTags);
-                //??
+                //wspólne tagi produktu i bazy danych
                 Set<String> existingTags = new HashSet<>();
-                //do existingTags dodajemy tagi z powyższej tabeli (czyli wszystkie tagi zdjęcia które są już i w bazie i w zdjęciu)
+                //do existingTags dodajemy tagi z powyższej tabeli
+                //(czyli wszystkie tagi zdjęcia które są już i w bazie i w zdjęciu)
                 while(rs.next())
                     existingTags.add(rs.getString("name"));
                 for (String tag : pictureTags) {
@@ -121,6 +122,7 @@ public class JDBCProductRepository implements ProductRepository {
                         //dodaj go do bazy
                         insertTag(c, tag);
                 }
+                //dodaj lub usuń połączenia produktu z tagami w ProductsTags
                 linkTags(c, (Picture) product);
             }
         }
@@ -161,7 +163,7 @@ public class JDBCProductRepository implements ProductRepository {
                 while (rs.next())
                     pictureTagIds.add(rs.getInt("id"));
 
-                //select który wyciąga istniejące połączenia z productTags
+                //select który wyciąga istniejące połączenia z ProductsTags
                 rs = queryProductsTags(c, pictureId);
                 Set<Integer> currentTagIds = new HashSet<>();
                 while (rs.next())
