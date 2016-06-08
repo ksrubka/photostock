@@ -26,13 +26,8 @@ public class Offer {
         return totalCost;
     }
 
-    public boolean sameAs(Offer offer, double percent){
-        if (owner == offer.owner && items == offer.items && totalCost == offer.totalCost){
-            return true;
-        }
-        else {
-            return false;
-        }
+    public boolean sameAs(Offer otherOffer, double percent) {
+        return (owner.equals(otherOffer.owner) && items.equals(otherOffer.items) && totalCost.equals(otherOffer.totalCost));
     }
 
     public int getItemsCount(){
