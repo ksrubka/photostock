@@ -19,9 +19,8 @@ public class Offer {
 
     public Money calculateTotalCost() {
         Money totalCost = new Money(0);
-        for (Product product : items){
-            totalCost.add(product.getPrice());
-        }
+        for (Product product : items)
+            totalCost = totalCost.add(product.getPrice());
         return totalCost;
     }
 
