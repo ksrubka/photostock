@@ -27,8 +27,8 @@ public class JDBCProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product load(String nr) {
-        try (Connection c = DriverManager.getConnection(url, login, pwd)) {
+    public Product load(String nr) throws DataAccessException {
+        try (Connection c = createConnection()) {
             PreparedStatement statement = c.prepareStatement(
                     "SELECT number, priceCents, priceCurrency, available FROM Products WHERE number = ?;" );
             statement.setString(1, nr);
@@ -55,17 +55,21 @@ public class JDBCProductRepository implements ProductRepository {
                         "WHERE Products.number=?;");
         s.setString(1, productNr);
         ResultSet rs = s.executeQuery();
-        Set<String> tags = new HashSet<>();
-        while (rs.next())
-            tags.add(rs.getString("name"));
+        Set<String> tags = getTags(rs);
         return tags.toArray(new String[0]);
     }
 
+    private Set<String> getTags(ResultSet rs) throws SQLException {
+        Set<String> tags = new HashSet<>();
+        while (rs.next())
+            tags.add(rs.getString("name"));
+        return tags;
+    }
+
     @Override
-    public void save(Product product) {
-        try (Connection c = DriverManager.getConnection(url, login, pwd)) {
+    public void save(Product product) throws DataAccessException {
+        try (Connection c = createConnection()) {
             Boolean needToInsertNewProduct = shouldInsert(product);
-            //Product dbProduct = load(product.getNumber());
             if (needToInsertNewProduct)
                 insert(c, product);
             else
@@ -117,16 +121,24 @@ public class JDBCProductRepository implements ProductRepository {
             String[] pictureTags = picture.getTags();
             if (pictureTags.length==0)
                 return;
-            ResultSet rs = queryTags(c, pictureTags);
-            Set<String> existingTags = new HashSet<>();
-            while(rs.next())
-                existingTags.add(rs.getString("name"));
-            for (String tag : pictureTags) {
-                if (!existingTags.contains(tag))
-                    insertTag(c, tag);
-            }
+            shouldInsertTag(c, pictureTags);
             linkTags(c, (Picture) product);
         }
+    }
+
+    private void shouldInsertTag(Connection c, String[] pictureTags) throws Exception {
+        Set<String> existingTags = getExistingTags(c, pictureTags);
+        for (String tag : pictureTags)
+            if (!existingTags.contains(tag))
+                insertTag(c, tag);
+    }
+
+    private Set<String> getExistingTags(Connection c, String[] pictureTags) throws Exception {
+        ResultSet rs = queryTags(c, pictureTags);
+        Set<String> existingTags = new HashSet<>();
+        while(rs.next())
+            existingTags.add(rs.getString("name"));
+        return existingTags;
     }
 
     private ResultSet queryTags(Connection c, String[] tags) throws Exception {
@@ -227,6 +239,10 @@ public class JDBCProductRepository implements ProductRepository {
         s.setInt(1, productId);
         s.setInt(2, oldTagId);
         s.executeUpdate();
+    }
+
+    public Connection createConnection() throws SQLException {
+        return DriverManager.getConnection(url, login, pwd);
     }
 
     @Override
