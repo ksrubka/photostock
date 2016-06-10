@@ -85,7 +85,7 @@ public class JDBCProductRepository implements ProductRepository {
 
         private Boolean shouldInsert(Product product) {
             Product dbProduct = load(product.getNumber());
-            return  !(product.equals(dbProduct)) || dbProduct == null;
+            return  product.equals(dbProduct) || dbProduct == null;
         }
 
         private void setValues1(PreparedStatement s, Product product) throws Exception {
