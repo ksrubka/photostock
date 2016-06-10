@@ -18,8 +18,8 @@ public class Picture extends AbstractProduct {
         this(number, price, tags, true);
     }
 
-    public Picture(String number, Money price) {
-        this(number, price, new String[] {}, true);
+    public Picture(String number, Money price, boolean active) {
+        this(number, price, new String[] {}, active);
     }
 
     public Picture() {
