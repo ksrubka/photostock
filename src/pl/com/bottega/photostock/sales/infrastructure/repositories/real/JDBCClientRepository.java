@@ -21,13 +21,13 @@ public class JDBCClientRepository implements ClientRepository {
         this.pwd = pwd;
     }
 
-    private Connection getConnection() throws SQLException {
+    private Connection createConnection() throws SQLException {
         return DriverManager.getConnection(url, login, pwd);
     }
 
     @Override
     public Client load(String clientNumber) {
-        try (Connection c = getConnection()) {
+        try (Connection c = createConnection()) {
             PreparedStatement statement = c.prepareStatement(
                     "SELECT number, name, address, active, amount, currency, status FROM Clients WHERE number = ?");
             statement.setString(1, clientNumber);
@@ -51,7 +51,7 @@ public class JDBCClientRepository implements ClientRepository {
 
     @Override
     public void save(Client client) {
-        try (Connection c = getConnection()) {
+        try (Connection c = createConnection()) {
             String insertQuery = "INSERT INTO Clients (number, name, address, active, amount, currency, status) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
             String updateQuery = "UPDATE Clients SET number=?, name=?, address=?, active=?, amount=?, currency=?, status=?" +
