@@ -30,7 +30,7 @@ public class JDBCProductRepository implements ProductRepository {
     public Product load(String nr) throws DataAccessException {
         try (Connection c = createConnection()) {
             PreparedStatement statement = c.prepareStatement(
-                    "SELECT number, priceCents, priceCurrency, available FROM Products WHERE number = ?;" );
+                    "SELECT number, priceCents, priceCurrency, available FROM Products WHERE number = ?;");
             statement.setString(1, nr);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
@@ -40,8 +40,7 @@ public class JDBCProductRepository implements ProductRepository {
                         loadTags(c, nr),
                         rs.getBoolean("available"));
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new DataAccessException(e);
         }
         return null;
@@ -75,15 +74,14 @@ public class JDBCProductRepository implements ProductRepository {
             else
                 update(c, product);
             insertTags(c, product);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new DataAccessException(e);
         }
     }
 
     private Boolean shouldInsert(Product product) {
         Product dbProduct = load(product.getNumber());
-        return  product.equals(dbProduct) || dbProduct == null;
+        return product.equals(dbProduct) || dbProduct == null;
     }
 
     private void insert(Connection c, Product product) throws Exception {
@@ -119,7 +117,7 @@ public class JDBCProductRepository implements ProductRepository {
         if (product instanceof Picture) {
             Picture picture = (Picture) product;
             String[] pictureTags = picture.getTags();
-            if (pictureTags.length==0)
+            if (pictureTags.length == 0)
                 return;
             shouldInsertTag(c, pictureTags);
             linkTags(c, (Picture) product);
@@ -136,7 +134,7 @@ public class JDBCProductRepository implements ProductRepository {
     private Set<String> getExistingTags(Connection c, String[] pictureTags) throws Exception {
         ResultSet rs = queryTags(c, pictureTags);
         Set<String> existingTags = new HashSet<>();
-        while(rs.next())
+        while (rs.next())
             existingTags.add(rs.getString("name"));
         return existingTags;
     }
@@ -145,7 +143,7 @@ public class JDBCProductRepository implements ProductRepository {
         String questionMarksConcat = createQuestionMarksForQuery(tags.length);
         PreparedStatement s = c.prepareStatement(
                 "SELECT id, name FROM Tags " +
-                        "WHERE name IN (" + questionMarksConcat +");");
+                        "WHERE name IN (" + questionMarksConcat + ");");
         setValuesForQuery(s, tags);
         return s.executeQuery();
     }
@@ -153,14 +151,14 @@ public class JDBCProductRepository implements ProductRepository {
     private String createQuestionMarksForQuery(int nrOfTags) {
         String[] questionMarks =
                 new String[nrOfTags];
-        for(int i = 0; i < questionMarks.length; i++)
+        for (int i = 0; i < questionMarks.length; i++)
             questionMarks[i] = "?";
         return String.join(",", questionMarks);
     }
 
     private void setValuesForQuery(PreparedStatement s, String[] tags) throws Exception {
         for (int i = 1; i <= tags.length; i++)
-            s.setString(i, tags[i-1]);
+            s.setString(i, tags[i - 1]);
     }
 
     private void insertTag(Connection c, String tag) throws Exception {
@@ -173,8 +171,8 @@ public class JDBCProductRepository implements ProductRepository {
         int pictureId = getPictureId(c, picture);
         Set<Integer> pictureTagIds = getPictureTagIds(c, pictureId, picture);
         Set<Integer> currentTagIds = getCurrentTagIds(c, pictureId);
-        addNewTags(c, pictureTagIds,currentTagIds, pictureId);
-        deleteOldTags(c, pictureTagIds,currentTagIds, pictureId);
+        addNewTags(c, pictureTagIds, currentTagIds, pictureId);
+        deleteOldTags(c, pictureTagIds, currentTagIds, pictureId);
     }
 
     private int getPictureId(Connection c, Picture picture) throws Exception {
@@ -185,7 +183,7 @@ public class JDBCProductRepository implements ProductRepository {
         return rs.getInt("id");
     }
 
-    private Set<Integer> getPictureTagIds(Connection c, int pictureId, Picture picture) throws Exception  {
+    private Set<Integer> getPictureTagIds(Connection c, int pictureId, Picture picture) throws Exception {
         ResultSet rs = queryTags(c, picture.getTags());
         Set<Integer> pictureTagIds = new HashSet<>();
         while (rs.next())
@@ -207,7 +205,7 @@ public class JDBCProductRepository implements ProductRepository {
                             int pictureId) throws Exception {
         for (Integer newTagId : pictureTagIds)
             if (!currentTagIds.contains(newTagId))
-                linkTag(c, pictureId,  newTagId);
+                linkTag(c, pictureId, newTagId);
     }
 
     private void deleteOldTags(Connection c,
@@ -216,7 +214,7 @@ public class JDBCProductRepository implements ProductRepository {
                                int pictureId) throws Exception {
         for (Integer oldTagId : currentTagIds)
             if (!pictureTagIds.contains(oldTagId))
-                unlinkTag(c, pictureId,  oldTagId);
+                unlinkTag(c, pictureId, oldTagId);
     }
 
     private ResultSet queryProductsTags(Connection c, int productId) throws Exception {
@@ -241,7 +239,7 @@ public class JDBCProductRepository implements ProductRepository {
         s.executeUpdate();
     }
 
-    public Connection createConnection() throws SQLException {
+    private Connection createConnection() throws SQLException {
         return DriverManager.getConnection(url, login, pwd);
     }
 
