@@ -94,7 +94,7 @@ public class JDBCProductRepositoryTest {
     }
 
     @Test
-    public void shouldSaveProductWithoutTags() {
+    public void shouldInsertProductWithoutTags() {
         //given
         Product picture = new Picture("nr3", new Money(20.0), new String[] {}, false);
         //when
@@ -108,7 +108,7 @@ public class JDBCProductRepositoryTest {
     }
 
     @Test
-    public void shouldSaveProductWithTags() {
+    public void shouldInsertProductWithTags() {
         //given
         Product picture = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, true);
         //when
@@ -119,7 +119,7 @@ public class JDBCProductRepositoryTest {
     }
 
     @Test
-    public void shouldSaveProductWithNewTags() {
+    public void shouldUpdateProductWithMoreTags() {
         //given
         Product picture1 = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2"}, true);
         Product picture2 = new Picture("nr2", new Money(20.0), new String[] {"t1", "t2", "t3"}, true);
@@ -132,17 +132,50 @@ public class JDBCProductRepositoryTest {
     }
 
     @Test
-    public void shouldUpdateProductWithTags() {
+    public void shouldUpdateProductWithLessTags() {
         //given
-        Product picture =
-                new Picture("nr2", new Money(20.0, "PLN"), new String[]{"one", "two", "three"}, false);
-        Product pictureToUpdate =
-                new Picture("nr2", new Money(20.0, "PLN"), new String[] {"one", "three"}, false);
+        Product picture = new Picture("nr2", new Money(20.0, "PLN"), new String[] {"one", "two", "three"}, false);
+        Product pictureToUpdate = new Picture("nr2", new Money(20.0, "PLN"), new String[] {"one", "three"}, false);
         //when
         productRepo.save(picture);
         productRepo.save(pictureToUpdate);
         //then
         Picture updated = (Picture) productRepo.load("nr2");
-        assertArrayEquals(new String[]{"one", "three"}, updated.getTags());
+        assertArrayEquals(new String[] {"one", "three"}, updated.getTags());
     }
+
+    @Test
+    public void shouldUpdateProductAndTags() {
+        //given
+        Product picture1 = new Picture("nr2", new Money(10.0), new String[] {"tag1", "tag2", "tag3"}, false);
+        Product picture2 = new Picture("nr2", new Money(5.0), new String[] {"tag1", "tag4"}, true);
+        //when
+        productRepo.save(picture1);
+        productRepo.save(picture2);
+        //then
+        Product pic2Saved = productRepo.load("nr2");
+        assertEquals("nr2", pic2Saved.getNumber());
+        assertEquals(new Money(5), pic2Saved.getPrice());
+        assertArrayEquals(new String[] {"tag1", "tag4"}, pic2Saved.getTags());
+        assertEquals(true, pic2Saved.isAvailable());
+    }
+
+    @Test
+    public void shouldNotChangeProductAndTags() {
+        //given
+        Product picture1 = new Picture("nr2", new Money(10.0), new String[] {"tag1", "tag2", "tag3"}, true);
+        Product picture2 = new Picture("nr2", new Money(10.0), new String[] {"tag1", "tag2", "tag3"}, true);
+        //when
+        productRepo.save(picture1);
+        productRepo.save(picture2);
+        //then
+        Product pic2Saved = productRepo.load("nr2");
+        assertEquals("nr2", pic2Saved.getNumber());
+        assertEquals(new Money(10), pic2Saved.getPrice());
+        assertArrayEquals(new String[] {"tag1", "tag2", "tag3"}, pic2Saved.getTags());
+        assertEquals(true, pic2Saved.isAvailable());
+    }
+
+
+
 }
