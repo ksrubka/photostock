@@ -68,14 +68,28 @@ public class JDBCProductRepository implements ProductRepository {
     @Override
     public void save(Product product) throws DataAccessException {
         try (Connection c = createConnection()) {
-            Boolean needToInsertNewProduct = shouldInsert(product);
-            if (needToInsertNewProduct)
-                insert(c, product);
-            else
-                update(c, product);
-            insertTags(c, product);
-        } catch (Exception e) {
-            throw new DataAccessException(e);
+            try {
+                /*rozpoczęcie transakcji - czyli
+                nie commituj po kazdym zapytaniu
+                sami sobie powiemy kiedy zakończyć transkcję
+                dzięki temu można więcej zapytań zapakować do transakcji
+                bo domyślnie jest (true) i wtedy po każdym zapytaniu SQL osobno JDBC sobie commituje
+                a przynajmniej w hsq tak jest*/
+                c.setAutoCommit(false);
+                c.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+                Boolean needToInsertNewProduct = shouldInsert(product);
+                if (needToInsertNewProduct)
+                    insert(c, product);
+                else
+                    update(c, product);
+                insertTags(c, product);
+                c.commit();
+            } catch (Exception ex){
+                c.rollback();
+                throw ex;
+            }
+        } catch (Exception ex) {
+            throw new DataAccessException(ex);
         }
     }
 
